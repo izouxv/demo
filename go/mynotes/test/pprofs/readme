@@ -1,0 +1,16 @@
+1.添加go包：net/http/pprof
+2.执行命令：go tool pprof http://localhost:8080/debug/pprof/heap
+    输入：web，在谷歌中查看图
+3.执行命令：go tool trace .\trace.out
+
+简单的压测：
+go-wrk [flags] url
+    -H="User-Agent: go-wrk 0.1 bechmark\nContent-Type: text/html;": the http headers sent separated by '\n'
+    -c=100:最大连接数，100
+    -k=true:禁用keep-alives
+    -i=false:禁用TLS安全
+    -m="GET":请求方法
+    -n=1000:处理结果的线程数
+    -t=1:使用的线程数
+    -b=""请求的body
+go-wrk -c=1 -t=1 -n=1 http://www.baidu.com

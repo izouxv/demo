@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory" >
+		<property name="userName" value="admin"></property>
+		<property name="password" value="password"></property>
+		<property name="serverURIs">
+			<array>
+				<value>tcp://192.168.1.6:61613</value>
+			</array>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler" >
+		<constructor-arg name="clientId" value="CID_2016524123456" />
+		<constructor-arg name="clientFactory" value="clientFactory" />
+	</bean>
+
+</beans>

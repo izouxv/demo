@@ -1,0 +1,21 @@
+syntax = "proto3";
+//protoc --go_out=plugins=grpc:. api/*.proto
+
+package api;
+
+service Data {
+    //简单Rpc
+    rpc Test01(Request) returns (Response){}
+    //双向流Rpc
+    rpc Test02(stream Response) returns (stream Response){}
+}
+
+// 请求用户信息
+message Request {
+    string test = 1;
+}
+
+// 请求用户信息的结果
+message Response {
+    string test = 1;
+}

@@ -1,0 +1,22 @@
+./wrk  -c 400 -t 8 -d 3m http://localhost:7006/petfone/v1.0/session
+Running 3m test @ http://localhost:7006/petfone/v1.0/session
+  8 threads and 400 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    14.91ms   28.41ms 406.61ms   89.36%
+    Req/Sec    11.49k     1.27k   19.18k    73.03%
+  16461839 requests in 3.00m, 2.70GB read
+  Non-2xx or 3xx responses: 16461839
+Requests/sec:  91449.89
+Transfer/sec:     15.35MB
+
+# 检查包
+go tool vet project
+
+# 测试程序
+1.添加go包：net/http/pprof，执行程序一段时间
+2.执行命令：go tool pprof http://localhost:8080/debug/pprof/heap
+    输入：web，在谷歌中查看图
+3.执行命令：go tool trace .\trace.out
+4.go test -run=http_test.go -bench=Benchmark_httpTest
+
+

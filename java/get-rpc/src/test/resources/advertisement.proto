@@ -1,0 +1,59 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lanlian.rpc.adver";
+option java_outer_classname = "AdverProto";
+option objc_class_prefix = "Grpc";
+
+package pb;
+
+// The Id service definition.
+service Advertisement {
+    rpc NewAdvertisement(AdvertisementRequest) returns (AdvertisementReply) {}            //添加新广告
+    rpc UpdateAdvertisement(AdvertisementRequest) returns (AdvertisementReply) {}         //修改广告
+    rpc GetAdvertisement(AdvertisementRequest) returns (AdvertisementReply) {}                //app获取广告
+    rpc GetAllAdvertisement(AdvertisementRequest) returns (MapAdvertisementReply) {}          //后台获取全部广告信息
+}
+
+message AdvertisementRequest {
+    string name = 1;
+    string md5 = 2;
+    int64 startTime = 3;
+    int64 endTime = 4;
+    string source = 5;
+    string fileUrl = 6;
+    int32 state = 7;
+    string advertiser = 8;
+    int32 id = 9;
+    string signature = 10;
+    string advUrl = 11;
+    int32 page = 12;
+    int32 count = 13;
+}
+
+message AdvertisementReply {
+    string name = 1;
+    string md5 = 2;
+    int64 startTime = 3;
+    int64 endTime = 4;
+    string source = 5;
+    string fileUrl = 6;
+    int32 state = 7;
+    string advertiser = 8;
+    int32 errorCode = 9;
+    string signature = 10;
+    int32 id = 11;
+    string advUrl = 12;
+}
+
+message MultiAdvertisementRequest {
+    map<int32, AdvertisementRequest> advs = 1;
+}
+
+message MapAdvertisementReply {
+    map<int32, AdvertisementReply> advs = 1;
+    int32 errorCode = 2;
+    int32 totalCount = 3;
+}

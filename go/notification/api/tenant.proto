@@ -1,0 +1,19 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+
+service TenantServer {
+
+    rpc GetDidByTid(GetDidByTidRequest) returns (GetDidByTidResponse) {}//通过租户ID获取Did
+}
+
+message GetDidByTidRequest {
+    int64 Tid = 1;
+}
+
+message GetDidByTidResponse {
+    int64 Did = 2;
+}

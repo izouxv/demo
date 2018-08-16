@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>tail log</title>
+<script src="jquery-3.1.0.min.js"></script>
+</head>
+<body>
+	<input type="text" class="input-text upload-url" name="file" readonly
+		style="width: 200px;" />
+	<a href="javascript:void(0);" class="btn btn-primary radius upload-btn"><i
+		class="Hui-iconfont">&#xe70f;</i> 选择文件</a>
+	<input type="file" id="file" class="input-file" name="file" multiple />
+	<button onclick="onFileOpen()">onFileOpen</button>
+
+	<div id="log-container"
+		style="height: 450px; overflow-y: scroll; background: #333; color: #aaa; padding: 10px;">
+		<div></div>
+	</div>
+</body>
+<script>
+	$(document).ready(
+			function() {
+				// 指定websocket路径
+				var websocket = new WebSocket(
+						'ws://localhost:8080/rtcs/web/text');
+				websocket.onmessage = function(event) {
+					// 接收服务端的实时消息并添加到HTML页面中
+					$("#log-container div").append(event.data);
+					// 滚动条滚动到最低部
+					$("#log-container").scrollTop(
+							$("#log-container div").height()
+									- $("#log-container").height());
+				};
+			});
+</script>
+</body>
+</html>

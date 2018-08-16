@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Hello WebSocket</title>
+<!-- 	<script src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.min.js"></script>
+    <script src="http://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script> -->
+<script src="jquery-3.1.0.min.js"></script>
+<script src="stomp.js"></script>
+<script src="sockjs.min.js"></script>
+<script type="text/javascript">
+
+	$.ajax({
+	    type : 'POST',
+	    url : 'http://192.168.1.69:8080/rtcs/login/login',
+	    success : function ( res, textStatus, jqXHR) {
+	       console.log(jqXHR.getResponseHeader("Set-Cookie"))
+	       console.log(jqXHR.getAllResponseHeaders())
+	       console.log(document.cookie)
+	    }
+	})
+	
+	setTimeout(function (  ) { console.log('延时2秒钟'); },2000)
+	
+		$(document).ready(function() {
+			connect();
+			//checkoutUserlist();
+		});
+		var stompClient = null;
+		//this line.
+		function connect() {
+			console.log('Connected: ----------------------------------');
+			var socket = new SockJS("http://192.168.1.69:8080/rtcs/chat",
+						[],
+						{server:1234, 
+						sessionId: function(){
+								return 'qqqqq'
+							}
+						}
+					);
+			console.log("=-=" + socket);
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, function(frame) {
+				setConnected(true);
+				console.log('Connected: ' + frame);
+				stompClient.ws.onclose = function(CloseEvent) {
+					console.log("ERROR", "weboscket close code is "
+							+ CloseEvent.code);
+					setConnected(false);
+				};
+				//系统订阅消息/queue/system/newMsg
+	            stompClient.subscribe('/queue/chat/msgResponse', function (greeting) {
+	                console.log("/queue/chat/msgResponse,---"+greeting);
+	                console.log(greeting);
+	                $("#response").append("<p>"+JSON.parse(greeting.body).message+"</p>")
+	                showGreeting(JSON.parse(greeting.body));
+	            });
+	
+	            //新消息订阅
+	            stompClient.subscribe('/queue/chat/newMsg', function (greeting) {
+	                console.log("/queue/chat/newMsg,---" + greeting);
+	                $("#showMessage").append("<p>"+JSON.parse(greeting.body).message+"</p>")
+	                showGreeting(JSON.parse(greeting.body).content);
+	            });
+	
+	            //访客消息响应订阅
+	            stompClient.subscribe('/user/queue/chat/msgResponse', function (greeting) {
+	            	console.log("/chat/msgResponse,---"+greeting);
+	            	console.log(JSON.parse(greeting.body).content);
+	            });
+	
+	            //关闭订阅消息
+	            stompClient.subscribe('/user/queue/system/close', function (greeting) {
+	                var retCode = JSON.parse(greeting.body).retCode;
+	                if(retCode == "000000"){
+	                    _evaluate.open();
+	                    disconnect();
+	                }
+	            });
+	
+	
+	        },function(error){
+	            var msg = "会话建立失败，请稍候重试！";
+	            //alert(msg);
+	            setConnected(false);
+	            console.log(msg);
+	        });
+	    }
+		function sendName() {
+			var text = document.getElementById('text').value;
+			stompClient.send("/app/send", {}, JSON.stringify({
+				'name' : text, 'requestId' : '111', 'bytes': 'test'
+			}));
+		}
+		function disconnect() {
+			if (stompClient != null) {
+				stompClient.disconnect();
+			}
+			setConnected(false);
+			console.log("Disconnected");
+		}
+		function setConnected(connected) {
+			document.getElementById('connect').disabled = connected;
+			document.getElementById('disconnect').disabled = !connected;
+			document.getElementById('conversationDiv').style.visibility = connected ? 'visible'
+					: 'hidden';
+			document.getElementById('response').innerHTML = '';
+		}
+		function showGreeting(message) {
+			var response = document.getElementById('response');
+			var p = document.createElement('p');
+			p.style.wordWrap = 'break-word';
+			p.appendChild(document.createTextNode(message));
+			response.appendChild(p);
+		}
+
+</script>
+</head>
+<body>
+	<h1>Hello</h1>
+	<div>
+		<div>
+			<button id="connect" onclick="connect();">Connect</button>
+			<button id="connectAny" onclick="connectAny();">ConnectAny</button>
+			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+			<br/>
+		</div>
+		<div id="conversationDiv">
+			<label>
+				you can send message to WebSocketMessageController[@MessageMapping("/send")]
+			</label>
+			<br/>
+			<input type="text" id="text" />
+			<button id="sendName" onclick="sendName();">Send</button>
+			<p id="response">res</p>
+		</div>
+
+		<div id="showMessage">msg</div>
+
+	</div>
+	</div>
+</body>
+</html>

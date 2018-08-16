@@ -1,0 +1,99 @@
+//protoc --java_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lanlian.rpc.account";
+option java_outer_classname = "AccountProto";
+option objc_class_prefix = "Grpc";
+
+package pb;
+
+// The Id service definition.
+service Account {
+    rpc UpdateExInfo(AccountRequest) returns (AccountReply) {}                  //基于uid插入或修改用户扩展信息(ExInfo表)
+    rpc Show(AccountRequest) returns (AccountReply) {}                          //查询用户基本信息（account表）
+    rpc GetUserInfoById(AccountRequest) returns (AccountReply) {}               //查询用户扩展信息（exInfo表，等级、实名认证等）
+    rpc GetUserInfoAll(AccountRequest) returns (AccountReply) {}                //查询用户所有信息（account表+exInfo表）
+    rpc UpdateAccountInfo(AccountRequest) returns (AccountReply) {}             //基于uid插入或修改用户基本信息(account表)
+    rpc UpdateCertification(AccountRequest) returns (AccountReply) {}           //修改实名认证信息
+    rpc GetCertification(AccountRequest) returns (AccountReply) {}              //查询实名认证信息
+    rpc UpdateUserValues(AccountRequest) returns (AccountReply) {}              //修改CreditValue、UserPoint、UserGardeId
+    rpc GetUserValues(AccountRequest) returns (AccountReply) {}                 //查询CreditValue、UserPoint、UserGardeId
+    rpc GetBatchAccountInfo(MultiAccountRequest) returns (MapAccountReply){}    //批量查询用户基本信息（account表）
+    rpc GetBatchExInfo(MultiAccountRequest) returns (MapAccountReply){}         //批量查询用户扩展信息(ExInfo表)
+    rpc GetBatchAllUserInfo(MultiAccountRequest) returns (MapAccountReply){}    //批量查询用户所有信息（account表+ExInfo表）
+}
+
+// The request message containing the account's id etcd.
+message AccountRequest {
+    int32 uid = 1;
+    string username = 2;
+    string password = 3;
+    string salt = 4;
+    int32 state = 5;
+    string email = 6;
+    string phone = 7;
+    string nickname = 8;
+    string realname = 9;
+    int32 isCertification = 10;
+    string identityCard = 11;
+    int32 gender = 12;
+    int64 birthday = 13;
+    int32 avatar = 14;
+    string province = 15;
+    string city =16;
+    string signature = 17;
+    int64 regIp = 18;
+    string userAddress = 19;
+    int32 userJobId = 20;
+    int32 creditValues = 21;
+    int32 userPoint = 22;
+    int32 userGradeId = 23;
+    int64 lastLoginIp = 24;
+    int32 isFirstLogin = 25;
+    string source = 26;
+}
+
+// The response message containing the id
+message AccountReply {
+    int32 uid = 1;
+    string username = 2;
+    string email = 3;
+    string phone = 4;
+    int32 state = 5;
+    int64 lastLoginTime = 6;
+    int64 createTime = 7;
+    string nickname = 8;
+    string realname = 9;
+    int32 isCertification = 10;
+    string identityCard = 11;
+    int32 errorCode = 12;
+    int32 gender = 13;
+    int64 birthday = 14;
+    int32 avatar = 15;
+    string province = 16;
+    string city = 17;
+    string signature = 18;
+    string userAddress = 19;
+    int32 userJobId = 20;
+    int32 creditValues = 21;
+    int32 userPoint = 22;
+    int32 userGradeId = 23;
+    int64 regTime = 24;
+    int64 regIp = 25;
+    int64 lastLoginIp = 26;
+    int64 lastActive = 27;
+    int64 userModify = 28;
+    int32 isFirstLogin = 29;
+}
+
+message MultiAccountRequest {
+    map<int32, AccountRequest> accounts = 1;
+    string source = 2;
+}
+
+message MapAccountReply {
+    map<int32, AccountReply> accounts = 1;
+    int32 errorCode = 2;
+}

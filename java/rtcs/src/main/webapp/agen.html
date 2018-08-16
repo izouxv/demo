@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<title>agent page</title>
+<script src="jquery.js"></script>
+</head>
+<body>
+	<div>
+		<input type="text" placeholder="请输入wsSocketid" id="webSocketId"
+			value="1" /> <br /> <input type="text" placeholder="请输入发送的内容"
+			id="message" /> <br />
+		<button id="sendMsg">发送</button>
+		<button id="resetMessage">清空发送内容</button>
+		<button id="resetid">重置id</button>
+	</div>
+
+</body>
+<script>
+	$("#sendMsg").click(function() {
+		var webSocketId = $("#webSocketId").val();
+		var message = $("#message").val();
+		var url = "http://192.168.1.69:8080/rtcs/websocket/notifyMsg";
+		$.post(url, {
+			"webSocketId" : webSocketId,
+			"message" : message
+		}, function(data) {
+			console.log(data);
+		})
+	})
+	$("#resetid").click(function() {
+		$("#webSocketId").val("");
+	})
+	$("#resetMessage").click(function() {
+		$("#message").val("");
+	})
+</script>
+</html>

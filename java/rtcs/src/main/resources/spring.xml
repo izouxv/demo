@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation=" 
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd"
+	default-lazy-init="false">
+
+	<description>Spring公共配置</description>
+	<!-- <context:property-placeholder
+		location="classpath*:spring-rabbit.properties,classpath*:db-redis.properties" /> -->
+
+	<!-- <import resource="spring-rabbit.xml" /> -->
+	<!-- <import resource="spring-redis.xml" /> -->
+	<!-- <import resource="spring-ws.xml" /> -->
+	<!-- <import resource="spring-mqtt.xml" /> -->
+
+	<!-- 扫描组件 -->
+	<!-- <context:component-scan base-package="rabbit" /> -->
+	<!-- <context:component-scan base-package="wsstomp" /> -->
+	<context:component-scan base-package="com.plys.rtcs.controller" />
+	<context:component-scan base-package="com.plys.rtcs.service.impl" />
+	
+	<!-- 静态资源映射 -->
+	<mvc:resources location="/" mapping="/**" />
+	<!-- websocket -->
+	<mvc:annotation-driven />
+	<context:annotation-config />
+	
+	<mvc:cors>
+		<mvc:mapping path="/**/**"
+			allowed-origins="*"
+			allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+			allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+			allow-credentials="true" />
+	</mvc:cors>
+
+
+	<!--设置拦截的路径 -->
+	<!-- <mvc:interceptors> 
+		<mvc:interceptor> 
+			<mvc:mapping path="/**" />
+			<bean class="wsstomp.interceptor.MyInterceptor"/> 
+		</mvc:interceptor> 
+	</mvc:interceptors> -->
+
+
+</beans>

@@ -1,0 +1,124 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "name": "druid",
+      "type": "io.ymq.fm.config.db.DruidDbProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "name": "druid.allow",
+      "description": "白名单",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "name": "druid.connection-properties",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "name": "druid.deny",
+      "description": "黑名单",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": "com.mysql.jdbc.Driver",
+      "name": "druid.driver-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": "mergeStat,config,wall",
+      "name": "druid.filters",
+      "description": "属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有： 监控统计用的filter:stat 日志用的filter:log4j\n 防御sql注入的filter:wall",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 10,
+      "name": "druid.initial-size",
+      "description": "初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 300,
+      "name": "druid.max-active",
+      "description": "最大连接池数量",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 60000,
+      "name": "druid.max-wait",
+      "description": "获取连接时最大等待时间，单位毫秒。配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 3600000,
+      "name": "druid.min-evictable-idle-time-millis",
+      "description": "连接保持空闲而不被驱逐的最长时间",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 50,
+      "name": "druid.min-idle",
+      "description": "最小连接池数量",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": "admin",
+      "name": "druid.password",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": false,
+      "name": "druid.test-on-borrow",
+      "description": "申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": false,
+      "name": "druid.test-on-return",
+      "description": "归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": true,
+      "name": "druid.test-while-idle",
+      "description": "建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": 60000,
+      "name": "druid.time-between-eviction-runs-millis",
+      "description": "有两个含义： 1)\n Destroy线程会检测连接的间隔时间，如果连接空闲时间大于等于minEvictableIdleTimeMillis则关闭物理连接。 2)\n testWhileIdle的判断依据，详细看testWhileIdle属性的说明",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": "admin",
+      "name": "druid.username",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.ymq.fm.config.db.DruidDbProperties",
+      "defaultValue": "SELECT USER()",
+      "name": "druid.validation-query",
+      "description": "用来检测连接是否有效的sql，要求是一个查询语句，常用select\n 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。",
+      "type": "java.lang.String"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+
+service AuthServer {
+    rpc AuthenticationWithTid(AuthenticationRequest) returns (AuthenticationResponse){}
+    rpc AuthenticationWithDid(AuthenticationRequest) returns (AuthenticationResponse){}
+    rpc Authorization(AuthorizationRequest) returns (AuthorizationResponse) {}
+    rpc GetAuthorizationInfo(GetAuthorizationInfoRequest) returns (GetAuthorizationInfoResponse) {} //获取认证完成的用户信息
+    rpc Logout(LogoutRequest) returns (LogoutResponse) {}//注销
+    rpc AuthorizationWithDid(AuthorizationWithDidRequest) returns (AuthorizationWithDidResponse) {}
+}
+
+message Tenant {
+    int64  Tid = 1;
+    string TenantName = 2;
+    int64  Pid = 3;
+    int64  CreateTime = 4;
+    int64  UpdateTime = 5;
+    bool   IsDefault = 6;
+    repeated Tenant Tenant = 7;
+    TenantExtend TenantExtend = 8;
+    Role   Role = 9;
+    int64 Oid = 10;
+}
+
+message TenantExtend {
+    int32 NodeCount = 1;
+    int32 ApplicationCount = 2;
+    int32 AlertCount = 3;
+    int32 UserCount = 4;
+}
+
+message User {
+    int64  uid = 1;
+    string username = 2;
+    int32  state = 3;
+    string nickname = 4;
+    int64  createTime = 5;
+    int64  updateTime = 6;
+    int32  loginState = 7;
+}
+
+message Role {
+    int32  rid = 1;
+    string roleName = 2;
+    int64  createTime = 3;
+    int64  updateTime = 4;
+}
+message TenantTree {
+    Tenant tenant = 1;
+    repeated TenantTree children = 2;
+}
+
+message TenantRoleTree {
+    Tenant tenant = 1;
+    bool isDefaultTenant = 2;
+    repeated Role role = 3;
+    repeated TenantTree children = 4;
+}
+
+message DomainRole {
+    int64  Did = 1;
+    string DomainName = 2;
+    repeated Role role = 3;
+}
+
+message UserToken {
+    string token = 1;
+    User user = 2;
+    repeated TenantRoleTree tenantRoleTree = 3;
+    DomainRole DomainRole = 4;
+}
+
+
+message AuthenticationRequest {
+    string username = 1;
+    string password = 2;
+    int64  tid = 3;
+    int64  did = 4;
+}
+message AuthenticationResponse {
+    UserToken userToken = 1;
+}
+
+message AuthorizationWithDidRequest {
+     int64  did = 1;
+     string url = 2;
+     string opt = 3;
+     string token = 4;
+}
+
+message AuthorizationWithDidResponse {
+}
+
+message AuthorizationRequest {
+    int64  tid = 1;
+    string url = 2;
+    string opt = 3;
+    string token = 4;
+}
+
+message AuthorizationResponse {
+    UserToken userToken = 1;
+}
+
+
+message GetAuthorizationInfoRequest {
+    string token = 1;
+}
+
+message GetAuthorizationInfoResponse {
+    UserToken userToken = 1;
+}
+
+message LogoutRequest {
+    string token = 1;
+}
+
+message LogoutResponse {
+
+}

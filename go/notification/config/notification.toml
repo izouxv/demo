@@ -1,0 +1,19 @@
+[notification]
+host="0.0.0.0"
+port="7023"
+[mysql]
+database="rule-engine"
+user="root"
+password="Radacat2017"
+host="192.168.1.6"
+port="3306"
+automigrate=false
+[redis]
+url= "redis://root:radacat1234@192.168.1.6:6379/0"
+[mqtt]
+server="tcp://192.168.1.6:1884"
+username=""
+password=""
+ca_cert=""
+[auth]
+hostname="127.0.0.1:7010"

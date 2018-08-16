@@ -1,0 +1,26 @@
+//protoc --go_out=plugins=grpc:. *.proto
+/*
+protoc -I. -I%GOPATH%/src -I%GOPATH%/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:. twins.proto
+protoc -I. -I%GOPATH%/src -I%GOPATH%/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --grpc-gateway_out=logtostderr=true:. twins.proto
+*/
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lanlian.rpc.twins";
+option java_outer_classname = "TwinsAgentServerProto";
+option objc_class_prefix = "Grpc";
+
+package agent;
+
+service TwinsAgentServer {
+    /*添加设备影子,给radacat设备临时异步调用*/
+    rpc AddTwinsAgent(AddTwinsAgentRequest) returns (AddTwinsAgentResponse) {}
+}
+
+message AddTwinsAgentRequest {
+    string reported = 1;//上报临时设备影子的信息，json中必须包含sn字段
+}
+
+message AddTwinsAgentResponse {
+
+}
