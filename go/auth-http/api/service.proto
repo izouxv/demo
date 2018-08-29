@@ -1,0 +1,69 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package api;
+
+service ServiceServer {
+    rpc AddService(AddServiceRequest) returns (AddServiceResponse) {}
+    rpc DeleteService(DeleteServiceRequest) returns (DeleteServiceResponse) {}
+    rpc UpdateService(UpdateServiceRequest) returns (UpdateServiceResponse){}
+    rpc GetServiceBySid(GetServiceBySidRequest) returns (GetServiceBySidResponse) {}
+    rpc GetServiceByTid(GetServiceByTidRequest) returns (GetServiceByTidResponse) {}
+
+}
+
+message Service {
+    int32 Sid = 1;
+    string ServiceName = 2;
+    string ServiceKey = 3;
+    string ServiceUrl = 4;
+    int32 ServiceType = 5;
+    int32 ServiceTid = 6;
+    int64 CreateTime = 7;
+    int64 UpdateTime = 8;
+    string ServiceDescription = 9;
+    int32 ServiceState = 10;
+}
+
+message AddServiceRequest {
+    Service service = 1;
+}
+
+message AddServiceResponse {
+
+}
+
+message DeleteServiceRequest {
+    int32 Sid = 1;
+}
+
+message DeleteServiceResponse {
+
+}
+
+message UpdateServiceRequest {
+    Service service = 1;
+}
+
+message UpdateServiceResponse {
+
+}
+
+message GetServiceBySidRequest {
+    int32 Sid = 1;
+}
+
+message GetServiceBySidResponse {
+    Service service = 1;
+}
+
+message GetServiceByTidRequest {
+    int32 Tid = 1;
+}
+
+message GetServiceByTidResponse {
+    repeated Service service = 1;
+    int32 totalCount = 2;
+}

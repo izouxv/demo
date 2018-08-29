@@ -1,0 +1,38 @@
+//protoc --go_out=plugins=grpc:. pb/setting/*.proto
+
+syntax = "proto3";
+
+package setting;
+
+service RadacatVersion {
+    rpc GetLatestVersion(GetLatestVersionRequest) returns (GetLatestVersionResponse){}//通过device和source查询最新版本信息
+}
+
+message Version {
+    string device = 1;
+    string versionName = 2;
+    string versionCode = 3;
+    string md5 = 4;
+    string fileName = 5;
+    int64  length = 6;
+    string path = 7;
+    string descriptionCn = 8;
+    string descriptionEn = 9;
+    int64  uploaderUid = 10;
+    int32  status = 11;
+    int32  id = 12;
+    int64  createTime = 13;
+    int64  updateTime = 14;
+    int64  tid = 15;
+}
+
+message GetLatestVersionRequest {
+    string   device = 1;
+    string   source = 2;
+    string   username = 3;
+}
+
+message GetLatestVersionResponse {
+    int32   errorCode = 1;
+    Version version = 2;
+}

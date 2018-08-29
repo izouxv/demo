@@ -1,0 +1,64 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+// The Sso service definition.
+service Sso {
+  rpc UpdateRedis(SsoRequest) returns (SsoReply) {}                     //更新redis中的值
+  rpc JudgeUsername(SsoRequest) returns (SsoReply) {}                   //判断用户名
+  rpc GetUserInfo(SsoRequest) returns (SsoReply) {}                     //从mc中获取用户基本信息（Id,Username,State,LoginState(is_login)）
+  rpc Login(SsoRequest) returns (SsoReply) {}                           //用户登录
+  rpc GetUserByName(SsoRequest) returns (SsoReply) {}                   //通过用户名查询用户信息（验证账号重复）
+  rpc Add(SsoRequest) returns (SsoReply) {}                             //添加新用户（用户注册）
+  rpc CheckPassword(SsoRequest) returns (SsoReply) {}                   //校验密码（输入id password）
+  rpc UpdatePassword(SsoRequest) returns (SsoReply) {}                  //修改密码（输入id password salt）
+  rpc Logout(SsoRequest) returns (SsoReply) {}                          //用户登出
+  rpc UpdatePasswordByName(SsoRequest) returns (SsoReply) {}            //忘记密码（输入username newPassword newSalt）
+  rpc FindPasswordByMail(SsoRequest) returns (SsoReply) {}              //邮箱找回密码（输入username）
+  rpc ResetPassword(SsoRequest) returns (SsoReply) {}                   //重置密码
+  rpc UpdateState(SsoRequest) returns (SsoReply) {}                     //修改状态
+  rpc GetBatchSsoInfos(MultiSsoRequest) returns (MapSsoReply) {}        //批量查询用户sso信息（Id,Username,State）
+  rpc CheckCode(SsoRequest) returns (SsoReply) {}                       //校验验证码（输入Username(手机)、Code）
+  rpc ResetPasswordByPhone(SsoRequest) returns (SsoReply) {}            //手机重置密码
+  rpc SendMobileCode(SsoRequest) returns (SsoReply) {}                  //发送手机验证码
+}
+
+
+message SsoRequest {
+    string username = 1;
+    string password = 2;
+    string sessionName = 3;
+    string salt = 4;
+    int32 uid = 5;
+    int32 state = 6;
+    int32 exptime = 7;
+    string nickname = 8;
+    string token = 9;
+    string code = 10;
+    int32 codeType = 11;        //1.手机注册  2.手机找回密码
+    string source = 12;
+}
+
+// The response message containing the greetings
+message SsoReply {
+    int32 uid = 1;
+    string username = 2;
+    int32 loginState = 3;
+    int32 state = 4;
+    int32 errorCode = 5;
+    string sessionName = 6;
+    string nickname = 7;
+    string token = 8;
+}
+
+message MultiSsoRequest {
+    map<int32, SsoRequest> ssos = 1;
+    string source = 2;
+}
+
+message MapSsoReply {
+    map<int32, SsoReply> ssos = 1;
+    int32 errorCode = 2;
+}

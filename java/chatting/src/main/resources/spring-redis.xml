@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation=" 
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
+	default-lazy-init="false">
+	
+	<!-- redis数据源 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.pool.maxIdle}" />
+		<property name="minIdle" value="${redis.pool.minIdle}" />
+		<property name="maxTotal" value="${redis.pool.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.pool.maxWait}" />
+		<property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+	</bean>
+
+	<bean id="jedisPool79" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poolConfig" />
+		<constructor-arg index="1" value="${redis79.hostName}" />
+		<constructor-arg index="2" value="${redis79.port}" />
+		<constructor-arg index="3" value="${redis.timeout}" />
+		<constructor-arg index="4" value="${redis.password}" />
+	</bean>
+
+	<bean id="jedisPool80" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="poolConfig" />
+		<constructor-arg index="1" value="${redis80.hostName}" />
+		<constructor-arg index="2" value="${redis80.port}" />
+		<constructor-arg index="3" value="${redis.timeout}" />
+		<constructor-arg index="4" value="${redis.password}" />
+	</bean>
+
+	<!-- 将上方配置的jedisPool加入muyilJedisPoolMap,记住Map的Key,代码中需要通过这个Key进行操作不同redis服务器 -->
+	<bean id="mutilJedisPoolMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="jedisPool79" value-ref="jedisPool79" />
+				<entry key="jedisPool80" value-ref="jedisPool80" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- jedis的连接工厂 <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"> 
+		<property name="poolConfig" ref="poolConfig" /> <property name="hostName" 
+		value="${redis.hostName}" /> <property name="port" value="${redis.port}" 
+		/> <property name="database" value="${redis.database}" /> <property name="password" 
+		value="${redis.password}" /> <property name="timeout" value="${redis.timeout}" 
+		/> </bean> -->
+
+	<!--redis实际使用的template <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"> 
+		<property name="connectionFactory" ref="connectionFactory" /> <property name="keySerializer"> 
+		<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
+		/> </property> <property name="valueSerializer"> <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" 
+		/> </property> </bean> -->
+
+</beans>

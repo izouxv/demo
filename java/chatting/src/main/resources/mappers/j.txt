@@ -1,0 +1,15 @@
+#\u5b9a\u4e49LOG\u8f93\u51fa\u7ea7\u522b
+#log4j.rootLogger=Console,stdout,Debug,Info,Error,Mail
+# \u53d1\u9001\u65e5\u5fd7\u5230\u6307\u5b9a\u90ae\u7bb1
+#log4j.appender.Mail=org.apache.log4j.net.SMTPAppender
+#log4j.appender.Mail.Threshold=ERROR
+#log4j.appender.Mail.BufferSize=1
+#log4j.appender.Mail.SMTPHost=mail.radacat.com
+#log4j.appender.Mail.Subject=chatting error message
+#log4j.appender.Mail.From=wangdy@radacat.com
+#log4j.appender.Mail.To=wangdy@radacat.com
+#log4j.appender.Mail.SMTPUsername=wangdy@radacat.com
+#log4j.appender.Mail.SMTPPassword=dongyang
+#log4j.appender.Mail.Encoding=UTF-8  
+#log4j.appender.Mail.layout=org.apache.log4j.PatternLayout
+#log4j.appender.MAIL.layout.ConversionPattern=[ErrorMessage] %d - %c -%-4r [%t] %-5p %c %x - %m%n

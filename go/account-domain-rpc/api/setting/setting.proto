@@ -1,0 +1,106 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package setting;
+
+service Setting {
+    rpc SetUpgradeInfo(SetUpgradeRequest) returns (SetUpgradeResponse) {} //设置升级信息
+    rpc GetUpgradeCategory(GetUpgradeCategoryRequest) returns(GetUpgradeCategoryResponse){}//获取升级类型
+    rpc GetUpgradeInfos(GetUpgradeInfosRequest) returns (GetUpgradeInfosResponse){}
+    rpc DeleteUpgradeInfo(DeleteUpgradeInfoRequest) returns (DeleteUpgradeInfoResponse) {}//删除升级信息
+    rpc UpdateUpgradeInfo(UpdateUpgradeInfoRequest) returns (UpdataUpgradeInfoResponse) {}//修改升级信息
+    rpc NodeAdvInfo(NodeAdvInfoRequest) returns (NodeAdvInfoResponse) {}//获取设备对应的广告
+}
+
+message SetUpgradeRequest {
+    int32  Category = 1;
+    string VersionName = 2;//eg. v1.1.1
+    string VersionCode = 3;//eg. 1.1.1
+    string MD5 = 4;
+    string FileName = 5;
+    int32  FileLength = 6;
+    string DescriptionCN = 7;
+    string DescriptionEN = 8;
+    string URL = 9;
+}
+
+message SetUpgradeResponse {
+    int32 ErrorCode = 1;
+}
+
+message UpgradeCategory {
+    int32  Id =1;
+    string Name = 2;
+}
+
+message UpgrageCategoryResponse {
+    int32 ErrorCode = 1;
+}
+
+message GetUpgradeCategoryRequest {
+
+}
+
+message GetUpgradeCategoryResponse {
+    repeated UpgradeCategory UC = 1;
+    int32 ErrorCode = 2;
+}
+
+message GetUpgradeInfosRequest {
+    int32 Count =1;            //分页查询获取数量
+    int32 page = 2;            //当前页数
+    int32 Category = 3;        //升级文件类型（不传表示所有类型筛选）
+}
+
+message UpgradeInfo {
+    int32  Category = 1;
+    string VersionName = 2;//eg. v1.1.1
+    string VersionCode = 3;//eg. 1.1.1
+    string MD5 = 4;
+    string FileName = 5;
+    int32  FileLength = 6;
+    string DescriptionCN = 7;
+    string DescriptionEN = 8;
+    int64  CreateTime = 9;
+    int32  Id = 10;
+    string CategoryName = 11;
+}
+
+message GetUpgradeInfosResponse {
+    repeated UpgradeInfo UIS = 1;
+    int32 TotalCount = 2;
+    int32 ErrorCode = 3;
+}
+
+message DeleteUpgradeInfoRequest {
+    int32 Id = 1;
+}
+
+message DeleteUpgradeInfoResponse{
+    int32 ErrorCode = 1;
+}
+
+message UpdateUpgradeInfoRequest {
+    UpgradeInfo UI = 1;
+}
+
+message UpdataUpgradeInfoResponse {
+    int32 ErrorCode = 1;
+}
+
+message NodeAdv {
+    int32  Id = 1;
+    string Md5 = 2;
+    string Url = 3;
+}
+message NodeAdvInfoRequest {
+    string DevEUI = 1;
+    repeated NodeAdv NodeAdv = 2;
+}
+
+message NodeAdvInfoResponse {
+    string DevEUI = 1;
+    repeated NodeAdv NodeAdv = 2;
+    int32 ErrorCode = 3;
+}

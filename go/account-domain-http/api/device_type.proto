@@ -1,0 +1,41 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+// The Id service definition.
+service DeviceType {
+    rpc GetDeviceTypes(GetDeviceTypesRequest) returns (GetDeviceTypesReply) {}                       //获取设备类型列表
+    rpc AddDeviceType(AddDeviceTypeRequest) returns (AddDeviceTypeReply) {}                          //增加设备类型
+}
+
+message  Type{
+    int32    id = 1;
+    string   device_type = 2;
+    int32    status = 3;
+    int64    tid = 4;
+}
+
+message AddDeviceTypeRequest {
+    Type deviceType = 1;
+}
+
+message AddDeviceTypeReply {
+    int32   errorCode = 1;
+    Type   deviceType = 2;
+}
+
+message GetDeviceTypesRequest {
+    int64 tid = 1;
+    int32 page = 2;
+    int32 count = 3;
+    string order_by = 4;
+}
+
+message GetDeviceTypesReply {
+    repeated  Type deviceType =1;
+    int32 errorCode = 2;
+    int32 totalCount = 3;
+}
+

@@ -1,0 +1,166 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package api;
+
+service RoleServer {
+    rpc AddRole(AddRoleRequest) returns (AddRoleResponse) {}
+    rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse) {}
+    rpc UpdateRole(UpdateRoleRequest) returns (UpdateRoleResponse){}
+    rpc GetRoles(GetRolesRequest) returns (GetRolesResponse) {}
+    rpc GetRoleByRid(GetRoleByRidRequest) returns (GetRoleByRidResponse) {}
+
+    rpc AddDomainRole(AddRoleRequest) returns (AddRoleResponse) {}
+    rpc DeleteDomainRole(DeleteRoleRequest) returns (DeleteRoleResponse) {}
+    rpc UpdateDomainRole(UpdateRoleRequest) returns (UpdateRoleResponse){}
+    rpc GetDomainRoles(GetRolesRequest) returns (GetRolesResponse) {}
+    rpc GetModuleByTid(GetModuleByTidRequest) returns (GetModuleByTidResponse) {}
+    rpc GetModuleByDid(GetModuleByDidRequest) returns (GetModuleByDidResponse) {}
+
+    rpc GetResources(GetResourcesRequest) returns (GetResourcesResponse){}
+    rpc CreateResource(CreateResourceRequest) returns (CreateResourceResponse){}
+    rpc UpdateResource(UpdateResourceRequest) returns (UpdateResourceResponse){}
+    rpc DeleteResource(DeleteResourceRequest) returns (DeleteResourceResponse){}
+}
+
+
+message RoleInfo {
+    int32 rid = 1;
+    string roleName = 2;
+    string description = 3;
+    int32 tid = 4;
+}
+
+message Module {
+    int32 mid = 1;
+    string moduleName = 2;
+    repeated string operation = 3;
+}
+
+message ModuleInfo {
+    int32 mid = 1;
+    string moduleName = 2;
+}
+
+message RoleModules {
+    RoleInfo roleInfo = 1;
+    repeated Module mids = 2;
+}
+
+
+message GetRolesRequest {
+    int32 tid = 1;
+    int32 did = 2;
+    int32 page = 3;
+    int32 count = 4;
+}
+
+message GetRolesResponse {
+    repeated RoleModules roleModules = 1;
+    int32 totalCount = 2;
+}
+
+message AddRoleRequest {
+    string roleName = 1;
+    string description = 2;
+    repeated Module mids = 3;
+    int32 tid = 4;
+    int32 did = 5;
+}
+
+message AddRoleResponse {
+
+}
+
+
+message UpdateRoleRequest {
+    int32 rid = 1;
+    string roleName = 2;
+    string description = 3;
+    repeated Module mids = 4;
+}
+
+message UpdateRoleResponse {
+
+}
+
+message DeleteRoleRequest {
+    int32 rid = 1;
+}
+
+message DeleteRoleResponse {
+
+}
+
+message GetModuleByTidRequest {
+    int32 tid = 1;
+}
+
+message GetModuleByTidResponse {
+    repeated ModuleInfo Modules = 1;
+}
+
+message GetModuleByDidRequest {
+    int32 did = 1;
+}
+
+message GetModuleByDidResponse {
+    repeated ModuleInfo Modules = 1;
+}
+
+message GetRoleByRidRequest {
+    int32 rid = 1;
+}
+
+message GetRoleByRidResponse {
+    RoleModules roleModules = 1;
+}
+
+
+//resource
+
+message Resource {
+    int32 ResId = 1;
+    string ResName = 2;
+    string ResUrl = 3;
+    string ResOpt = 4;
+    string ResRemark = 5;
+}
+
+message GetResourcesRequest {
+    int32 Page = 1;
+    int32 Count = 2;
+    string ResName = 3;
+    string ResOpt = 4;
+}
+
+message GetResourcesResponse {
+    repeated Resource Resources = 1;
+    int32 totalCount = 2;
+}
+
+message CreateResourceRequest {
+    Resource Resources = 1;
+}
+
+message CreateResourceResponse {
+    Resource Resources = 1;
+}
+
+message UpdateResourceRequest {
+    Resource Resources = 1;
+}
+
+message UpdateResourceResponse {
+
+}
+
+message DeleteResourceRequest {
+    int32 ResId = 1;
+}
+
+message DeleteResourceResponse {
+
+}

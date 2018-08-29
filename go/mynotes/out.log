@@ -1,0 +1,4 @@
+{"level":"info","ts":"2018-08-24T16:23:15.655+0800","caller":"blog/blog.go:17","msg":"info:","s":"hello info"}
+{"level":"error","ts":"2018-08-24T16:23:15.676+0800","caller":"blog/blog.go:18","msg":"info:","s":"hello error","stacktrace":"main.main\n\tE:/project/go/src/mynotes/blog/blog.go:18\nruntime.main\n\tD:/golang/src/runtime/proc.go:195"}
+{"level":"debug","ts":"2018-08-24T16:23:15.676+0800","caller":"blog/blog.go:19","msg":"info:","s":"hello debug"}
+{"level":"fatal","ts":"2018-08-24T16:23:15.676+0800","caller":"blog/blog.go:20","msg":"info:","s":"hello fatal","stacktrace":"main.main\n\tE:/project/go/src/mynotes/blog/blog.go:20\nruntime.main\n\tD:/golang/src/runtime/proc.go:195"}

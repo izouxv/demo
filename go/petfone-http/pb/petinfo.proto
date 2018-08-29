@@ -1,0 +1,146 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+service PetInfo {
+    //宠物信息
+    rpc SetPetInfo(PetInfoRequest) returns (PetInfoReply) {}            //添加宠物信息
+    rpc DeletePetInfoByPid(PetInfoRequest) returns (PetInfoReply) {}    //删除宠物信息
+    rpc UpdatePetInfoByPid(PetInfoRequest) returns (PetInfoReply) {}    //修改宠物信息
+    rpc GetPetInfoByPid(PetInfoRequest) returns (PetInfoReply) {}       //查询宠物信息
+    rpc GetPetInfoByUid(PetInfoRequest) returns (PetInfoMapReply) {}    //批量查询宠物信息
+    rpc GetPetInfoBydid(PetInfoRequest) returns (PetInfoReply) {}       //查询宠物信息和训练录音
+    rpc GetPetInfosBydid(PetInfoRequest) returns (PetInfoMapReply) {}   //批量查询宠物信息和训练录音
+
+    //关联信息
+    rpc SetDevicePet(PetInfoRequest) returns (PetInfoReply) {}          //关联宠物与设备
+    rpc DeleteDevicePet(PetInfoRequest) returns (PetInfoReply) {}       //取消关联
+    rpc GetDevicePet(PetInfoRequest) returns (PetInfoReply) {}          //查询关联
+    //宠物训练信息
+    rpc GetPetTrainByPid(PetTrainRequest) returns (PetSliceTrainsReply) {}      //查询宠物训练信息
+    rpc UpdatePetTrainByPid(PetTrainRequest) returns (PetTrainReply) {}         //修改宠物训练信息
+    rpc CounterPetTrainByPid(PetTrainRequest) returns (PetTrainReply) {}        //训练次计数
+    rpc UpdateDeviceTrainByDid(DeviceTrainRequest) returns (DeviceTrainReply) {}   //更新宠端设备训练录音
+}
+
+message PetInfoRequest {
+    string  source          = 1;
+    int32   pid             = 2;
+    string  avatar          = 3;
+    string  nickname        = 4;
+    int32   breed           = 5;
+    int32   gender          = 6;
+    int64   birthday        = 7;
+    float   weight          = 8;
+    int32   somatotype      = 9;
+    int32   duration        = 10;   //预设时长
+    int32   brightness      = 11;   //灯亮度
+    int32   uid             = 12;
+    repeated Pid  pids      = 13;
+    int32   did             = 14;
+}
+
+enum PetPermit {
+    PetPermit0 = 0;
+    PetPermit1 = 1;
+}
+
+message Pid {
+    int32 pid =1;
+}
+
+message PetInfoReply {
+    string  source          = 1;
+    int32   pid             = 2;
+    string  avatar          = 3;
+    string  nickname        = 4;
+    int32   breed           = 5;
+    int32   gender          = 6;
+    int64   birthday        = 7;
+    float   weight          = 8;
+    int32   somatotype      = 9;
+    int32   duration        = 10;   //预设时长
+    int32   brightness      = 11;   //灯亮度
+    int32   uid             = 12;
+    repeated Pid  pids      = 13;
+    int32   did             = 14;
+    PetPermit    permit     = 15;   //权限级别
+    int64   createTime      = 16;   //创建时间
+    int32   code            = 17;
+    repeated PetTrainReply trains = 18;
+}
+
+message PetInfoMapRequest {
+    map<int32, PetInfoRequest> petinfos = 1;
+    string source = 2;
+}
+
+message PetInfoMapReply {
+    map<int32, PetInfoReply> petinfos = 1;
+    int32 code = 2;
+}
+
+message PetTrainRequest {
+    string  source      = 1;
+    int32   uid         = 2;
+    int32   pid         = 3;
+    int32   id          = 4;
+    string  name        = 5;    //名称
+    string  voice       = 6;    //fileid
+    int32   counter     = 7;    //次数
+    int64   startTime   = 8;
+    int64   endTime     = 9;
+    int32   num         = 10;    //目标次数
+    uint32  devFID     = 11;   //设备文件唯一id
+}
+
+message PetTrainReply {
+    int32   code    = 1;
+    int32   pid     = 2;
+    int32   id      = 3;
+    string  name    = 4;    //名称
+    string  voice   = 5;    //文件id
+    int32   counter = 6;    //次数
+    int64   times   = 7;
+    int32   num     = 10;    //目标次数
+    uint32  smallId = 11;
+    uint32  devFID = 12;   //设备文件唯一id
+}
+
+message PetTrains {
+    repeated PetTrainReply trains = 1;
+}
+
+message PetSliceTrainsReply {
+    repeated PetTrains sliceTrains = 1;
+    int32 code = 2;
+}
+
+message DeviceTrainRequest {
+    string  source      = 1;
+    int32   uid         = 2;
+    int32   did         = 3;    //设备id
+    int32   id          = 4;
+    string  name        = 5;    //名称
+    string  voice       = 6;    //fileid
+    int32   counter     = 7;    //次数
+    int64   startTime   = 8;
+    int64   endTime     = 9;
+    int32   num         = 10;   //目标次数
+    uint32  devFID      = 11;   //设备文件唯一id
+}
+message DeviceTrainReply {
+    int32   code        = 1;
+    int32   did         = 2;    //设备id
+    int32   id          = 3;
+    string  name        = 4;    //名称
+    string  voice       = 5;    //文件id
+    int32   counter     = 6;    //次数
+    int64   times       = 7;
+    int32   num         = 10;    //目标次数
+    uint32  smallId     = 11;
+    uint32  devFID      = 12;   //设备文件唯一id
+}
+

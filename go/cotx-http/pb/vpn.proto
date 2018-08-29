@@ -1,0 +1,64 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+message ReqGetVpn {
+    int32      UserId    =  1;
+    string     GatewayId =  2;
+}
+
+message Vpn {
+    int32      State      =  1;
+    string     VpnIp     =  2;
+    string     UserName  =  3;
+    string     UserPassword = 4;
+    string     Domain       = 5;
+}
+message ResGetVpn {
+    Vpn    Vpn    = 2;
+    int32 ErrCode = 1;
+}
+
+message ReqUpdateVpn {
+    int32     UserId    = 1;
+    string    GatewayId = 2;
+    int32     State      = 3;
+    string    VpnIp     = 4;
+    string    UserName  = 5;
+    string    UserPassword = 6;
+    string    Domain       = 7;
+}
+
+message ResUpdateVpn {
+    int32 ErrCode = 1;
+}
+
+message ReqPingGateway {
+    int32   UserId      = 1;
+    string  GatewayId   = 2;
+    int32   PackageSize = 3;
+    int32   PackageNum  = 4;
+    string  PingIp      = 5;
+}
+
+message Ping {
+    string  DelayTime  = 1;
+}
+
+message ResPingGateway {
+    Ping ResPing = 1;
+    int32 ErrCode = 2;
+}
+
+service Rpc_vpn {
+    /*获取vpn的信息*/
+    rpc GetVpn (ReqGetVpn) returns (ResGetVpn) {}
+
+    /*更新vpn的状态信息*/
+    rpc UpdateVpn(ReqUpdateVpn) returns (ResUpdateVpn){}
+
+    /*网关ping 功能*/
+    rpc PingGateway (ReqPingGateway) returns (ResPingGateway) {}
+}

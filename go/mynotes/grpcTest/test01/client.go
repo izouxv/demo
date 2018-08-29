@@ -33,7 +33,7 @@ func main(){
 	//初始化链接池
 	p,err := InitThread(5,30,factory,func(v interface{}) error { return conn.Close()})
 	if err != nil{
-		fmt.Println("init error")
+		fmt.Println("initContext error")
 		return
 	}
 	//todo string

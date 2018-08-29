@@ -1,0 +1,16 @@
+解析经纬度数据：
+1.cat GPS.log |awk -F"Get Location, " '{print $2}' > 111.log
+2.cat 111.log |awk -F":|," '{print $2,$4}' > 11.log
+3.awk NF 11.log > 1.log
+
+1.awk '{print $1, $4}' test.txt
+    输出第一和第四列的数据
+2.awk '{printf "%-8s %-8s %-8s %-18s %-22s %-15s\n",$1,$2,$3,$4,$5,$6}' test.txt
+    格式化输出
+3.awk '$3==0 && $6=="LISTEN" ' netstat.txt
+    输出第三列为0并且第六列为LISTEN的行，其中的“==”为比较运算符，其他比较运算符：!=, >, <, >=, <=
+4.
+
+
+
+

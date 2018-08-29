@@ -137,7 +137,7 @@ func New() *Cache {
 		items:	make(map[int]map[int]int),
 		onEvicted:callBack,
 	}
-	//init Cache
+	//initContext Cache
 	C := &Cache{c}
 	return C
 }

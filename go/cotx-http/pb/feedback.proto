@@ -1,0 +1,34 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+
+service FeedbackService {
+    /*添加app问题反馈*/
+     rpc AddFeedback(AddFeedbackRequest)   returns (AddFeedbackResponse) {}
+}
+
+
+
+message Feedback {
+      string  description = 1;//反馈描述
+      string  mobileInfo  = 2;//手机信息
+      string  appInfo     = 3;//app信息
+      string  files = 4;//反馈问题图片集合
+      string  logFile     = 5;//反馈问题的日志文件
+      string  contact     = 6;//联系方式
+      string  userInfo    = 7;//用户信息
+      string  extendInfo  = 8;//扩展信息
+}
+
+message AddFeedbackRequest {
+     Feedback feedback =   1;
+}
+
+message AddFeedbackResponse {
+    Feedback feedback  = 1;
+    int32 ErrCode = 2;
+}
+

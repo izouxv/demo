@@ -1,4 +1,0 @@
-1.spew 可以在 console 中直接查看 struct 和 slice 两种数据结构
-2.Gorilla 的 mux 包非常流行， 用它来写 web handler
-3.godotenv 可以读取项目根目录中的 .env 配置文件，就不用将 http port 之类的配置硬编码进代码中了。比如：ADDR=8080
-4.链，通过连续的数据结构体记录上一结构体的唯一标识与本身的唯一标识形成严密的数据关系

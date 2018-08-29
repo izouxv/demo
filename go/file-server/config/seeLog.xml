@@ -1,0 +1,16 @@
+<seelog>
+    <outputs formatid="main">
+        <filter levels="debug,info,error">
+            <console />
+        </filter>
+        <filter levels="info">
+            <rollingfile formatid="main" type="date" filename="/var/log/golang/file-server_info.log" datepattern="02.01.2006" maxrolls="7"/>
+        </filter>
+        <filter levels="error">
+            <rollingfile formatid="main" type="date" filename="/var/log/golang/file-server_error.log" datepattern="02.01.2006" maxrolls="7" />
+        </filter>
+    </outputs>
+    <formats>
+        <format format="%Date %Time [%LEV] [%File:%Line] [%Func] %Msg%n" id32="main"/>
+    </formats>
+</seelog>

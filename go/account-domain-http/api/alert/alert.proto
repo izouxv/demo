@@ -1,0 +1,36 @@
+//protoc --go_out=plugins=grpc:. *.proto
+syntax = "proto3";
+
+package alert;
+
+service Alert {
+    rpc GetCount(AlertCountRequest) returns (AlertCountReply) {}//域下告警数
+    rpc GetAlerts(AlertRequest) returns (AlertReply) {}         //告警数列表
+}
+
+message AlertCountRequest{
+    int64 Did = 1;
+}
+
+message AlertCountReply{
+    int32 AlertCount  = 1;
+    int32 ErrorCode = 2;
+}
+
+message AlertRequest{
+    int64 Did = 1;              //所在域编号
+    int32 Page = 2;
+    int32 Count = 3;
+}
+
+message AlertNodeReply{
+    int64  Nid = 1;              //设备编号
+    string Info = 2;             //告警信息
+    int64  CreateTime = 3;       //告警时间
+}
+
+message AlertReply {
+    repeated AlertNodeReply NodeAlert = 1;
+    int32 AlertTotal = 2;
+    int32 ErrorCode = 3;
+}

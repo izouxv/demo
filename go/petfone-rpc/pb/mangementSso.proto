@@ -1,0 +1,59 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+syntax = "proto3";
+
+package pb;
+
+import "pb/device.proto";
+
+// The MSSso service definition.
+service MSso {
+    rpc GetPageSsoInfos(PageRequest) returns (PageSsoReply) {} //分页查询用户信息
+    rpc SearchSsoInfo(MSsoInfo) returns (MSsoInfo) {}  //检索用户信息(uid/username)
+    rpc DeleteAccount(MSsoInfo) returns (MSsoReply) {}  //删除账号(username)
+    rpc GetPageDevices(PageRequest) returns (BatchDeviceRe) {} //分页查询设备信息
+    rpc SearchDevice(DeviceRequest) returns (DeviceReply) {} //检索设备信息（优先mac/sn/did）
+}
+
+enum Sort {
+    ASC  = 0;
+    DESC = 1;
+}
+
+message PageRequest {
+    string  source  = 1;
+    int32   page    = 2;
+    int32   count   = 3;
+    string  order   = 4;
+    string  token   = 5;
+    Sort    sort    = 6;
+}
+
+message PageSsoReply {
+    repeated MSsoInfo mSsos = 1;
+    int32 code = 2;
+    int32 totalCount = 3;
+}
+
+message MSsoInfo {
+    int32   uid = 1;
+    string  username = 2;
+    string  nickname = 3;
+    int32   loginState = 4;
+    int32   state = 5;
+    int64   regTime = 6;
+    string  regIP = 7;
+    string  regAddr = 8;
+    int64   loginTime = 9;
+    int64   quitTime = 10;
+    string  newIP = 11;
+    string  newAddr = 12;
+    string  token = 13;
+    string  devInfo = 14;
+    int32   code = 15;
+    string  source  = 16;
+}
+
+message MSsoReply {
+    int32   code = 1;
+    string  source  = 2;
+}

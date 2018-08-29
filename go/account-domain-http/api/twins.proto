@@ -1,0 +1,146 @@
+//protoc --go_out=plugins=grpc:. *.proto
+/*
+protoc -I. -I%GOPATH%/src -I%GOPATH%/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --go_out=Mgoogle/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/google/api,plugins=grpc:. twins.proto
+protoc -I. -I%GOPATH%/src -I%GOPATH%/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --grpc-gateway_out=logtostderr=true:. twins.proto
+*/
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto";
+
+service TwinsServer {
+    /*获取影子最后更新时间*/
+    rpc GetLastUpdateTime(GetLastUpdateTimeRequest) returns (GetLastUpdateTimeResponse) {
+        option(google.api.http) = {
+			get: "/api/twins/{aid}/lasttime"
+		};
+    }
+    /*获取影子的版本*/
+    rpc GetTwinsVersion(GetTwinsVersionRequest) returns (GetTwinsVersionResponse) {
+        option(google.api.http) = {
+			get: "/api/twins/{aid}/version"
+		};
+    }
+    /*添加影子信息*/
+    rpc AddTwinsBaseTenant(AddTwinsBaseTenantRequest) returns (AddTwinsBaseTenantResponse) {
+        option(google.api.http) = {
+			post: "/api/tenanat/{tid}/twins/{aid}"
+			body: "*"
+		};
+    }
+    /*删除影子信息*/
+    rpc DeleteTwinsBaseTenant(DeleteTwinsBaseTenantRequest) returns (DeleteTwinsBaseTenantResponse) {
+        option(google.api.http) = {
+			delete: "/api/tenanat/{tid}/twins/{aid}"
+		};
+    }
+
+    /*修改影子信息*/
+    rpc UpdateTwinsBaseTenant(UpdateTwinsBaseTenantRequest) returns (UpdateTwinsBaseTenantResponse) {
+        option(google.api.http) = {
+			put: "/api/tenanat/{tid}/twins/{aid}"
+			body: "*"
+		};
+    }
+    /*获取影子信息*/
+    rpc GetTwinsBaseTenant(GetTwinsBaseTenantRequest) returns (GetTwinsBaseTenantResponse) {
+        option(google.api.http) = {
+			get: "/api/tenanat/{tid}/twins/{aid}"
+		};
+    }
+    /*从影子中获取上报的数据点*/
+    rpc GetTwinsDataPointBaseTenant(GetTwinsDataPointBaseTenantRequest) returns (GetTwinsDataPointBaseTenantResponse) {
+        option(google.api.http) = {
+			get: "/api/tenanat/{tid}/twins/{aid}/data_points"
+		};
+    }
+    /*批量获取设备影子最后更新时间*/
+    rpc GetLastUpdateTimeBaseTenant(GetLastUpdateTimeBaseTenantRequest) returns (GetLastUpdateTimeBaseTenantResponse) {
+        option(google.api.http) = {
+			get: "/api/twins/lasttime"
+		};
+    }
+    /*从影子中获取lorawan终端的信息，根据网关的mac*/
+    rpc GetLoraWANTwinsForGatewayMacBaseTenant(GetLoraWANTwinsForGatewayMacBaseTenantRequest) returns (GetLoraWANTwinsForGatewayMacBaseTenantResponse) {
+        option(google.api.http) = {
+			get: "/api/tenanat/{tid}/gateway/{mac}/lorawan"
+		};
+    }
+}
+
+message DeleteTwinsBaseTenantRequest {
+    int64  aid = 1;
+    int64  tid = 2;
+}
+message DeleteTwinsBaseTenantResponse {
+
+}
+
+message GetLastUpdateTimeRequest {
+    int64 aid = 1;
+}
+message GetLastUpdateTimeResponse {
+    int64 time = 1;
+}
+
+message GetTwinsVersionRequest {
+    int64 aid = 1;
+}
+message GetTwinsVersionResponse {
+    int64 version = 1;
+}
+
+message AddTwinsBaseTenantRequest {
+    int64  aid = 1;
+    string repored = 2;/*字段可以为空*/
+    string desired = 3;/*字段不能为空,json字符串*/
+    int64  tid = 4;
+}
+message AddTwinsBaseTenantResponse {
+
+}
+
+message UpdateTwinsBaseTenantRequest {
+    int64  aid = 1;
+    string repored = 2;/*字段可以为空*/
+    string desired = 3;/*字段不能为空,json字符串*/
+    int64  tid = 4;
+}
+message UpdateTwinsBaseTenantResponse {
+    string twins = 1;  /*数字孪生的内容*/
+    int64 tid = 2;
+}
+
+message GetTwinsBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+}
+message GetTwinsBaseTenantResponse {
+    string twins = 1;/*数字孪生的内容*/
+    int64 tid = 2;
+}
+
+message GetTwinsDataPointBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+}
+message GetTwinsDataPointBaseTenantResponse {
+    repeated string data_points = 1;
+}
+
+message GetLastUpdateTimeBaseTenantRequest {
+    repeated int64 aids = 1;
+    int64 tid = 2;
+}
+
+message GetLastUpdateTimeBaseTenantResponse {
+    map<int64,int64> times = 1;
+}
+message GetLoraWANTwinsForGatewayMacBaseTenantRequest {
+    int64 tid = 1;
+    string mac = 2;
+}
+message GetLoraWANTwinsForGatewayMacBaseTenantResponse {
+    repeated string twins = 1;/*数字孪生的内容*/
+}

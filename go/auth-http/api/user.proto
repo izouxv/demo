@@ -1,0 +1,82 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package api;
+
+
+service UserServer {
+    rpc UpdateUserInfo(UpdateUserInfoRequest) returns (UpdateUserInfoResponse) {}//修改用户信息
+
+    rpc UpdateNicknameAndPassword(UpdateNicknameAndPasswordRequest) returns (UpdateNicknameAndPasswordResponse) {}//修改昵称和密码
+
+    rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse) {}//修改密码
+    rpc FindPassword(FindPasswordRequest) returns (FindPasswordResponse) {}//找回密码
+    rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {}//重置密码
+    rpc UpdateUserState(UpdateUserStateRequest) returns (UpdateUserStateResponse) {}//修改用户状态
+}
+
+message UpdateUserInfoRequest {
+    int32  uid = 1;
+    string nickname = 2;
+    int32  tid = 3;
+}
+
+message UpdateUserInfoResponse {
+}
+
+message UpdateNicknameAndPasswordRequest {
+    int32  uid = 1;
+    string nickname = 2;
+    int32  tid = 3;
+    string password = 4;
+    string newPassword = 5;
+
+}
+
+message UpdateNicknameAndPasswordResponse {
+
+}
+
+
+
+message UpdatePasswordRequest {
+    string username = 1;
+    string password = 2;
+    string newPassword = 3;
+    int32 tid = 4;
+    int32 did = 5;
+}
+
+message UpdatePasswordResponse {
+
+}
+
+message FindPasswordRequest {
+    string username = 1;
+    int32 tid = 2;
+    int32 did = 3;
+}
+
+message FindPasswordResponse {
+
+}
+
+message ResetPasswordRequest {
+    string password = 1;
+    string token = 2;
+}
+
+message ResetPasswordResponse {
+
+}
+
+message UpdateUserStateRequest {
+    int32 updateUid = 2;
+    int32 updateState = 3;
+}
+
+message UpdateUserStateResponse {
+
+}

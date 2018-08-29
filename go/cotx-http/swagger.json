@@ -1,0 +1,2411 @@
+{
+  "consumes": [
+    "application/json;charset=UTF-8"
+  ],
+  "produces": [
+    "application/json;charset=UTF-8"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "the purpose of this application is to provide an application\nthat is using plain go code to define an API\n\nThis should demonstrate all the possible comment annotations\nthat are available to turn go code into a fully compliant swagger 2.0 spec",
+    "title": "COTX-APP API.",
+    "termsOfService": "there are no TOS at this moment, use at your own risk we take no responsibility",
+    "version": "v1.0"
+  },
+  "host": "localhost",
+  "basePath": "/cotx/v1.0",
+  "paths": {
+    "/user/addgateway": {
+      "post": {
+        "description": "app帐号绑定网关的接口",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app帐号绑定网关的接口"
+        ],
+        "operationId": "reqbandgw",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "x-go-name": "MAC",
+            "description": "用户与网关绑定需要的参数\n扫描到的网关的唯一标识",
+            "name": "mac",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "uniqueItems": true,
+            "name": "ApplicationId",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resbandgw"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30018": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/authorise": {
+      "post": {
+        "description": "app用户授权网关给其他帐号  响应错误包括 10001：系统错误 10002：未知错误 30019：请求授权的账户已经被授权",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app用户将网关授权给其他用户"
+        ],
+        "operationId": "reqauth",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "description": "网关的id",
+            "name": "GatewayID",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "uniqueItems": true,
+            "description": "账户名称",
+            "name": "UName",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30019": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/delet": {
+      "delete": {
+        "description": "app用户删除授权账号信息  响应错误包括 10001：系统错误 10002：未知错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app用户删除授权帐号"
+        ],
+        "operationId": "reqdeletaccount",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "description": "帐号名称",
+            "name": "UName",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part10)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置网络DNS"
+        ],
+        "operationId": "reqSetDNS",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "指令码\n设置网络的dns地址 == 1034",
+            "name": "Instruction",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "网络类型  0 ：有线网络  1：无线网络",
+            "name": "NetType",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "DNS",
+            "name": "DNS",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part11)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置热点"
+        ],
+        "operationId": "reqSetHotSpot",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "指令码\n设置热点 == 1036",
+            "name": "Instruction",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "热点名称",
+            "name": "Name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "热点 密码",
+            "name": "Password",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "是否需要密码  0：不需要 1：需要",
+            "name": "Key",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part12)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置网关名称"
+        ],
+        "operationId": "reqSetName",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "指令码\n设置名称 == 1037",
+            "name": "Instruction",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "网关名称",
+            "name": "Name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part13)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送连接wifi指令"
+        ],
+        "operationId": "reqConnectWifi",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "指令码\n连接 wifi == 1015",
+            "name": "Instruction",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "连接或者断开连接  0：断开连接  1：连接",
+            "name": "Switch",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "无线名称",
+            "name": "WifiName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "无线密码",
+            "name": "Password",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part2)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置节电模式指令码"
+        ],
+        "operationId": "reqGwPower",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part3)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置lora频率信息"
+        ],
+        "operationId": "reqLora",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part4)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置自动摄像"
+        ],
+        "operationId": "reqVideo",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part5)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置自动拍照"
+        ],
+        "operationId": "reqPhoto",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part6)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置自动播放音频"
+        ],
+        "operationId": "reqMusic",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part7)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置删除文件指令"
+        ],
+        "operationId": "reqDeletFile",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part8)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置上传日志"
+        ],
+        "operationId": "reqUplog",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gateway/setting(part9)": {
+      "post": {
+        "description": "网关的set信息  响应错误包括 10001：系统错误 10002：未知错误 30022:指令码错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "C-app向网关发送设置网络ip"
+        ],
+        "operationId": "reqSetIp",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30022": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/appeui/:gwid": {
+      "get": {
+        "description": "app获取网关与手机蓝牙连接的密钥  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关与手机蓝牙连接的密钥"
+        ],
+        "operationId": "NULL20",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwAppEui"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/cableaddress/:gwid": {
+      "get": {
+        "description": "网关的有线网的ipv4信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的有线网的ipv4信息"
+        ],
+        "operationId": "NULL11",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resCableAddress"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/cabledns/:gwid": {
+      "get": {
+        "description": "网关的有线网的DNS信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的有线网的DNS信息"
+        ],
+        "operationId": "NULL12",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resCableDNS"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/file/:gwid": {
+      "get": {
+        "description": "网关多媒体统计信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关多媒体统计信息"
+        ],
+        "operationId": "NULL4",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwFile"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/gwwarm/:gwid": {
+      "get": {
+        "description": "网关的告警信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的告警信息"
+        ],
+        "operationId": "NULL15",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwWarm"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/lora/:gwid": {
+      "get": {
+        "description": "网关的lora信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的lora信息"
+        ],
+        "operationId": "NULL14",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwLora"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/message/:gwid": {
+      "get": {
+        "description": "网关的固定属性信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关固定属性信息"
+        ],
+        "operationId": "NULL13",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwMessage"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/musicset/:gwid": {
+      "get": {
+        "description": "app获取网关的音乐播放设置信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的音乐播放设置信息"
+        ],
+        "operationId": "NULL17",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwMusicSet"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/netstate/:gwid": {
+      "get": {
+        "description": "app获取网关的网络状态信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的网络状态信息"
+        ],
+        "operationId": "NULL2",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwNetState"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/photos/:gwid": {
+      "get": {
+        "description": "网关的照片详细信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的照片的详细信息"
+        ],
+        "operationId": "NULL6",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwPhotos"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/photoset/:gwid": {
+      "get": {
+        "description": "app获取网关的自动摄像的设置信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的自动摄像设置信息"
+        ],
+        "operationId": "NULL18",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwPhotoSet"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/powermodelset/:gwid": {
+      "get": {
+        "description": "app获取网关的智能节电的设置信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的智能节电设置信息"
+        ],
+        "operationId": "NULL16",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwPowerModel"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/state/:gwid": {
+      "get": {
+        "description": "app获取网关的状态信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的状态信息"
+        ],
+        "operationId": "NULL3",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwState"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/usb/:gwid": {
+      "get": {
+        "description": "网关的usb统计信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的usb统计信息"
+        ],
+        "operationId": "NULL7",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwusbStat"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/videos/:gwid": {
+      "get": {
+        "description": "网关的视频详细信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的视频详细信息"
+        ],
+        "operationId": "NULL5",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwVideos"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/videoset/:gwid": {
+      "get": {
+        "description": "app获取网关的自动播放视频的设置信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的自动播放视频的设置信息"
+        ],
+        "operationId": "NULL19",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resGwVideoSet"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/wifiaddress/:gwid": {
+      "get": {
+        "description": "网关的wifi的ipv4信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的wifi的ipv4信息信息"
+        ],
+        "operationId": "NULL9",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resWifiAddress"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/wifidns/:gwid": {
+      "get": {
+        "description": "网关的wifi的DNS信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的wifi的DNS信息"
+        ],
+        "operationId": "NULL10",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resWifiDNS"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/gw/wifiscan/:gwid": {
+      "get": {
+        "description": "网关的wifi扫描信息  响应错误包括 10001：系统错误 10002：未知错误 30021:没有找到网关id对应的网关信息",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "B-网关的wifi扫描信息"
+        ],
+        "operationId": "NULL8",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resWifiScan"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30021": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/showaccount": {
+      "post": {
+        "description": "app用户获取所有授权帐号  响应错误包括 10001：系统错误 10002：未知错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app用户获取所有授权帐号"
+        ],
+        "operationId": "NULL",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/resAccounts"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/showallgws": {
+      "get": {
+        "description": "app获取所有绑定网关的位置信息 响应错误包括 10001：系统错误 10002：未知错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app获取所有绑定网关的位置信息"
+        ],
+        "operationId": "NULL1",
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/respos"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/unwound": {
+      "delete": {
+        "description": "app用户解除与当前登录网关的绑定关系   响应错误包括 10001：系统错误 10002：未知错误",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app账户解除与当前网关的绑定关系"
+        ],
+        "operationId": "requnwoundaccount",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "description": "网关id",
+            "name": "GatewayID",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/valigateway": {
+      "post": {
+        "description": "app用户解除与当前登录网关的绑定关系  响应错误包括 10001：系统错误 10002：未知错误 30018:网关已经被绑定 10000:放回成功表示没有被绑定",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app验证该网关是否被绑定"
+        ],
+        "operationId": "valibandgw",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "x-go-name": "MAC",
+            "description": "用户与网关绑定需要的参数\n扫描到的网关的唯一标识",
+            "name": "mac",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "uniqueItems": true,
+            "name": "ApplicationId",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30018": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    },
+    "/user/valigwAccount": {
+      "post": {
+        "description": "app验证用户准备授权的账户是否已经被授权 响应错误包括 10001：系统错误 10002：未知错误 30019:准备授权的账号已经与该网关有绑定关系了 10000:返回成功表示没有被绑定",
+        "consumes": [
+          "application/json;charset=UTF-8"
+        ],
+        "schemes": [
+          "http,https"
+        ],
+        "tags": [
+          "A-网关app验证用户准备授权的账户是否已经被授权"
+        ],
+        "operationId": "reqvaliauth",
+        "parameters": [
+          {
+            "uniqueItems": true,
+            "description": "网关的id",
+            "name": "GatewayID",
+            "in": "body",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "uniqueItems": true,
+            "description": "账户名称",
+            "name": "UName",
+            "in": "body",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "10000": {
+            "$ref": "#/responses/reserror"
+          },
+          "10001": {
+            "$ref": "#/responses/reserror"
+          },
+          "10002": {
+            "$ref": "#/responses/reserror"
+          },
+          "30019": {
+            "$ref": "#/responses/reserror"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ResAccount": {
+      "type": "object",
+      "properties": {
+        "UserID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UserName": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResAccounts": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Ra": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResAccount"
+          }
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResAppEui": {
+      "type": "object",
+      "properties": {
+        "AppEui": {
+          "description": "获取网关与用户认证的唯一标识",
+          "type": "string"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResBandGw": {
+      "type": "object",
+      "properties": {
+        "AppEUI": {
+          "type": "string"
+        },
+        "GatewayID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/po"
+    },
+    "ResGwCableAddress": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IP": {
+          "description": "有线的ipv4信息",
+          "type": "string"
+        },
+        "Mask": {
+          "description": "子网掩码",
+          "type": "string"
+        },
+        "Router": {
+          "description": "路由",
+          "type": "string"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwCableDNS": {
+      "type": "object",
+      "properties": {
+        "DNS": {
+          "description": "有线网的dns",
+          "type": "string"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwFile": {
+      "type": "object",
+      "properties": {
+        "Camera": {
+          "description": "摄像头的状态 0：摄像头已经连接 1：未连接摄像头",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PhotoNum": {
+          "description": "照片的数量",
+          "type": "integer",
+          "format": "int32"
+        },
+        "VideoNum": {
+          "description": "视频数量",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwLora": {
+      "type": "object",
+      "properties": {
+        "Band": {
+          "description": "频段",
+          "type": "string"
+        },
+        "DataRate0": {
+          "description": "1276 速率0",
+          "type": "number",
+          "format": "float"
+        },
+        "DataRate1": {
+          "description": "1276 速率1",
+          "type": "number",
+          "format": "float"
+        },
+        "DateRate1301": {
+          "description": "1301 速率范围",
+          "type": "string"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Freq0": {
+          "description": "频率0",
+          "type": "number",
+          "format": "float"
+        },
+        "Freq1": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq2": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq3": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq4": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq5": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq6": {
+          "type": "number",
+          "format": "float"
+        },
+        "Freq7": {
+          "type": "number",
+          "format": "float"
+        },
+        "LoraType": {
+          "description": "lora的类型，有两种：1301 或者1276 如果是1301那有8个freq 以及一个datarate1301  如果是1276则只用两个freq和两个datarate",
+          "type": "string"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwMessage": {
+      "type": "object",
+      "properties": {
+        "CPU": {
+          "description": "网关的cpu核数",
+          "type": "integer",
+          "format": "int32"
+        },
+        "Disk": {
+          "description": "网关的磁盘总量",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Memory": {
+          "description": "网关的内存总量",
+          "type": "integer",
+          "format": "int32"
+        },
+        "Name": {
+          "description": "网关的名称",
+          "type": "string"
+        },
+        "Subtypes": {
+          "description": "网关的子类型",
+          "type": "string"
+        },
+        "Type": {
+          "description": "网关的类型",
+          "type": "string"
+        },
+        "Version": {
+          "description": "网关的当前版本",
+          "type": "string"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwNetState": {
+      "type": "object",
+      "properties": {
+        "ConnectDevice": {
+          "description": "网关下连接终端的数量",
+          "type": "integer",
+          "format": "int32"
+        },
+        "DeviceNum": {
+          "description": "网关下的终端总数",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "EthBW": {
+          "description": "有线网使用状态下的带宽",
+          "type": "integer",
+          "format": "int32"
+        },
+        "EthState": {
+          "description": "有线网的状态 0：使用 1：未使用",
+          "type": "integer",
+          "format": "int32"
+        },
+        "GCarriers": {
+          "description": "4g的运营商",
+          "type": "string"
+        },
+        "GRSSI": {
+          "description": "4g的信号强度",
+          "type": "integer",
+          "format": "int32"
+        },
+        "GState": {
+          "description": "4g的状态   0：使用 1：未使用",
+          "type": "integer",
+          "format": "int32"
+        },
+        "GatewayID": {
+          "description": "网关id",
+          "type": "string"
+        },
+        "NbCarriers": {
+          "description": "nbiot的运营商",
+          "type": "string"
+        },
+        "NbRSSI": {
+          "description": "nbiot的信号强度",
+          "type": "integer",
+          "format": "int32"
+        },
+        "NbState": {
+          "description": "nbiot的状态 0：使用 1：未使用但是网线属于插入状态 2:未插入网线",
+          "type": "integer",
+          "format": "int32"
+        },
+        "UnconnectDevice": {
+          "description": "网关下未连接终端的数量",
+          "type": "integer",
+          "format": "int32"
+        },
+        "WifiRSSI": {
+          "description": "wifi属于使用状态下的信号强度",
+          "type": "integer",
+          "format": "int32"
+        },
+        "WifiState": {
+          "description": "wifi状态 0表示:使用 1表示：未使用",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwPhoto": {
+      "type": "object",
+      "properties": {
+        "PhotoName": {
+          "description": "照片名称",
+          "type": "string"
+        },
+        "PhotoSize": {
+          "description": "照片大小",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwPhotos": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "RGP": {
+          "description": "照片信息的数组（照片名称和大小）",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResGwPhoto"
+          }
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwState": {
+      "type": "object",
+      "properties": {
+        "Band": {
+          "description": "网关当前使用的频段",
+          "type": "string"
+        },
+        "CpuUse": {
+          "description": "当前cpu的使用率",
+          "type": "integer",
+          "format": "int32"
+        },
+        "DiskUse": {
+          "description": "当前磁盘的占用情况",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "MemoryUse": {
+          "description": "当前内存的占用情况",
+          "type": "integer",
+          "format": "int32"
+        },
+        "NfcState": {
+          "description": "网关nfc的状态 0：开启 1：关闭",
+          "type": "integer",
+          "format": "int32"
+        },
+        "PowerModel": {
+          "description": "节电模式状态 0：开启 1：关闭",
+          "type": "integer",
+          "format": "int32"
+        },
+        "SSH": {
+          "description": "网关ssh的状态 0：开启 1：关闭",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ServerIOT": {
+          "description": "网关当前连接的云平台 默认连接的云平台元安云，网关连接其他云平台无法从云端获取网关信息",
+          "type": "integer",
+          "format": "int32"
+        },
+        "ServerState": {
+          "description": "云端与网关的连接状态",
+          "type": "integer",
+          "format": "int32"
+        },
+        "Temperature": {
+          "description": "当前网关设备的温度",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwVideo": {
+      "type": "object",
+      "properties": {
+        "VideoNmae": {
+          "description": "视频文件的名称",
+          "type": "string"
+        },
+        "VideoSize": {
+          "description": "视频文件的大小",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwVideos": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "RGV": {
+          "description": "有关于视频信息的数组（名称和大小）",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResGwVideo"
+          }
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwWarm": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "GwWarmType": {
+          "description": "网关告警类型 0：无告警信息 1：系统不稳定告警",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwWifiAddress": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IP": {
+          "description": "wifi下的ipv4地址",
+          "type": "string"
+        },
+        "Mask": {
+          "description": "子网掩码",
+          "type": "string"
+        },
+        "Router": {
+          "description": "路由",
+          "type": "string"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwWifiDNS": {
+      "type": "object",
+      "properties": {
+        "DNS": {
+          "description": "wifi下的dns信息",
+          "type": "string"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwWifiScan": {
+      "type": "object",
+      "properties": {
+        "MAC": {
+          "description": "wifi的mac地址",
+          "type": "string"
+        },
+        "Vendor": {
+          "description": "厂商",
+          "type": "string"
+        },
+        "WifiKey": {
+          "description": "wifi加密方式",
+          "type": "integer",
+          "format": "int32"
+        },
+        "WifiName": {
+          "description": "wifi名称",
+          "type": "string"
+        },
+        "WifiRSSI": {
+          "description": "wifi信号强度",
+          "type": "integer",
+          "format": "int32"
+        },
+        "WifiTime": {
+          "description": "wifi报文截取时间戳",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResGwWifiScans": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "RGWS": {
+          "description": "wifi 的扫描信息",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResGwWifiScan"
+          }
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResMusicSet": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "InterValTime": {
+          "description": "播放音乐的间隔",
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumTime": {
+          "description": "一次间隔音乐播放的次数",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResPhotoSet": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "InterValTime": {
+          "description": "拍摄照片的间隔",
+          "type": "integer",
+          "format": "int32"
+        },
+        "NumTime": {
+          "description": "一次间隔拍摄照片的次数",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResPowerModel": {
+      "type": "object",
+      "properties": {
+        "EndTime": {
+          "description": "节电结束时间",
+          "type": "integer",
+          "format": "int64"
+        },
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "StartTime": {
+          "description": "节电开始时间",
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResUserGateway": {
+      "type": "object",
+      "properties": {
+        "Altitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "GatewayID": {
+          "type": "string"
+        },
+        "GatewayName": {
+          "type": "string"
+        },
+        "GatewayType": {
+          "type": "string"
+        },
+        "Latitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "Longitude": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResUserGateways": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "RUGS": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResUserGateway"
+          }
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    },
+    "ResVideoSet": {
+      "type": "object",
+      "properties": {
+        "ErrCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "IntervalTime": {
+          "description": "拍摄视频的间隔",
+          "type": "integer",
+          "format": "int32"
+        },
+        "LongTime": {
+          "description": "一次间隔拍摄视频的时长",
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "x-go-package": "cotx-http/pb"
+    }
+  },
+  "responses": {
+    "resAccounts": {
+      "schema": {
+        "$ref": "#/definitions/ResAccounts"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resCableAddress": {
+      "schema": {
+        "$ref": "#/definitions/ResGwCableAddress"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resCableDNS": {
+      "schema": {
+        "$ref": "#/definitions/ResGwCableDNS"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwAppEui": {
+      "schema": {
+        "$ref": "#/definitions/ResAppEui"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwFile": {
+      "schema": {
+        "$ref": "#/definitions/ResGwFile"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwLora": {
+      "schema": {
+        "$ref": "#/definitions/ResGwLora"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwMessage": {
+      "schema": {
+        "$ref": "#/definitions/ResGwMessage"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwMusicSet": {
+      "schema": {
+        "$ref": "#/definitions/ResMusicSet"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwNetState": {
+      "schema": {
+        "$ref": "#/definitions/ResGwNetState"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwPhotoSet": {
+      "schema": {
+        "$ref": "#/definitions/ResPhotoSet"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwPhotos": {
+      "schema": {
+        "$ref": "#/definitions/ResGwPhotos"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwPowerModel": {
+      "schema": {
+        "$ref": "#/definitions/ResPowerModel"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwState": {
+      "schema": {
+        "$ref": "#/definitions/ResGwState"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwVideoSet": {
+      "schema": {
+        "$ref": "#/definitions/ResVideoSet"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwVideos": {
+      "schema": {
+        "$ref": "#/definitions/ResGwVideos"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resGwWarm": {
+      "schema": {
+        "$ref": "#/definitions/ResGwWarm"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resWifiAddress": {
+      "schema": {
+        "$ref": "#/definitions/ResGwWifiAddress"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resWifiDNS": {
+      "schema": {
+        "$ref": "#/definitions/ResGwWifiDNS"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resWifiScan": {
+      "schema": {
+        "$ref": "#/definitions/ResGwWifiScans"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "resbandgw": {
+      "schema": {
+        "$ref": "#/definitions/ResBandGw"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    },
+    "reserror": {
+      "schema": {
+        "type": "object"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空"
+        }
+      }
+    },
+    "respos": {
+      "schema": {
+        "$ref": "#/definitions/ResUserGateways"
+      },
+      "headers": {
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回的响应码"
+        },
+        "msg": {
+          "type": "string",
+          "description": "响应码代表信息"
+        },
+        "result": {
+          "description": "响应返回的参数，如果响应码不等于10000的话表示响应错误信息，响应返回参数为空,响应码等于10000，有返回参数的话会显示在result中"
+        }
+      }
+    }
+  }
+}

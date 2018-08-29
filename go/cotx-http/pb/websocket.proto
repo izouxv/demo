@@ -1,0 +1,26 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+
+message ReqShadow {
+    int32 UserId = 1;
+}
+
+message PushMessage {
+    int32   Code      = 1;
+    int32   Value     = 2;
+    int32   State     = 3;
+    string  Describe  = 4;
+    string  GayewayId = 5;
+}
+
+message ResShadow {
+   repeated PushMessage Message = 1;
+}
+
+service Websocket {
+    rpc GetPushMessage(ReqShadow) returns (ResShadow) {}
+}

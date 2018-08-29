@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package pb;
+
+
+message UsbWifiHotSpotUser{
+    string Device = 1;
+    string MAC    = 2;
+}
+message  ResUsbWifiHotSpotUser {
+    repeated UsbWifiHotSpotUser HotSpotUser = 1;
+    int32 ErrCode                  = 2;
+}
+message UsbWifiWlan {
+    string WifiName  = 1;
+    int32  WifiRssi  = 2;
+    int32  Key       = 3;
+}
+message ResUsbWifiWlan {
+    repeated UsbWifiWlan  UsbWifiWlan = 1;
+    int32 ErrCode = 2;
+}
+message ReqGatewayUsb {
+    string GatewayId = 1;
+    int32  UserId    = 2;
+    int32  UsbId     = 3;
+
+}
+message ResWifiHotSpotUser {
+    repeated UsbWifiHotSpotUser HotSpotUser = 1;
+    int32 ErrCode      = 2;
+}
+message  UsbWifiScan {
+    int32    DevideId   =    1;
+    string   SSId       =    2;
+    string   MAC        =    3;
+    int32    RSSI       =    4;
+    string   Vendor     =    5;
+    int64    Time       =    6;
+}
+message ResUsbWifiScan {
+   repeated UsbWifiScan UsbWifiScan = 1;
+    int32 ErrCode = 2;
+}
+service Gateway_usb {
+    rpc GetUsbWifiWlan   (ReqGatewayUsb)  returns  (ResUsbWifiWlan) {}
+    rpc GetUsbHotSpotUser(ReqGatewayUsb)  returns  (ResUsbWifiHotSpotUser){}
+    rpc GetWifiHotSpotUser(ReqGatewayUsb) returns  (ResWifiHotSpotUser){}
+    rpc GetUsbWifiScan(ReqGatewayUsb)     returns  (ResUsbWifiScan){}
+}

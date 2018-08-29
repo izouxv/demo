@@ -1,0 +1,38 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+syntax = "proto3";
+
+package pb;
+
+//xfei AIUI 服务
+service AiuiServer {
+    rpc GetTextSemantics (GetTextSemanticsRequest) returns (GetTextSemanticsResponse) {}
+    rpc GetAudioSemantics (GetAudioSemanticsRequest) returns (GetAudioSemanticsResponse) {}
+}
+
+enum SemanticsType{
+    All    = 0;
+    Text   = 1;     // 文本内容
+    Audio  = 2;     // 录音内容
+}
+enum LanguageType {
+    All_language = 0;
+    Chiness = 1;        //中文
+    English = 2;        //英文
+}
+
+message GetTextSemanticsRequest {
+    SemanticsType types = 1;
+    LanguageType language = 2;
+    string input = 3;
+}
+message GetTextSemanticsResponse {
+    string Semantics = 1;
+}
+
+message GetAudioSemanticsRequest {
+
+}
+message GetAudioSemanticsResponse {
+
+}
+

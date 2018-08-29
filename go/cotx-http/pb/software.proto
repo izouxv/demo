@@ -1,0 +1,78 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package pb;
+
+
+service SoftwareService {
+    /*基于网关id,软件类型获取软件 分页获取*/
+    rpc GetSoftwareByVersionType(GetSoftwareByVersionTypeRequest) returns (GetSoftwareByVersionTypeResponse){
+        //versionType: 1.解决方案 2.软件应用 3.产品
+    }
+
+    /*基于网关id,软件类型，软件版本下发设置*/
+    rpc InstallSoftware(InstallSoftwareRequest) returns (InstallSoftwareResponse) {
+        //versionCode
+        //versionType
+        //gatewayid
+    }
+
+    /*基于软件id获取软件详细信息*/
+    rpc GetSoftwareById(GetSoftwareByIdRequest) returns (GetSoftwareByIdResponse) {
+
+    }
+}
+
+message   Software {
+    int64 id                = 1;
+    string device_type      = 2;//版本适用的设备类型
+    string version_code     = 3;//版本号
+    string version_name     = 4;//版本名称
+    string chinese_describe = 5;//版本中文描述
+    int64  version_time     = 6;//版本上传时间
+    int32  device_use       = 7;//当前设备正在用的版本
+    string photo_url        = 8;//头像连接
+}
+message  GetSoftwareByVersionTypeRequest {
+    int32 software_type = 1;//1.终端解决方案 2.软件应用 3.产品
+    string  gatewayId   = 2;
+    int32  userId       = 3;
+    int32  page         = 4;
+    int32  count        = 5;
+    string order_by     = 6;
+}
+
+message GetSoftwareByVersionTypeResponse {
+    repeated Software   softwares   = 1;
+    int32 total = 3;
+     int32 errCode = 2;
+}
+
+
+message InstallSoftwareRequest {
+     int32  software_type = 1;
+     string gatewayId   = 2;
+     int32  userId      = 3;
+     int64  id          = 6;
+}
+
+message InstallSoftwareResponse {
+    int32   errCode = 1;
+    Software  Software = 2;
+}
+
+message GetSoftwareByIdRequest {
+    int32  version_type = 1;
+    string gatewayId   = 2;
+    int32  userId      = 3;
+    string version_code = 4;
+    string version_name = 5;
+    int64  id           = 6;
+}
+
+message GetSoftwareByIdResponse {
+    int32 errCode = 1;
+    Software Software = 2;
+}

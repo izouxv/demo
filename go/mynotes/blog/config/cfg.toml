@@ -1,0 +1,37 @@
+# 配置文件
+title = "blog config file"
+[blog_http]
+    name    = "blog"
+    addr	= ":20180"
+    use		= "提供http对外访问"
+    short	= "wangdy's blog"
+    version	= "0.0.1"
+    time	= 2018-08-31T08:00:00Z
+[log_path]
+#    debug   = "../logger/log/debug.log"
+#    info    = "../logger/log/info.log"
+#    warn    = "../logger/log/warn.log"
+#    error   = "../logger/log/error.log"
+    debug   = ""
+    info    = ""
+    warn    = ""
+    error   = ""
+[databases]
+    [databases.mongo]
+        addr = "192.168.1.6:27017"
+        name = "blog"
+        connection_max = 50
+        enabled = true
+    [databases.redis]
+        addr = "192.168.1.6:6379"
+        name = "blog"
+        connection_max = 50
+        enabled = true
+[rpc_servers]
+    [rpc_servers.account]
+        addr = "127.0.0.1:20181"
+    [rpc_servers.blog]
+        addr = "127.0.0.1:20182"
+[clients]
+    data = [ ["gamma", "delta"], [1, 2] ]
+    hosts = ["alpha","omega"]

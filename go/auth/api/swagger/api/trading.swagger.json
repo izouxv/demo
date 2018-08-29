@@ -1,0 +1,83 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/trading.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiGetTenantAccountResponse": {
+      "type": "object",
+      "properties": {
+        "Balance": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "apiGetTradingRecordsResponse": {
+      "type": "object",
+      "properties": {
+        "TradingRecords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiTradingRecord"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiTradingRecord": {
+      "type": "object",
+      "properties": {
+        "TradingId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Tid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "TradingContent": {
+          "type": "string"
+        },
+        "TradingUnitPrice": {
+          "type": "number",
+          "format": "float"
+        },
+        "TradingCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TradingState": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TradingTotalPrice": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "apiUpdateTenantAccountResponse": {
+      "type": "object"
+    }
+  }
+}

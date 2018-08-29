@@ -1,0 +1,96 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+import "pb/exercisedata.proto";
+
+service Petfone {
+    rpc UpdatePetfoneByUid(PetfoneRequest) returns (PetfoneReply) {} //修改业务信息
+    rpc GetPetfoneByUid(PetfoneRequest) returns (PetfoneReply) {} //查询业务信息
+    rpc SetPetfoneByUid(PetfoneRequest) returns (PetfoneReply) {} //插入业务信息
+    rpc GetPetChatByPid(PetChatRequest) returns (PetChatReply) {} //查询宠聊信息
+    rpc GetPetChatKey(PetChatRequest) returns (PetChatKeysReply) {} //查询宠聊信息
+    rpc SetActionLog(stream AgentInfo) returns (stream AgentInfo) {} //记录接口日志
+    rpc CheckPetfoneIp(CheckPetfoneIpRequest) returns (CheckPetfoneIpResponse) {} //限制IP访问次数
+}
+
+//用户扩展功能信息
+message PetfoneRequest {
+    string source = 1;
+    int32 uid = 2;
+    int32 radius = 3;
+    Map map = 4;
+
+}
+message PetfoneReply {
+    int32 code = 1;
+    string source = 2;
+    int32 uid = 3;
+    int32 radius = 4;
+    Map map = 5;
+}
+
+//接口请求信息
+message AgentInfo {
+    int32   uid = 1;
+    string  token = 2;
+    string  path = 3;
+    string  method = 4;
+    string  ip = 5;
+    string  devInfo = 6;
+    string  duration = 7;
+    int64   createTime = 8;
+    string  code    = 9;
+}
+
+//宠聊请求
+message PetChatRequest {
+    string source = 1;
+    int32 uid = 2;
+    int32 pid = 3;
+    string input = 4;
+    Language language = 5;
+}
+
+enum Language {
+    Def = 0;
+    Cn = 1;
+    En = 2;
+}
+enum Map {
+    AllMap = 0;
+    Google = 1;
+    Amap = 2;
+}
+
+//宠聊回复
+message PetChatReply {
+    int32 code = 1;
+    repeated ChatMsg chatMsgs = 2;
+}
+message ChatMsg {
+    int32 types = 1;
+    string output1 = 2;
+    repeated Pcoordinate output2 = 3;//经纬度坐标点数组
+}
+
+//宠聊问题
+message PetChatKeysReply {
+    int32 code = 1;
+    repeated PetChatKey chatKeys = 2;
+}
+message PetChatKey {
+    string infoCn   = 1;
+    string infoEn   = 2;
+    int32   id      = 3;
+}
+
+message CheckPetfoneIpRequest {
+    string source = 1;
+    string  ip = 2;
+}
+message CheckPetfoneIpResponse {
+    int32 code = 1;
+}

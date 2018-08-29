@@ -1,0 +1,78 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+service PolicyServer {
+    rpc AddPolicy(AddPolicyRequest) returns (AddPolicyResponse) {}
+    rpc DeletePolicyByPid(DeletePolicyByPidRequest) returns (DeletePolicyByPidResponse) {}
+    rpc DeletePolicyBySid(DeletePolicyBySidRequest) returns (DeletePolicyBySidResponse) {}
+    rpc UpdatePolicy(UpdatePolicyRequest) returns (UpdatePolicyResponse){}
+    rpc GetPolicyByPid(GetPolicyByPidRequest) returns (GetPolicyByPidResponse) {}
+    rpc GetPolicyBySid(GetPolicyBySidRequest) returns (GetPolicyBySidResponse) {}
+
+}
+
+message Policy {
+    int32 Pid = 1;
+    string PolicyName = 2;
+    int32 PolicyType = 3;
+    int32 PolicyCycle = 4;
+    int32 PolicyFeeType = 5;
+    float PolicyUnitPrice = 6;
+    int32 PolicyUnitType = 7;
+    int32 PolicyUnitCount = 8;
+    int32 PolicySid = 9;
+    int64 CreateTime = 10;
+    int64 UpdateTime = 11;
+}
+
+message AddPolicyRequest {
+    Policy policy = 1;
+}
+
+message AddPolicyResponse {
+
+}
+
+message DeletePolicyByPidRequest {
+    int32 Pid = 1;
+}
+
+message DeletePolicyByPidResponse {
+
+}
+
+message DeletePolicyBySidRequest {
+    int32 PolicySid = 1;
+}
+
+message DeletePolicyBySidResponse {
+
+}
+
+message UpdatePolicyRequest {
+    Policy policy = 1;
+}
+
+message UpdatePolicyResponse {
+
+}
+
+message GetPolicyByPidRequest {
+    int32 Pid = 1;
+}
+
+message GetPolicyByPidResponse {
+    Policy policy = 1;
+}
+
+message GetPolicyBySidRequest {
+    int32 Sid = 1;
+}
+
+message GetPolicyBySidResponse {
+    repeated Policy policy = 1;
+    int32 totalCount = 2;
+}

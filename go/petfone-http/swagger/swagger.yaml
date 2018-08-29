@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  title: TEST API DOCS
+  description: 鹏联优思技术有限责任公司 - 宠物项圈项目内部API接口测试工具
+  version: '1.0'
+  termsOfService: 'http://penslink.com/#/aboutus'
+  contact:
+    email: wangdy@radacat.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+schemes:
+  - http
+host: '192.168.1.178:7006'
+basePath: /petfone
+paths:
+  /v1.0/sessions:
+    post:
+      tags:
+        - account
+      description: 用户登录项圈接口
+      operationId: UserController.sessions
+      parameters:
+        - in: header
+          name: header
+          description: 来源
+          required: true
+          schema:
+            $ref: '#/definitions/models.Sources'
+      parameters:
+        - in: body
+          name: body
+          description: 用户登录参数
+          required: true
+          schema:
+            $ref: '#/definitions/models.Sessions'
+      responses:
+        '200':
+          description: 请求成功
+          schema:
+            $ref: '#/definitions/models.Response'
+  /v1.0/accounts:
+    post:
+      tags:
+        - account
+      description: 用户登录项圈系统
+      operationId: UserController.Login
+      parameters:
+        - name: person
+          in: body
+          description: The person to create.
+          schema:
+            required:
+              - username
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              username:
+                type: string
+      responses:
+        204:
+          description: Persons succesfully created.
+        400:
+          description: Persons couldn't have been created.
+definitions:
+  models.Response:
+    title: Response
+    type: object
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+      result:
+        type: string
+  models.Sources:
+    title: Source
+    type: object
+    properties:
+      source:
+        type: string
+  models.Tokens:
+    title: Token
+    type: object
+    properties:
+      token:
+        type: string
+  models.Sessions:
+    title: Sessions
+    type: object
+    properties:
+      Username:
+        type: string
+      Password:
+        type: string
+tags:
+  - name: object
+    description: |
+      Operations about object
+  - name: user
+    description: |
+      Operations about Users

@@ -16,8 +16,8 @@ import (
 	"golang.org/x/text/currency"
 	"sync/atomic"
 	"sync"
-	"runtime"
-	"path"
+	"mynotes/httpReq/method"
+	"io"
 )
 
 func main() {
@@ -34,15 +34,52 @@ func main() {
 	//test08()
 	//test09()
 	//test10()
-	test11()
+	//test11()
 	//test12()
 	//test13()
 	//test14()
+	locationToDecimal()
 }
 
-func test14()  {
-	_, filePath, _, _ := runtime.Caller(1)
-	fmt.Println("aa",path.Dir(filePath))
+func locationToDecimal()  {
+	file,err := os.Open("g.log")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+	buf := bufio.NewReader(file)
+	var points []*method.Point
+	time1 := time.Now().Add(-time.Minute*15).Unix()
+	for {
+		line, err := buf.ReadString('\n')
+		line = strings.TrimSpace(line)
+		if err != nil {
+			if err == io.EOF {
+				fmt.Println("File read ok!")
+				break
+			} else {
+				fmt.Println("Read file error!", err)
+				return
+			}
+		}
+		lines := strings.Split(line," ")
+		lng,lat := method.ToLocation(lines[1],lines[0])
+		points = append(points,&method.Point{Longitude:lng,Latitude:lat,LocTime:time1,EntityName:method.EntityName,CoordTypeInput:method.CoordTypeInput})
+		time1 += 1
+		if len(points) == 100 {
+			method.ToParams(points)
+			points = nil
+			time.Sleep(time.Minute)
+		}
+	}
+	method.ToParams(points)
+}
+
+func test14() {
+	fmt.Println(time.Now().Unix())
+	//_, filePath, _, _ := runtime.Caller(1)
+	//fmt.Println("aa",path.Dir(filePath))
 }
 
 func test13()  {
@@ -116,7 +153,7 @@ func test11()  {
 
 func test10() {
 	//fmt.Println(net.InterfaceAddrs())
-	fmt.Println("program init...")
+	fmt.Println("program initContext...")
 	ifaces, _ := net.Interfaces()
 	for _, i := range ifaces {
 		addrs, _ := i.Addrs()

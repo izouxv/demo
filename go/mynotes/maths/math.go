@@ -28,6 +28,9 @@ func main() {
 	execCmd02()
 }
 
+func testRtp()  {
+}
+
 func execCmd02() {
 	cmd := exec.Command("cmd")
 	in := bytes.NewBuffer(nil)
@@ -71,12 +74,12 @@ func execCmd01()  {
 	//	fmt.Println("err3:",err)
 	//	return
 	//}
-	//content, err := ioutil.ReadAll(stdout)
+	//context, err := ioutil.ReadAll(stdout)
 	//if err != nil {
 	//	fmt.Println("err2:",err)
 	//	return
 	//}
-	//fmt.Println(string(content))     //输出ls命令查看到的内容
+	//fmt.Println(string(context))     //输出ls命令查看到的内容
 	//cmd.Wait()
 }
 

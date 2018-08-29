@@ -15,13 +15,13 @@ public class TwinsAgentServerGrpc {
 	private TwinsAgentServerGrpc() {
 	}
 
-	public static final String SERVICE_NAME = "agent.TwinsAgentServer";
+	public static final String SERVICE_NAME = "api.TwinsAgentServer";
 
 	// Static method descriptors that strictly reflect the proto.
 	@io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
 	public static final io.grpc.MethodDescriptor<com.lanlian.rpc.twins.AddTwinsAgentRequest, com.lanlian.rpc.twins.AddTwinsAgentResponse> METHOD_ADD_TWINS_AGENT = io.grpc.MethodDescriptor
 			.create(io.grpc.MethodDescriptor.MethodType.UNARY,
-					generateFullMethodName("agent.TwinsAgentServer", "AddTwinsAgent"),
+					generateFullMethodName("api.TwinsAgentServer", "AddTwinsAgent"),
 					io.grpc.protobuf.ProtoUtils
 							.marshaller(com.lanlian.rpc.twins.AddTwinsAgentRequest.getDefaultInstance()),
 					io.grpc.protobuf.ProtoUtils

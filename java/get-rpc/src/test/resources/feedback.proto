@@ -11,11 +11,10 @@ package feedback;
 
 // The Id service definition.
 service FeedBack {
-    rpc AddFeedback(AddFeedbackRequest) returns (AddFeedbackReply) {}            //添加反馈
-    rpc GetFeedbacks(GetFeedbacksRequest) returns (GetFeedbacksReply) {}         //获得反馈列表
-    rpc GetFeedback (GetFeedbackRequest) returns (GetFeedbackReply) {}           //获得反馈信息
+    rpc AddFeedback(AddFeedbackRequest) returns (AddFeedbackReply) {}                                //添加反馈
 }
-message Feedback {
+
+message Feedback{
     int32    id = 1;
     string   description = 2;
     string   deviceInfo = 3;
@@ -23,11 +22,14 @@ message Feedback {
     string   userInfo = 5;
     string   mobileInfo  = 6;
     string   extendInfo  = 7;
-    repeated string  files  = 8;
+    string   files  = 8;
     string   contact = 9;
     int64    createTime = 10;
     int64    updateTime = 11;
+    int32    type = 12;
+    int64    tid = 13;
 }
+
 message AddFeedbackRequest {
     string   source = 1;
     string   description = 2;
@@ -41,26 +43,8 @@ message AddFeedbackRequest {
     int64    createTime = 10;
     int64    updateTime = 11;
 }
+
 message AddFeedbackReply {
     int32   errorCode = 1;
-    int32	id = 2;
-}
-
-message GetFeedbacksRequest {
-    int32    page  = 1;
-    int32    count = 2;
-}
-
-message GetFeedbacksReply {
-    repeated Feedback feedBack =1;
-    int32 errorCode = 2;
-    int32 totalCount = 3;
-}
-message GetFeedbackRequest {
-    int32    id  = 1;
-}
-
-message GetFeedbackReply {
-    Feedback feedBack = 1;
-    int32 errorCode = 2;
+    int32    id = 2;
 }

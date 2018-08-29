@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.GroupMessagesDao">
+	<!-- 消息上传的信息插入 -->
+	<insert id="messagesUpload" parameterType="com.lanlian.chatting.po.GroupMessageBackupPO">
+		insert into messages_backup 
+			(mb_uid,
+			mb_group_id,
+			message_info_id,
+			message_file_id,
+			message_file_name,
+			mb_longitude, mb_latitude,
+			mb_address, mb_create_time,
+			mb_backup_time,mb_modify_time)
+		values 
+			(#{uid}, #{gid}, #{messageId}, #{fileId}, #{fileName}, #{longitude}, 
+			#{latitude}, #{address}, #{createTime}, #{backupTime}, #{modifyTime})
+
+	</insert>
+	<!-- 消息存储返回id -->
+	<insert id="messageList" parameterType="com.lanlian.chatting.vo.GroupMessageInfo">
+		insert into messages_backup_info
+		(message_list)
+		values
+		(#{messageInfo})
+		<selectKey resultType="java.lang.Integer" keyProperty="messageInfoId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 消息的列表查询 -->
+	<select id="theMessageList" parameterType="java.lang.Long" 
+		resultType="com.lanlian.chatting.po.GroupMessageBackupPO">
+		select 
+			mb_uid as uid, 
+			mb_group_id as gid,
+			message_info_id as messageId,
+			mb_longitude as longitude,
+			mb_latitude as latitude,
+			mb_address as address,
+			mb_create_time as createTime,
+			mb_backup_time as backupTime,
+			mb_status as status
+		from
+			messages_backup
+		where
+			mb_uid=#{uid}
+	</select>
+
+	<!-- 消息的下载 -->
+	<select id="messageUpdown" parameterType="com.lanlian.chatting.po.GroupMessageBackupPO"
+		resultType="com.lanlian.chatting.vo.GroupMessageInfo">
+		SELECT mbi_id as messageInfoId, message_list as messageInfo
+		FROM
+			messages_backup_info info, messages_backup up
+		WHERE
+			info.mbi_id = #{messageId}
+		AND up.message_info_id = #{messageId}
+		AND up.mb_uid = #{uid}
+	</select>
+
+</mapper>

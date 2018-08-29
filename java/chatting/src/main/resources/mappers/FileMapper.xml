@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 映射文件 -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.FileDao">
+
+	<!-- 插入文件 -->
+	<insert id="setAdvertisement" parameterType="com.lanlian.chatting.po.AdvertisementPo">
+		INSERT INTO advertisement
+			(name, source, md5, image_url, advertise_url, start_time, end_time, create_time, update_time, data_state)
+		VALUES 
+			(#{name}, #{source}, #{md5}, #{fileUrl}, #{advertiseUrl}, #{startTime}, #{endTime}, #{creationTime}, #{updateTime}, #{dataState})
+	</insert>
+	
+	
+	<!-- 查询广告信息 -->
+	<select id="getAdvertisement" parameterType="com.lanlian.chatting.po.AdvertisementPo"
+		resultType="com.lanlian.chatting.po.AdvertisementPo">
+		select 
+			id as id,
+			name as name,
+			md5 as md5,
+			image_url as fileUrl,
+			advertise_url as advertiseUrl,
+			start_time as startTime,
+			end_time as endTime
+		from
+			advertisement 
+		where 
+			source = #{source} and data_state = 1
+		order by id desc limit 1
+	</select>
+	
+	<!-- 修改状态 -->
+	<update id="updateAdvertisement" parameterType="com.lanlian.chatting.po.AdvertisementPo">
+		update advertisement
+		set data_state=#{dataState}
+		where name=#{name} and source=#{source} and data_state=1
+	</update>
+
+</mapper>

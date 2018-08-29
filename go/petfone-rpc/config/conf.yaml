@@ -1,0 +1,72 @@
+petfone-http:
+  host        : 0.0.0.0
+  port        : 7006
+
+petfone-rpc:
+  host        : 0.0.0.0
+  port        : 7005
+
+mysql:
+  dbHost      : mm3306.mysql.radacat.com
+  dbPort      : 3306
+  dbUser      : root
+  dbPwd       : Radacat2017
+  dbName      : petfone
+
+redis:
+  - name      : redis6379
+    password  : radacat1234
+    host      : rm6379.redis.radacat.com
+    port      : 6379
+    maxIdle   : 20
+    maxActive : 50
+  - name      : redis6380
+    password  : radacat1234
+    host      : rm6380.redis.radacat.com
+    port      : 6380
+    maxIdle   : 20
+    maxActive : 50
+
+rpc:
+  address     : rpc.petfone.penslink.com
+  port        : :7005
+
+admin_rpc:
+  address     : rpc.petfone.domain.com # rpc.petfone.domain.com 120.77.66.96
+  port        : :7002
+
+agent_rpc:
+  address     : rpc.analysis.radacat.com # rpc.analysis.radacat.com 120.76.54.242
+  port        : :7011
+
+const:
+  #todo 默认头像id
+  UserAvatar  : cd50dc30b48928cf3b97ed0464d0afee
+  PetAvatar   : a6e1f735956138761da35056897c6e1a
+  #todo 宠物默认训练项
+  Name1       : 狗哨1
+  Name2       : 狗哨2
+  Name3       : 狗哨3
+  Voice1      : 026cac6ff122d73191aed454c39725b5
+  Voice2      : f14ff5915f78e57640c5f4937a579fa1
+  Voice3      : 711953e2bdb36578154d2bb4c41191b4
+  PetDuration : 60
+  #todo 文件服务地址
+  FileServer  : http://file.penslink.com:88/v1.0/file/
+  ImageServer : http://www.penslink.com:7006/petfone/v1.0/images/
+  NoticeServer: http://notification.penslink.com:7023
+  #todo mysql异常字符串
+  NotFound    : record not found
+
+etcd:
+  name        : uid_generator
+  host        : 192.168.0.121
+  port        : 2379
+  enable      : false  #1:enable; 0:disable
+
+metrics:
+  name        : metrics
+  host        : push9091.prometheus.radacat.com
+  port        : 9091
+  interval    : 5
+  enable      : false #1:enable; 0:disable

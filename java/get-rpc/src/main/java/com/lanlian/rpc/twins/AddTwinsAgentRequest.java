@@ -4,465 +4,455 @@
 package com.lanlian.rpc.twins;
 
 /**
- * Protobuf type {@code agent.AddTwinsAgentRequest}
+ * Protobuf type {@code api.AddTwinsAgentRequest}
  */
-public  final class AddTwinsAgentRequest extends
-    com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:agent.AddTwinsAgentRequest)
-    AddTwinsAgentRequestOrBuilder {
-  // Use AddTwinsAgentRequest.newBuilder() to construct.
-  private AddTwinsAgentRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-    super(builder);
-  }
-  private AddTwinsAgentRequest() {
-    reported_ = "";
-  }
+public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMessage implements
+		// @@protoc_insertion_point(message_implements:api.AddTwinsAgentRequest)
+		AddTwinsAgentRequestOrBuilder {
+	// Use AddTwinsAgentRequest.newBuilder() to construct.
+	private AddTwinsAgentRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+		super(builder);
+	}
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-  }
-  private AddTwinsAgentRequest(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
-    this();
-    int mutable_bitField0_ = 0;
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          default: {
-            if (!input.skipField(tag)) {
-              done = true;
-            }
-            break;
-          }
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+	private AddTwinsAgentRequest() {
+		reported_ = "";
+	}
 
-            reported_ = s;
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw new RuntimeException(e.setUnfinishedMessage(this));
-    } catch (java.io.IOException e) {
-      throw new RuntimeException(
-          new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this));
-    } finally {
-      makeExtensionsImmutable();
-    }
-  }
-  public static final com.google.protobuf.Descriptors.Descriptor
-      getDescriptor() {
-    return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
-  }
+	@java.lang.Override
+	public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
+		return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+	}
 
-  protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internalGetFieldAccessorTable() {
-    return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_fieldAccessorTable
-        .ensureFieldAccessorsInitialized(
-            com.lanlian.rpc.twins.AddTwinsAgentRequest.class, com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
-  }
+	private AddTwinsAgentRequest(com.google.protobuf.CodedInputStream input,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
+		this();
+		int mutable_bitField0_ = 0;
+		try {
+			boolean done = false;
+			while (!done) {
+				int tag = input.readTag();
+				switch (tag) {
+				case 0:
+					done = true;
+					break;
+				default: {
+					if (!input.skipField(tag)) {
+						done = true;
+					}
+					break;
+				}
+				case 10: {
+					java.lang.String s = input.readStringRequireUtf8();
 
-  public static final int REPORTED_FIELD_NUMBER = 1;
-  private volatile java.lang.Object reported_;
-  /**
-   * <code>optional string reported = 1;</code>
-   *
-   * <pre>
-   *上报临时设备影子的信息，json中必须包含sn字段
-   * </pre>
-   */
-  public java.lang.String getReported() {
-    java.lang.Object ref = reported_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      reported_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>optional string reported = 1;</code>
-   *
-   * <pre>
-   *上报临时设备影子的信息，json中必须包含sn字段
-   * </pre>
-   */
-  public com.google.protobuf.ByteString
-      getReportedBytes() {
-    java.lang.Object ref = reported_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      reported_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
+					reported_ = s;
+					break;
+				}
+				}
+			}
+		} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+			throw new RuntimeException(e.setUnfinishedMessage(this));
+		} catch (java.io.IOException e) {
+			throw new RuntimeException(
+					new com.google.protobuf.InvalidProtocolBufferException(e.getMessage()).setUnfinishedMessage(this));
+		} finally {
+			makeExtensionsImmutable();
+		}
+	}
 
-  private byte memoizedIsInitialized = -1;
-  public final boolean isInitialized() {
-    byte isInitialized = memoizedIsInitialized;
-    if (isInitialized == 1) return true;
-    if (isInitialized == 0) return false;
+	public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
+	}
 
-    memoizedIsInitialized = 1;
-    return true;
-  }
+	protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_fieldAccessorTable
+				.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentRequest.class,
+						com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
+	}
 
-  public void writeTo(com.google.protobuf.CodedOutputStream output)
-                      throws java.io.IOException {
-    if (!getReportedBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 1, reported_);
-    }
-  }
+	public static final int REPORTED_FIELD_NUMBER = 1;
+	private volatile java.lang.Object reported_;
 
-  public int getSerializedSize() {
-    int size = memoizedSize;
-    if (size != -1) return size;
+	/**
+	 * <code>optional string reported = 1;</code>
+	 *
+	 * <pre>
+	 *上报临时设备影子的信息，json中必须包含sn字段
+	 * </pre>
+	 */
+	public java.lang.String getReported() {
+		java.lang.Object ref = reported_;
+		if (ref instanceof java.lang.String) {
+			return (java.lang.String) ref;
+		} else {
+			com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+			java.lang.String s = bs.toStringUtf8();
+			reported_ = s;
+			return s;
+		}
+	}
 
-    size = 0;
-    if (!getReportedBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, reported_);
-    }
-    memoizedSize = size;
-    return size;
-  }
+	/**
+	 * <code>optional string reported = 1;</code>
+	 *
+	 * <pre>
+	 *上报临时设备影子的信息，json中必须包含sn字段
+	 * </pre>
+	 */
+	public com.google.protobuf.ByteString getReportedBytes() {
+		java.lang.Object ref = reported_;
+		if (ref instanceof java.lang.String) {
+			com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+			reported_ = b;
+			return b;
+		} else {
+			return (com.google.protobuf.ByteString) ref;
+		}
+	}
 
-  private static final long serialVersionUID = 0L;
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      com.google.protobuf.ByteString data)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    return PARSER.parseFrom(data);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      com.google.protobuf.ByteString data,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    return PARSER.parseFrom(data, extensionRegistry);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(byte[] data)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    return PARSER.parseFrom(data);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      byte[] data,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    return PARSER.parseFrom(data, extensionRegistry);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(java.io.InputStream input)
-      throws java.io.IOException {
-    return PARSER.parseFrom(input);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      java.io.InputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws java.io.IOException {
-    return PARSER.parseFrom(input, extensionRegistry);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseDelimitedFrom(java.io.InputStream input)
-      throws java.io.IOException {
-    return PARSER.parseDelimitedFrom(input);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseDelimitedFrom(
-      java.io.InputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws java.io.IOException {
-    return PARSER.parseDelimitedFrom(input, extensionRegistry);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      com.google.protobuf.CodedInputStream input)
-      throws java.io.IOException {
-    return PARSER.parseFrom(input);
-  }
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws java.io.IOException {
-    return PARSER.parseFrom(input, extensionRegistry);
-  }
+	private byte memoizedIsInitialized = -1;
 
-  public Builder newBuilderForType() { return newBuilder(); }
-  public static Builder newBuilder() {
-    return DEFAULT_INSTANCE.toBuilder();
-  }
-  public static Builder newBuilder(com.lanlian.rpc.twins.AddTwinsAgentRequest prototype) {
-    return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-  }
-  public Builder toBuilder() {
-    return this == DEFAULT_INSTANCE
-        ? new Builder() : new Builder().mergeFrom(this);
-  }
+	public final boolean isInitialized() {
+		byte isInitialized = memoizedIsInitialized;
+		if (isInitialized == 1)
+			return true;
+		if (isInitialized == 0)
+			return false;
 
-  @java.lang.Override
-  protected Builder newBuilderForType(
-      com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-    Builder builder = new Builder(parent);
-    return builder;
-  }
-  /**
-   * Protobuf type {@code agent.AddTwinsAgentRequest}
-   */
-  public static final class Builder extends
-      com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:agent.AddTwinsAgentRequest)
-      com.lanlian.rpc.twins.AddTwinsAgentRequestOrBuilder {
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
-    }
+		memoizedIsInitialized = 1;
+		return true;
+	}
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.lanlian.rpc.twins.AddTwinsAgentRequest.class, com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
-    }
+	public void writeTo(com.google.protobuf.CodedOutputStream output) throws java.io.IOException {
+		if (!getReportedBytes().isEmpty()) {
+			com.google.protobuf.GeneratedMessage.writeString(output, 1, reported_);
+		}
+	}
 
-    // Construct using com.lanlian.rpc.twins.AddTwinsAgentRequest.newBuilder()
-    private Builder() {
-      maybeForceBuilderInitialization();
-    }
+	public int getSerializedSize() {
+		int size = memoizedSize;
+		if (size != -1)
+			return size;
 
-    private Builder(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      super(parent);
-      maybeForceBuilderInitialization();
-    }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-      }
-    }
-    public Builder clear() {
-      super.clear();
-      reported_ = "";
+		size = 0;
+		if (!getReportedBytes().isEmpty()) {
+			size += com.google.protobuf.GeneratedMessage.computeStringSize(1, reported_);
+		}
+		memoizedSize = size;
+		return size;
+	}
 
-      return this;
-    }
+	private static final long serialVersionUID = 0L;
 
-    public com.google.protobuf.Descriptors.Descriptor
-        getDescriptorForType() {
-      return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(com.google.protobuf.ByteString data)
+			throws com.google.protobuf.InvalidProtocolBufferException {
+		return PARSER.parseFrom(data);
+	}
 
-    public com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstanceForType() {
-      return com.lanlian.rpc.twins.AddTwinsAgentRequest.getDefaultInstance();
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(com.google.protobuf.ByteString data,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+			throws com.google.protobuf.InvalidProtocolBufferException {
+		return PARSER.parseFrom(data, extensionRegistry);
+	}
 
-    public com.lanlian.rpc.twins.AddTwinsAgentRequest build() {
-      com.lanlian.rpc.twins.AddTwinsAgentRequest result = buildPartial();
-      if (!result.isInitialized()) {
-        throw newUninitializedMessageException(result);
-      }
-      return result;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(byte[] data)
+			throws com.google.protobuf.InvalidProtocolBufferException {
+		return PARSER.parseFrom(data);
+	}
 
-    public com.lanlian.rpc.twins.AddTwinsAgentRequest buildPartial() {
-      com.lanlian.rpc.twins.AddTwinsAgentRequest result = new com.lanlian.rpc.twins.AddTwinsAgentRequest(this);
-      result.reported_ = reported_;
-      onBuilt();
-      return result;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(byte[] data,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+			throws com.google.protobuf.InvalidProtocolBufferException {
+		return PARSER.parseFrom(data, extensionRegistry);
+	}
 
-    public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.lanlian.rpc.twins.AddTwinsAgentRequest) {
-        return mergeFrom((com.lanlian.rpc.twins.AddTwinsAgentRequest)other);
-      } else {
-        super.mergeFrom(other);
-        return this;
-      }
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(java.io.InputStream input)
+			throws java.io.IOException {
+		return PARSER.parseFrom(input);
+	}
 
-    public Builder mergeFrom(com.lanlian.rpc.twins.AddTwinsAgentRequest other) {
-      if (other == com.lanlian.rpc.twins.AddTwinsAgentRequest.getDefaultInstance()) return this;
-      if (!other.getReported().isEmpty()) {
-        reported_ = other.reported_;
-        onChanged();
-      }
-      onChanged();
-      return this;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(java.io.InputStream input,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+		return PARSER.parseFrom(input, extensionRegistry);
+	}
 
-    public final boolean isInitialized() {
-      return true;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseDelimitedFrom(java.io.InputStream input)
+			throws java.io.IOException {
+		return PARSER.parseDelimitedFrom(input);
+	}
 
-    public Builder mergeFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      com.lanlian.rpc.twins.AddTwinsAgentRequest parsedMessage = null;
-      try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.lanlian.rpc.twins.AddTwinsAgentRequest) e.getUnfinishedMessage();
-        throw e;
-      } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
-      return this;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseDelimitedFrom(java.io.InputStream input,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+		return PARSER.parseDelimitedFrom(input, extensionRegistry);
+	}
 
-    private java.lang.Object reported_ = "";
-    /**
-     * <code>optional string reported = 1;</code>
-     *
-     * <pre>
-     *上报临时设备影子的信息，json中必须包含sn字段
-     * </pre>
-     */
-    public java.lang.String getReported() {
-      java.lang.Object ref = reported_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        reported_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>optional string reported = 1;</code>
-     *
-     * <pre>
-     *上报临时设备影子的信息，json中必须包含sn字段
-     * </pre>
-     */
-    public com.google.protobuf.ByteString
-        getReportedBytes() {
-      java.lang.Object ref = reported_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        reported_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>optional string reported = 1;</code>
-     *
-     * <pre>
-     *上报临时设备影子的信息，json中必须包含sn字段
-     * </pre>
-     */
-    public Builder setReported(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      reported_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional string reported = 1;</code>
-     *
-     * <pre>
-     *上报临时设备影子的信息，json中必须包含sn字段
-     * </pre>
-     */
-    public Builder clearReported() {
-      
-      reported_ = getDefaultInstance().getReported();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>optional string reported = 1;</code>
-     *
-     * <pre>
-     *上报临时设备影子的信息，json中必须包含sn字段
-     * </pre>
-     */
-    public Builder setReportedBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      reported_ = value;
-      onChanged();
-      return this;
-    }
-    public final Builder setUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return this;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(com.google.protobuf.CodedInputStream input)
+			throws java.io.IOException {
+		return PARSER.parseFrom(input);
+	}
 
-    public final Builder mergeUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return this;
-    }
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest parseFrom(com.google.protobuf.CodedInputStream input,
+			com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+		return PARSER.parseFrom(input, extensionRegistry);
+	}
 
+	public Builder newBuilderForType() {
+		return newBuilder();
+	}
 
-    // @@protoc_insertion_point(builder_scope:agent.AddTwinsAgentRequest)
-  }
+	public static Builder newBuilder() {
+		return DEFAULT_INSTANCE.toBuilder();
+	}
 
-  // @@protoc_insertion_point(class_scope:agent.AddTwinsAgentRequest)
-  private static final com.lanlian.rpc.twins.AddTwinsAgentRequest DEFAULT_INSTANCE;
-  static {
-    DEFAULT_INSTANCE = new com.lanlian.rpc.twins.AddTwinsAgentRequest();
-  }
+	public static Builder newBuilder(com.lanlian.rpc.twins.AddTwinsAgentRequest prototype) {
+		return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+	}
 
-  public static com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstance() {
-    return DEFAULT_INSTANCE;
-  }
+	public Builder toBuilder() {
+		return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
+	}
 
-  private static final com.google.protobuf.Parser<AddTwinsAgentRequest>
-      PARSER = new com.google.protobuf.AbstractParser<AddTwinsAgentRequest>() {
-    public AddTwinsAgentRequest parsePartialFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      try {
-        return new AddTwinsAgentRequest(input, extensionRegistry);
-      } catch (RuntimeException e) {
-        if (e.getCause() instanceof
-            com.google.protobuf.InvalidProtocolBufferException) {
-          throw (com.google.protobuf.InvalidProtocolBufferException)
-              e.getCause();
-        }
-        throw e;
-      }
-    }
-  };
+	@java.lang.Override
+	protected Builder newBuilderForType(com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+		Builder builder = new Builder(parent);
+		return builder;
+	}
 
-  public static com.google.protobuf.Parser<AddTwinsAgentRequest> parser() {
-    return PARSER;
-  }
+	/**
+	 * Protobuf type {@code api.AddTwinsAgentRequest}
+	 */
+	public static final class Builder extends com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+			// @@protoc_insertion_point(builder_implements:api.AddTwinsAgentRequest)
+			com.lanlian.rpc.twins.AddTwinsAgentRequestOrBuilder {
+		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
+		}
 
-  @java.lang.Override
-  public com.google.protobuf.Parser<AddTwinsAgentRequest> getParserForType() {
-    return PARSER;
-  }
+		protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_fieldAccessorTable
+					.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentRequest.class,
+							com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
+		}
 
-  public com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstanceForType() {
-    return DEFAULT_INSTANCE;
-  }
+		// Construct using com.lanlian.rpc.twins.AddTwinsAgentRequest.newBuilder()
+		private Builder() {
+			maybeForceBuilderInitialization();
+		}
+
+		private Builder(com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+			super(parent);
+			maybeForceBuilderInitialization();
+		}
+
+		private void maybeForceBuilderInitialization() {
+			if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+			}
+		}
+
+		public Builder clear() {
+			super.clear();
+			reported_ = "";
+
+			return this;
+		}
+
+		public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
+		}
+
+		public com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstanceForType() {
+			return com.lanlian.rpc.twins.AddTwinsAgentRequest.getDefaultInstance();
+		}
+
+		public com.lanlian.rpc.twins.AddTwinsAgentRequest build() {
+			com.lanlian.rpc.twins.AddTwinsAgentRequest result = buildPartial();
+			if (!result.isInitialized()) {
+				throw newUninitializedMessageException(result);
+			}
+			return result;
+		}
+
+		public com.lanlian.rpc.twins.AddTwinsAgentRequest buildPartial() {
+			com.lanlian.rpc.twins.AddTwinsAgentRequest result = new com.lanlian.rpc.twins.AddTwinsAgentRequest(this);
+			result.reported_ = reported_;
+			onBuilt();
+			return result;
+		}
+
+		public Builder mergeFrom(com.google.protobuf.Message other) {
+			if (other instanceof com.lanlian.rpc.twins.AddTwinsAgentRequest) {
+				return mergeFrom((com.lanlian.rpc.twins.AddTwinsAgentRequest) other);
+			} else {
+				super.mergeFrom(other);
+				return this;
+			}
+		}
+
+		public Builder mergeFrom(com.lanlian.rpc.twins.AddTwinsAgentRequest other) {
+			if (other == com.lanlian.rpc.twins.AddTwinsAgentRequest.getDefaultInstance())
+				return this;
+			if (!other.getReported().isEmpty()) {
+				reported_ = other.reported_;
+				onChanged();
+			}
+			onChanged();
+			return this;
+		}
+
+		public final boolean isInitialized() {
+			return true;
+		}
+
+		public Builder mergeFrom(com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+			com.lanlian.rpc.twins.AddTwinsAgentRequest parsedMessage = null;
+			try {
+				parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+				parsedMessage = (com.lanlian.rpc.twins.AddTwinsAgentRequest) e.getUnfinishedMessage();
+				throw e;
+			} finally {
+				if (parsedMessage != null) {
+					mergeFrom(parsedMessage);
+				}
+			}
+			return this;
+		}
+
+		private java.lang.Object reported_ = "";
+
+		/**
+		 * <code>optional string reported = 1;</code>
+		 *
+		 * <pre>
+		 *上报临时设备影子的信息，json中必须包含sn字段
+		 * </pre>
+		 */
+		public java.lang.String getReported() {
+			java.lang.Object ref = reported_;
+			if (!(ref instanceof java.lang.String)) {
+				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+				java.lang.String s = bs.toStringUtf8();
+				reported_ = s;
+				return s;
+			} else {
+				return (java.lang.String) ref;
+			}
+		}
+
+		/**
+		 * <code>optional string reported = 1;</code>
+		 *
+		 * <pre>
+		 *上报临时设备影子的信息，json中必须包含sn字段
+		 * </pre>
+		 */
+		public com.google.protobuf.ByteString getReportedBytes() {
+			java.lang.Object ref = reported_;
+			if (ref instanceof String) {
+				com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+				reported_ = b;
+				return b;
+			} else {
+				return (com.google.protobuf.ByteString) ref;
+			}
+		}
+
+		/**
+		 * <code>optional string reported = 1;</code>
+		 *
+		 * <pre>
+		 *上报临时设备影子的信息，json中必须包含sn字段
+		 * </pre>
+		 */
+		public Builder setReported(java.lang.String value) {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+
+			reported_ = value;
+			onChanged();
+			return this;
+		}
+
+		/**
+		 * <code>optional string reported = 1;</code>
+		 *
+		 * <pre>
+		 *上报临时设备影子的信息，json中必须包含sn字段
+		 * </pre>
+		 */
+		public Builder clearReported() {
+
+			reported_ = getDefaultInstance().getReported();
+			onChanged();
+			return this;
+		}
+
+		/**
+		 * <code>optional string reported = 1;</code>
+		 *
+		 * <pre>
+		 *上报临时设备影子的信息，json中必须包含sn字段
+		 * </pre>
+		 */
+		public Builder setReportedBytes(com.google.protobuf.ByteString value) {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			checkByteStringIsUtf8(value);
+
+			reported_ = value;
+			onChanged();
+			return this;
+		}
+
+		public final Builder setUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {
+			return this;
+		}
+
+		public final Builder mergeUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {
+			return this;
+		}
+
+		// @@protoc_insertion_point(builder_scope:api.AddTwinsAgentRequest)
+	}
+
+	// @@protoc_insertion_point(class_scope:api.AddTwinsAgentRequest)
+	private static final com.lanlian.rpc.twins.AddTwinsAgentRequest DEFAULT_INSTANCE;
+	static {
+		DEFAULT_INSTANCE = new com.lanlian.rpc.twins.AddTwinsAgentRequest();
+	}
+
+	public static com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstance() {
+		return DEFAULT_INSTANCE;
+	}
+
+	private static final com.google.protobuf.Parser<AddTwinsAgentRequest> PARSER = new com.google.protobuf.AbstractParser<AddTwinsAgentRequest>() {
+		public AddTwinsAgentRequest parsePartialFrom(com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			try {
+				return new AddTwinsAgentRequest(input, extensionRegistry);
+			} catch (RuntimeException e) {
+				if (e.getCause() instanceof com.google.protobuf.InvalidProtocolBufferException) {
+					throw (com.google.protobuf.InvalidProtocolBufferException) e.getCause();
+				}
+				throw e;
+			}
+		}
+	};
+
+	public static com.google.protobuf.Parser<AddTwinsAgentRequest> parser() {
+		return PARSER;
+	}
+
+	@java.lang.Override
+	public com.google.protobuf.Parser<AddTwinsAgentRequest> getParserForType() {
+		return PARSER;
+	}
+
+	public com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstanceForType() {
+		return DEFAULT_INSTANCE;
+	}
 
 }
-

@@ -1,0 +1,52 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package api;
+
+service TradingServer {
+    rpc GetTenantAccount(GetTenantAccountRequest) returns (GetTenantAccountResponse) {}
+    rpc UpdateTenantAccount(UpdateTenantAccountRequest) returns (UpdateTenantAccountResponse) {}
+    rpc GetTradingRecords(GetTradingRecordsRequest) returns (GetTradingRecordsResponse){}
+}
+
+message TradingRecord {
+    int32 TradingId = 1;
+    int32 Tid = 2;
+    int64 CreateTime = 3;
+    string TradingContent = 4;
+    float TradingUnitPrice = 5;
+    int32 TradingCount = 6;
+    int32 TradingState = 7;
+    float TradingTotalPrice = 8;
+}
+
+message GetTenantAccountRequest {
+    int32 Tid = 1;
+}
+
+message GetTenantAccountResponse {
+    float Balance = 1;
+}
+
+message UpdateTenantAccountRequest {
+    int32 Tid = 1;
+    float Balance = 2;
+    int32 ActionType = 3;
+}
+
+message UpdateTenantAccountResponse {
+
+}
+
+message GetTradingRecordsRequest {
+    int32 Tid = 1;
+    int32 Page = 2;
+    int32 Count = 3;
+}
+
+message GetTradingRecordsResponse {
+     repeated TradingRecord TradingRecords = 1;
+     int32 totalCount = 2;
+}

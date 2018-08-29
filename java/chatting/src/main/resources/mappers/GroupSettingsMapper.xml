@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.GroupSettingsDao">
+
+	<!-- 创建群插入语句 -->
+	<insert id="saveGroup" parameterType="com.lanlian.chatting.po.GroupInfoPo">
+		insert into dada_group
+		(uid,g_name,avatar,announcement,
+		create_time,longitude,latitude,
+		data_create_time,data_modify_time,data_state)
+		values
+		(#{uid},#{gname},#{avatar},#{announcement},
+		#{creatTime},#{longitude},#{latitude},
+		#{dataCreateTime},#{dataModifyTime},#{dataState} )
+		<selectKey resultType="java.lang.Integer" keyProperty="gid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 根据群id查询永久群是否存在 -->
+	<select id="getGroupExists" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select
+		count(*) as count
+		from
+		dada_group
+		where
+		gid=#{gid}
+	</select>
+
+	<!-- 批量添加群成员 -->
+	<insert id="saveMembers" parameterType="java.util.List">
+		insert into user_group
+		(ug_uid,ug_group_id,ug_create_time)
+		values
+		<foreach collection="list" index="index" item="item" open=""
+			close="" separator=",">
+			(#{item.uid},#{item.gid},#{item.creatTime})
+		</foreach>
+	</insert>
+
+	<!-- 查询群主信息 -->
+	<select id="findGroupUid" parameterType="com.lanlian.chatting.po.GroupInfoPo"
+		resultType="com.lanlian.chatting.po.GroupInfoPo">
+		select
+		gid as gid,
+		uid as uid
+		from
+		dada_group
+		where
+		gid=#{gid}
+	</select>
+
+	<!--删除群用户 -->
+	<update id="deleteMembers" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open=""
+			close="" separator=";">
+			update user_group
+			set
+			ug_state=#{item.dataState}
+			where
+			ug_uid=#{item.uid} and ug_group_id=#{item.gid}
+		</foreach>
+	</update>
+
+	<!-- 解散群 -->
+	<update id="deleteGroup" parameterType="com.lanlian.chatting.po.GroupInfoPo">
+		update
+		dada_group
+		set
+		data_state=#{dataState}
+		where
+		gid=#{gid}
+	</update>
+
+	<!-- 解散群成员 -->
+	<update id="deleteGroupMembers" parameterType="com.lanlian.chatting.po.GroupAndUserPO">
+		update
+		user_group
+		set
+		ug_state=#{dataState}
+		where
+		ug_group_id=#{gid}
+	</update>
+
+	<!-- 编辑群资料 -->
+	<update id="updateGroupInfo" parameterType="com.lanlian.chatting.po.GroupInfoPo">
+		UPDATE dada_group
+		SET
+		g_name = #{gname},
+		announcement = #{announcement},
+		avatar = #{avatar}
+		WHERE
+		gid = #{gid} and data_state='1'
+	</update>
+
+
+	<!-- 查询群用户 -->
+	<select id="getGroupUser" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select
+		ug_uid as uid
+		from
+		user_group
+		where
+		ug_group_id=#{gid} and ug_state='1'
+	</select>
+
+	<!-- 批量查询群用户 -->
+	<select id="getGroupsUser" parameterType="java.util.List"
+		resultType="com.lanlian.chatting.po.GroupAndUserPO">
+		select
+		ug_group_id as gid,
+		ug_uid as uid
+		from
+		user_group
+		where
+		<foreach collection="list" index="index" item="item" open="("
+			separator="or" close=")">
+			ug_group_id=#{item.gid} and ug_state='1'
+		</foreach>
+	</select>
+
+
+	<!-- 根据uid查询永久群信息列表 -->
+	<select id="findGroupByUidList" parameterType="com.lanlian.chatting.po.DadaGroupPo"
+		resultType="com.lanlian.chatting.vo.GroupInfo">
+		select
+		gid as gid,
+		uid as uid,
+		g_name as gname,
+		avatar as avatar,
+		announcement as announcement,
+		create_time as creatTime,
+		longitude as longitude,
+		latitude as latitude
+		from
+		dada_group
+		where
+		gid in
+		(select ug_group_id
+		from
+		user_group
+		where
+		ug_uid=#{uid} and ug_state='1')
+	</select>
+
+	<!-- 根据gid查询永久群信息列表 -->
+	<select id="findGroupByGidList" parameterType="java.util.List"
+		resultType="com.lanlian.chatting.vo.GroupInfo">
+		select
+		gid as gid,
+		uid as uid,
+		g_name as gname,
+		avatar as avatar,
+		announcement as announcement,
+		create_time as creatTime,
+		longitude as longitude,
+		latitude as latitude
+		from
+		dada_group
+		where
+		<foreach collection="list" index="index" item="item" open="("
+			separator="or" close=")">
+			gid = #{item.gid} and data_state='1'
+		</foreach>
+	</select>
+
+
+</mapper>

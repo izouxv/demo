@@ -4,10 +4,10 @@
 package com.lanlian.rpc.twins;
 
 /**
- * Protobuf type {@code agent.AddTwinsAgentResponse}
+ * Protobuf type {@code api.AddTwinsAgentResponse}
  */
 public final class AddTwinsAgentResponse extends com.google.protobuf.GeneratedMessage implements
-		// @@protoc_insertion_point(message_implements:agent.AddTwinsAgentResponse)
+		// @@protoc_insertion_point(message_implements:api.AddTwinsAgentResponse)
 		AddTwinsAgentResponseOrBuilder {
 	// Use AddTwinsAgentResponse.newBuilder() to construct.
 	private AddTwinsAgentResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -52,11 +52,11 @@ public final class AddTwinsAgentResponse extends com.google.protobuf.GeneratedMe
 	}
 
 	public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentResponse_descriptor;
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentResponse_descriptor;
 	}
 
 	protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
-		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentResponse_fieldAccessorTable
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentResponse_fieldAccessorTable
 				.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentResponse.class,
 						com.lanlian.rpc.twins.AddTwinsAgentResponse.Builder.class);
 	}
@@ -164,17 +164,17 @@ public final class AddTwinsAgentResponse extends com.google.protobuf.GeneratedMe
 	}
 
 	/**
-	 * Protobuf type {@code agent.AddTwinsAgentResponse}
+	 * Protobuf type {@code api.AddTwinsAgentResponse}
 	 */
 	public static final class Builder extends com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-			// @@protoc_insertion_point(builder_implements:agent.AddTwinsAgentResponse)
+			// @@protoc_insertion_point(builder_implements:api.AddTwinsAgentResponse)
 			com.lanlian.rpc.twins.AddTwinsAgentResponseOrBuilder {
 		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentResponse_descriptor;
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentResponse_descriptor;
 		}
 
 		protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentResponse_fieldAccessorTable
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentResponse_fieldAccessorTable
 					.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentResponse.class,
 							com.lanlian.rpc.twins.AddTwinsAgentResponse.Builder.class);
 		}
@@ -200,7 +200,7 @@ public final class AddTwinsAgentResponse extends com.google.protobuf.GeneratedMe
 		}
 
 		public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentResponse_descriptor;
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentResponse_descriptor;
 		}
 
 		public com.lanlian.rpc.twins.AddTwinsAgentResponse getDefaultInstanceForType() {
@@ -265,10 +265,10 @@ public final class AddTwinsAgentResponse extends com.google.protobuf.GeneratedMe
 			return this;
 		}
 
-		// @@protoc_insertion_point(builder_scope:agent.AddTwinsAgentResponse)
+		// @@protoc_insertion_point(builder_scope:api.AddTwinsAgentResponse)
 	}
 
-	// @@protoc_insertion_point(class_scope:agent.AddTwinsAgentResponse)
+	// @@protoc_insertion_point(class_scope:api.AddTwinsAgentResponse)
 	private static final com.lanlian.rpc.twins.AddTwinsAgentResponse DEFAULT_INSTANCE;
 	static {
 		DEFAULT_INSTANCE = new com.lanlian.rpc.twins.AddTwinsAgentResponse();

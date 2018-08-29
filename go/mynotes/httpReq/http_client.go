@@ -93,18 +93,21 @@ func FormPost() {
 	fmt.Println("FormPost-rest:",string(result))
 }
 
+
 /**
 发送json请求
  */
-func ReqJson()  {
-	param := `{"name":"wangdy", "age": 18}`
-	req_param := bytes.NewBuffer([]byte(param))
-	req, _ := http.NewRequest("POST", "httpReq://10.67.2.252:8080/test/", req_param)
+func ReqJson(address, method string, buff *bytes.Buffer) []byte {
+	req, _ := http.NewRequest(method, address, buff)
 	client := &http.Client{}
 	req.Header.Set("Content-type", "application/json")
 	res, _ := client.Do(req)
 	if res.StatusCode == 200 {
 		body, _ := ioutil.ReadAll(res.Body)
+		return body
+	} else {
+		body, _ := ioutil.ReadAll(res.Body)
 		fmt.Println(string(body))
+		return nil
 	}
 }

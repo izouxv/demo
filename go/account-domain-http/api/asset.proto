@@ -1,0 +1,673 @@
+//protoc --go_out=plugins=grpc:. *.proto
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto";
+
+service AssetServer {
+    /*添加单个资产*/
+    rpc AddAsset(AddAssetRequest) returns (AddAssetResponse) {
+        option(google.api.http) = {
+			post: "/api/assets"
+			body: "*"
+		};
+    }
+    /*批量添加资产*/
+    rpc AddAssets(AddAssetsRequest) returns (AddAssetsResponse) {
+        option(google.api.http) = {
+			post: "/api/assets/batch"
+			body: "*"
+		};
+    }
+    /*删除单个资产*/
+    rpc DeleteAsset(DeleteAssetRequest) returns (DeleteAssetResponse) {
+        option(google.api.http) = {
+			delete: "/api/assets/{aid}"
+		};
+    }
+    /*批量删除资产*/
+    rpc DeleteAssets(DeleteAssetsRequest) returns (DeleteAssetsResponse) {
+        option(google.api.http) = {
+			patch: "/api/assets/batch"
+			body: "*"
+		};
+    }
+    /*修改单个资产*/
+    rpc UpdateAsset(UpdateAssetRequest) returns (UpdateAssetResponse) {
+        option(google.api.http) = {
+			put: "/api/assets/{asset.aid}"
+			body:"*"
+		};
+    }
+    /*批量修改资产*/
+    rpc UpdateAssets(UpdateAssetsRequest) returns (UpdateAssetsResponse) {
+        option(google.api.http) = {
+			put: "/api/assets/batch"
+			body:"*"
+		};
+    }
+    /*修改资产状态*/
+    rpc UpdateAssetsState(UpdateAssetStateRequest) returns (UpdateAssetStateResponse) {
+        option(google.api.http) = {
+			put: "/api/assets/{aid}/state"
+			body:"*"
+		};
+    }
+    /*获取单个资产*/
+    rpc GetAsset(GetAssetRequest) returns (GetAssetResponse) {
+        option(google.api.http) = {
+			get: "/api/assets/{aid}"
+		};
+    }
+    /*分页查询资产*/
+    rpc GetAssets(GetAssetsRequest) returns (GetAssetsResponse) {
+        option(google.api.http) = {
+			get: "/api/assets/{count}/{page}/{order_by}"
+		};
+    }
+    /*基于状态查询*/
+    rpc GetAssetsForState(GetAssetsForStateRequest) returns (GetAssetsForStateResponse) {
+        option(google.api.http) = {
+			get: "/api/assets/{count}/{page}/{order_by}/state"
+		};
+    }
+    /*基于状态和类型查询*/
+    rpc GetAssetsForStateAndType(GetAssetsForStateAndTypeRequest) returns (GetAssetsForStateAndTypeResponse) {
+        option(google.api.http) = {
+			get: "/api/assets/{count}/{page}/{order_by}/type"
+		};
+    }
+    /*获取组下绑定的资产*/
+    rpc GetAssetInGroup(GetAssetInGroupRequest) returns(GetAssetInGroupResponse) {
+        option(google.api.http) = {
+            get: "/api/groups/{gid}/assets"
+        };
+    }
+    /*获取组下未绑定的资产*/
+    rpc GetAssetsNotInGroup(GetAssetsNotInGroupRequest) returns(GetAssetsNotInGroupResponse) {
+        option(google.api.http) = {
+            get: "/api/groups/{gid}/assets"
+        };
+    }
+    /*基于资产名称查询资产*/
+    rpc GetAssetForName(GetAssetForNameRequest) returns(GetAssetForNameResponse) {
+        option(google.api.http) = {
+			delete: "/api/asset/name/{name}"
+		};
+    }
+    /*基于资产设备ID查询资产*/
+    rpc GetAssetForDeviceID(GetAssetForDeviceIDRequest) returns(GetAssetForDeviceIDResponse) {
+        option(google.api.http) = {
+			delete: "/api/asset/deviceID/{device_id}"
+		};
+    }
+
+    //todo 基于租户
+    /*基于租户添加资产*/
+    rpc AddAssetBaseTenant(AddAssetBaseTenantRequest) returns (AddAssetBaseTenantResponse) {
+        option(google.api.http) = {
+            post: "/api/tenants/{tid}/assets"
+            body: "*"
+        };
+    }
+    /*基于租户删除资产*/
+    rpc DeleteAssetBaseTenant(DeleteAssetBaseTenantRequest) returns (DeleteAssetBaseTenantResponse) {
+        option(google.api.http) = {
+            delete: "/api/tenants/{tid}/assets/{aid}"
+        };
+    }
+    /*基于租户批量删除资产*/
+    rpc DeleteAssetsBaseTenant(DeleteAssetsBaseTenantRequest) returns (DeleteAssetsBaseTenantResponse) {
+        option(google.api.http) = {
+            delete: "/api/tenants/{tid}/assets/batch"
+        };
+    }
+
+    /*基于租户修改资产*/
+    rpc UpdateAssetBaseTenant(UpdateAssetBaseTenantRequest) returns (UpdateAssetBaseTenantResponse) {
+        option(google.api.http) = {
+            put: "/api/tenants/{tid}/assets/{asset.aid}"
+            body: "*"
+        };
+    }
+    /*基于租户获取资产*/
+    rpc GetAssetBaseTenant(GetAssetBaseTenantRequest) returns (GetAssetBaseTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/assets/{aid}"
+        };
+    }
+    /*基于租户获取资产列表*/
+    rpc GetAssetsBaseTenant(GetAssetsBaseTenantRequest) returns (GetAssetsBaseTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/assets"
+        };
+    }
+    /*基于租户获取组下绑定的资产*/
+    rpc GetAssetsInGroupBaseTenant(GetAssetsInGroupBaseTenantRequest) returns (GetAssetsBaseInGroupTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/groups/{gid}/assets"
+        };
+    }
+    /*基于租户获取未绑定改组的资产*/
+    rpc GetAssetsNotInGroupBaseTenant(GetAssetsNotInGroupBaseTenantRequest) returns (GetAssetsNotInGroupBaseTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/groups/{gid}/assets"
+        };
+    }
+    /*基于租户、资产名称查询资产*/
+    rpc GetAssetForNameBaseTenant(GetAssetForNameBaseTenantRequest) returns(GetAssetForNameBaseTenantResponse) {
+        option(google.api.http) = {
+			delete: "/api/assets/name/{name}"
+		};
+    }
+    /*基于租户、资产设备ID查询资产*/
+    rpc GetAssetForDeviceIDBaseTenant(GetAssetForDeviceIDBaseTenantRequest) returns(GetAssetForDeviceIDBaseTenantResponse) {
+        option(google.api.http) = {
+			delete: "/api/assets/deviceID/{device_id}"
+		};
+    }
+    /*基于租户、批量添加资产*/
+    rpc AddAssetsBaseTenant(AddAssetsBaseTenantRequest) returns (AddAssetsBaseTenantResponse) {
+        option(google.api.http) = {
+			post: "/api/tenants/{tid}/assets/batch"
+			body: "*"
+		};
+    }
+    /*基于租户查询资产下绑定的群组*/
+    rpc GetBindGroupForAssetIdBaseTenant(GetBindGroupForAssetIdBaseTenantRequest) returns (GetBindGroupForAssetIdBaseTenantResponse) {
+        option(google.api.http) = {
+			delete: "/api/tenant/{tid}/assets/{aid}/groups"
+		};
+    }
+    /*基于租户查询资产下未绑定的群组*/
+    rpc GetUnBindGroupForAssetIdBaseTenant(GetUnBindGroupForAssetIdBaseTenantRequest) returns (GetUnBindGroupForAssetIdBaseTenantResponse) {
+        option(google.api.http) = {
+			delete: "/api/tenant/{tid}/assets/{aid}/groups"
+		};
+    }
+    /*基于租户模糊获取资产列表*/
+    rpc GetAssetsForKeywordBaseTenant(GetAssetsForKeywordBaseTenantRequest) returns (GetAssetsForKeywordBaseTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/assets"
+        };
+    }
+    /*基于租户批量添加资产*/
+    rpc AddAssetBatchBaseTenant(AddAssetBatchBaseTenantRequest) returns (AddAssetBatchBaseTenantResponse) {
+        option(google.api.http) = {
+            post: "/api/tenants/{tid}/assets/batch"
+        };
+    }
+    /*增加资产lastConnection字段*/
+    rpc AddAssetForConnection(AddAssetForConnectionRequest) returns (AddAssetForConnectionResponse) {
+        option(google.api.http) = {
+            post: "/api/assets/connection"
+        };
+    }
+    /*删除资产lastConnection字段*/
+    rpc DeleteAssetForConnection(DeleteAssetForConnectionRequest) returns (DeleteAssetForConnectionResponse) {
+        option(google.api.http) = {
+            delete: "/api/assets/aid/connection"
+        };
+    }
+    /*修改资产lastConnection字段*/
+    rpc UpdateAssetForConnection(UpdateAssetForConnectionRequest) returns (UpdateAssetForConnectionResponse) {
+        option(google.api.http) = {
+            put: "/api/assets/aid/connection"
+        };
+    }
+    /*查询资产lastConnection字段*/
+    rpc GetAssetForConnection(GetAssetForConnectionRequest) returns (GetAssetForConnectionResponse) {
+        option(google.api.http) = {
+            get: "/api/assets/aid/connection"
+        };
+    }
+    /*批量导出资产*/
+    rpc GetAssetBatchBaseTenant(GetAssetBatchBaseTenantRequest) returns (GetAssetBatchBaseTenantResponse) {
+        option(google.api.http) = {
+            get: "/api/tenants/{tid}/assets/batch"
+        };
+    }
+
+    rpc GetAssetsForKeywordMoreBaseTenant (GetAssetsForKeywordMoreBaseTenantRequest) returns (GetAssetsForKeywordMoreBaseTenantResponse){}
+
+
+}
+
+message GetAssetBatchBaseTenantRequest {
+    int64 tid = 1;
+    repeated int64 aids = 2;
+}
+message GetAssetBatchBaseTenantResponse {
+    repeated ResponseAsset assets = 1;
+}
+
+message AddAssetForConnectionRequest {
+    int64 aid = 1;
+    int64 connection = 2;
+
+}
+message AddAssetForConnectionResponse {
+    int64 aid = 1;
+    int64 connection = 2;
+}
+message DeleteAssetForConnectionRequest {
+    int64 aid = 1;
+}
+message DeleteAssetForConnectionResponse {
+
+}
+message UpdateAssetForConnectionRequest {
+    int64 aid = 1;
+    int64 connection = 2;
+}
+message UpdateAssetForConnectionResponse {
+    int64 aid = 1;
+    int64 connection = 2;
+}
+message GetAssetForConnectionRequest {
+    int64 aid = 1;
+}
+message GetAssetForConnectionResponse {
+    int64 aid = 1;
+    int64 connection = 2;
+}
+
+message ResponseGroup {
+    int64    id = 1;
+    string   name = 2;
+    string   description = 3;
+    int64    create_time = 4;
+    int64    update_time = 5;
+    repeated ResponseGroup groups = 6;
+}
+
+message GetUnBindGroupForAssetIdBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+    int32 count =3;              //分页查询获取数量
+    int32 page = 4;              //当前页
+    string order_by = 5;         //排序，key排序字段
+
+}
+
+message GetUnBindGroupForAssetIdBaseTenantResponse {
+    repeated ResponseGroup groups  = 1;
+    int32 total_count = 2;
+}
+
+message GetBindGroupForAssetIdBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+    int32 count =3;              //分页查询获取数量
+    int32 page = 4;              //当前页
+    string order_by = 5;         //排序，key排序字段
+}
+message GetBindGroupForAssetIdBaseTenantResponse {
+    repeated ResponseGroup groups  = 1;
+    int32 total_count = 2;
+}
+
+enum AssetType {
+    Defalut = 0;
+    Lora    = 1;
+    Gateway = 2;
+    Simulators = 3;
+}
+
+enum State {
+    NotUsed = 0;        //未激活
+    InUsed  = 1;        //已激活
+    AllState = 2;       //未激活和已激活
+}
+
+message RequestAsset {
+    int64  aid = 1;
+    string name = 2;
+    string description = 3;
+    AssetType asset_type = 4;
+    string secret_key = 5;
+    string device_id = 6;//替换以前的name,device
+    string sn = 7;
+    string model = 8;
+    string manufacturer = 9;
+    string mac = 10;
+    int32 interval = 11;
+}
+message ResponseAsset {
+    int64  aid = 1;
+    string name = 2;
+    string description = 3;
+    int64  create_time = 4;
+    int64  update_time = 5;
+    AssetType asset_type = 6;
+    State  state = 7;
+    string secret_key = 8;
+    bool connection = 9;//是否连接
+    int64 last_connection = 10;//最后一次连接时间
+    int64 tid     = 11;//租户id
+    string device_id = 12;//替换以前的name,device
+    string sn = 13;
+    string model = 14;
+    string manufacturer = 15;
+    string mac = 16;
+    int32 interval = 17;
+}
+
+message AddAssetRequest {
+    RequestAsset asset = 1;//资产信息
+}
+message AddAssetResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message AddAssetsRequest {
+    repeated RequestAsset create = 1;//资产信息
+}
+message AddAssetsResponse {
+    repeated ResponseAsset asset = 1;//资产信息
+}
+
+message DeleteAssetRequest {
+    int64 aid = 1;//资产编号
+}
+message DeleteAssetResponse {
+
+}
+
+message DeleteAssetsRequest {
+    repeated int64 delete = 1;//资产编号
+}
+message DeleteAssetsResponse {
+
+}
+
+message UpdateAssetRequest {
+    RequestAsset asset = 1;//资产信息
+
+}
+message UpdateAssetResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message UpdateAssetsRequest {
+    repeated RequestAsset update = 1;//修改资产信息
+}
+message UpdateAssetsResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+}
+
+message UpdateAssetStateRequest {
+    int64 aid = 1;     //修改资产状态
+    State state = 2;
+}
+message UpdateAssetStateResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message GetAssetRequest {
+    int64 aid = 1;
+}
+message GetAssetResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message GetAssetsRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+}
+message GetAssetsResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+}
+
+message GetAssetsForStateRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+    State state = 4;
+}
+message GetAssetsForStateResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+}
+
+message GetAssetsForStateAndTypeRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+    State state = 4;
+    AssetType asset_type = 5;
+}
+message GetAssetsForStateAndTypeResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+}
+
+message GetAssetForNameRequest {
+    string name = 1;
+}
+message GetAssetForNameResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message GetAssetForDeviceIDRequest {
+    string device_id = 1;
+}
+message GetAssetForDeviceIDResponse {
+    ResponseAsset asset = 1;//资产信息
+}
+
+message GetAssetInGroupRequest {
+    int64 gid = 1;
+    int32 page = 2;
+    int32 count = 3;
+    string order_by = 4;         //排序，key排序字段
+    AssetType asset_type = 5;
+}
+message GetAssetInGroupResponse {
+    repeated ResponseAsset asset = 1;//资产信息
+    int32 totalCount = 2;
+    int64 gid = 3;
+}
+
+message GetAssetsNotInGroupRequest {
+    int64 gid = 1;
+    int32 page = 2;
+    int32 count = 3;
+    string order_by = 4;         //排序，key排序字段
+    AssetType asset_type = 5;
+}
+message GetAssetsNotInGroupResponse {
+    repeated ResponseAsset asset = 1;//资产信息
+    int32 totalCount = 2;
+    int64 gid = 3;
+}
+
+message AddAssetBaseTenantRequest {
+    RequestAsset asset = 1;//资产信息
+    int64        tid   = 2;//租户id
+}
+message AddAssetBaseTenantResponse {
+    ResponseAsset asset = 1;//资产信息
+    int64         tid    = 2;//租户id
+}
+
+message DeleteAssetBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+}
+message DeleteAssetBaseTenantResponse {
+
+}
+
+message DeleteAssetsBaseTenantRequest {
+    repeated int64 aids = 1;
+    int64 tid = 2;
+    AssetType asset_type = 3;
+}
+message DeleteAssetsBaseTenantResponse {
+
+}
+
+message UpdateAssetBaseTenantRequest {
+    RequestAsset asset = 1;//资产信息
+    int64         tid    = 2;//租户id
+}
+message UpdateAssetBaseTenantResponse {
+    ResponseAsset asset = 1;//资产信息
+    int64         tid    = 2;//租户id
+}
+
+message GetAssetBaseTenantRequest {
+    int64 aid = 1;
+    int64 tid = 2;
+}
+message GetAssetBaseTenantResponse {
+    ResponseAsset asset = 1;//资产信息
+    int64         tid    = 2;//租户id
+}
+
+message GetAssetsBaseTenantRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+    State state = 4;
+    AssetType asset_type = 5;
+    int64 tid = 6;
+}
+message GetAssetsBaseTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+    int64    tid    = 3;//租户id
+}
+
+message GetAssetsInGroupBaseTenantRequest {
+    int64 gid = 1;
+    int32 page = 2;
+    int32 count = 3;
+    string order_by = 4;         //排序，key排序字段
+    AssetType asset_type = 5;
+    int64    tid    = 6;              //租户id
+}
+message GetAssetsBaseInGroupTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32    total_count = 2;
+    int64    tid    = 3;              //租户id
+    int64    gid    = 4;              //组id
+}
+
+message GetAssetsNotInGroupBaseTenantRequest {
+    int64 gid = 1;
+    int32 page = 2;
+    int32 count = 3;
+    string order_by = 4;         //排序，key排序字段
+    AssetType asset_type = 5;
+    int64    tid    = 6;              //租户id
+}
+message GetAssetsNotInGroupBaseTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32    total_count = 2;
+    int64    tid    = 3;              //租户id
+    int64    gid    = 4;              //组id
+}
+
+message GetAssetForNameBaseTenantRequest {
+    string   name   = 1;              //资产名称
+    int64    tid    = 2;              //租户id
+}
+message GetAssetForNameBaseTenantResponse {
+    ResponseAsset asset  = 1;       //资产信息
+    int64         tid    = 2;      //租户id
+}
+
+message GetAssetForDeviceIDBaseTenantRequest {
+    string   device_id   = 1;              //资产名称
+    int64    tid    = 2;              //租户id
+}
+message GetAssetForDeviceIDBaseTenantResponse {
+    ResponseAsset asset  = 1;       //资产信息
+    int64         tid    = 2;      //租户id
+}
+
+message AddAssetsBaseTenantRequest {
+    repeated RequestAsset assets = 1;//资产信息
+    int64    tid    = 2;              //租户id
+}
+
+message AddAssetsBaseTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int64    tid    = 2;              //租户id
+}
+
+message GetAssetsForKeywordBaseTenantRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+    State state = 4;
+    AssetType asset_type = 5;
+    int64 tid = 6;
+    string keyword = 7;
+}
+message GetAssetsForKeywordBaseTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+    int64    tid    = 3;//租户id
+}
+
+message RequestAssetBatch {
+    int64  aid = 1;
+    string name = 2;
+    string description = 3;
+    AssetType asset_type = 4;
+    string secret_key = 5;
+    string device_id = 6;//替换以前的name,device
+    string sn = 7;
+    string model = 8;
+    string manufacturer = 9;
+    string mac = 10;
+    int32 interval = 11;
+
+    string Deveui = 12;
+    string AppKey = 13;
+    int32  RxDelay = 14;
+    int32  Rx1DrOffset = 15;
+    int32  RxWindow = 16;
+    int32  Rx2Dr = 17;
+    string AppsKey = 18;
+    string NwksKey = 19;
+    string DevAddr = 20;
+    bool   RelaxFCnt = 21;
+    bool   IsAbp = 22;
+    bool   IsClassc = 23;
+    int32  AdrInterval  = 24;
+    string Appeui = 25;
+}
+
+message AddAssetBatchBaseTenantRequest {
+    repeated RequestAssetBatch assets = 1;//资产信息
+    int64 tid   = 2;//租户id
+    AssetType asset_type = 3;
+}
+
+message AddAssetBatchBaseTenantResponse {
+
+}
+
+message GetAssetsForKeywordMoreBaseTenantRequest {
+    int32 count =1;              //分页查询获取数量
+    int32 page = 2;              //当前页
+    string order_by = 3;         //排序，key排序字段
+    State state = 4;
+    AssetType asset_type = 5;
+    int64 tid = 6;
+    string keyword = 7;
+}
+
+
+message GetAssetsForKeywordMoreBaseTenantResponse {
+    repeated ResponseAsset assets = 1;//资产信息
+    int32 total_count = 2;
+    int64    tid    = 3;//租户id
+}

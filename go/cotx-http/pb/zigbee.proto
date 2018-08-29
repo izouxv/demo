@@ -1,0 +1,51 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+message ReqGetZigbee {
+    int32  UserId     = 1;
+    string GatewayId  = 2;
+}
+
+message Zigbee {
+    int32  State  = 1;
+    int32  Model = 2;
+    string ZigebeeId = 3;
+    string Password = 4;
+    string  Channel   = 5;
+    int32  Key       = 6;
+}
+message ResGetZigbee {
+    Zigbee Zigbee = 1;
+    int32  ErrCode = 2;
+
+}
+
+message ReqUpdateZigbee {
+    int32   UserId       =   1;
+    string  GatewayId    =   2;
+    int32   Instruction  =   3;
+    int32   State         =   8;
+    int32   Model        =   4;
+    string  ZigbeeId     =   5;
+    string  Password     =   6;
+    string   Channel      =   7;
+    int32   Key          =   9;
+}
+
+message ResUpdateZigbee {
+    int32 ErrCode = 1;
+}
+
+service  Rpc_Zigbee {
+    /*获取zigbee的信息*/
+    rpc GetZigbee(ReqGetZigbee) returns (ResGetZigbee) {}
+
+    /*更新zigbee的信息*/
+    rpc UpdateZigbee(ReqUpdateZigbee) returns (ResUpdateZigbee) {}
+
+}
+
+

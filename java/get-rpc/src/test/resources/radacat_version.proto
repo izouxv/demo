@@ -10,46 +10,25 @@ option objc_class_prefix = "Grpc";
 package setting;
 
 service RadacatVersion {
-    rpc AddNewVersion(AddNewVersionRequest) returns (AddNewVersionResponse) {} //添加新版本
-    rpc GetAllVersions(GetAllVersionsRequest) returns(GetAllVersionsResponse){}//查询所有版本
     rpc GetLatestVersion(GetLatestVersionRequest) returns (GetLatestVersionResponse){}//通过device和source查询最新版本信息
-    rpc UpdateVersion(UpdateVersionRequest) returns (UpdateVersionResponse) {}//通过id修改版本信息
 }
 
 message Version {
-    string Device = 1;
-    string VersionName = 2;
-    string VersionCode = 3;
-    string Md5 = 4;
-    string Filename = 5;
-    int64  Length = 6;
+    string device = 1;
+    string versionName = 2;
+    string versionCode = 3;
+    string md5 = 4;
+    string fileName = 5;
+    int64  length = 6;
     string path = 7;
-    string DescriptionCn = 8;
-    string DescriptionEn = 9;
-    int64  UploaderUid = 10;
-    int32  Status = 11;
-    int32  Id = 12;
-    int64 CreateTime = 13;
-    string Source = 14;
-}
-
-message AddNewVersionRequest {
-    Version version = 1;
-}
-
-message AddNewVersionResponse {
-    int32 ErrorCode = 1;
-}
-
-message GetAllVersionsRequest {
-    int32   Count = 1;
-    int32   Page = 2;
-}
-
-message GetAllVersionsResponse {
-    int32 ErrorCode = 1;
-    repeated Version versions = 2;
-    int32 totalCount = 3;
+    string descriptionCn = 8;
+    string descriptionEn = 9;
+    int64  uploaderUid = 10;
+    int32  status = 11;
+    int32  id = 12;
+    int64  createTime = 13;
+    int64  updateTime = 14;
+    int64  tid = 15;
 }
 
 message GetLatestVersionRequest {
@@ -60,12 +39,4 @@ message GetLatestVersionRequest {
 message GetLatestVersionResponse {
     int32 ErrorCode = 1;
     Version version = 2;
-}
-
-message UpdateVersionRequest {
-    Version version = 1;
-}
-
-message UpdateVersionResponse {
-    int32 ErrorCode = 1;
 }

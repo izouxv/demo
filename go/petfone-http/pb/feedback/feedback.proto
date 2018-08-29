@@ -1,0 +1,28 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package feedback;
+
+// The Id service definition.
+service FeedBack {
+    rpc AddFeedback(AddFeedbackRequest) returns (AddFeedbackReply) {}            //添加反馈
+}
+
+message AddFeedbackRequest {
+    string   source = 1;
+    string   description = 2;
+    string   deviceInfo = 3;
+    string   appInfo  = 4;
+    string   userInfo = 5;
+    string   mobileInfo  = 6;
+    string   extendInfo  = 7;
+    repeated string  files  = 8;
+    string   contact = 9;
+    int64    createTime = 10;
+    int64    updateTime = 11;
+}
+message AddFeedbackReply {
+    int32   errorCode = 1;
+    int32	id = 2;
+}

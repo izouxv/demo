@@ -23,7 +23,7 @@ func init() {
 	if err != nil {
 		log.Fatalf(" gorm.Open.err: %v", err)
 	}
-	log.Println("init----------")
+	log.Println("initContext----------")
 	DB.SingularTable(true)
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		log.Println("defaultTableName:",defaultTableName)

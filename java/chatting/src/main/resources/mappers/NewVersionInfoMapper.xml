@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 映射文件 -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.NewVersionInfoDao">
+
+	<!-- 更新新的版本信息 -->
+	<insert id="saveVersionInfo" parameterType="com.lanlian.chatting.po.VersionPO">
+		INSERT INTO
+			radacat_version
+			(rv_device, rv_version_name, rv_version_code, rv_md5, rv_filename, rv_path, rv_description, rv_description1, rv_length)
+		VALUES 
+			(#{device}, #{versionName}, #{versionCode}, #{md5}, #{filename}, #{path}, #{description}, #{description1}, #{length})
+	</insert>
+	
+	
+	<!-- 查询新的版本信息 -->
+	<select id="findVersionInfo" parameterType="com.lanlian.chatting.po.VersionPO"
+		resultType="com.lanlian.chatting.po.VersionPO">
+		select 
+			rv_device as device,
+			rv_version_name as versionName,
+			rv_version_code as versionCode,
+			rv_md5 as md5,
+			rv_filename as filename,
+			rv_path as path,
+			rv_description as description,
+			rv_description1 as description1,
+			rv_length as length,
+			rv_status as status,
+			rv_create_time as time 
+		from
+			radacat_version 
+		where 
+			rv_device = #{device} 
+		order by rv_id desc limit 1
+	</select>
+
+
+
+</mapper>

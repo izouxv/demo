@@ -1,0 +1,102 @@
+﻿CREATE TABLE `tbl_permission` (
+  `per_id` int(11) NOT NULL AUTO_INCREMENT,
+  `per_name` varchar(255) NOT NULL,
+  `per_operation` varchar(255) NOT NULL,
+  PRIMARY KEY (`per_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tbl_permission
+-- ----------------------------
+INSERT INTO `tbl_permission` VALUES ('1', '租户_服务_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('2', '租户_服务_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('3', '租户_服务_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('4', '租户_服务_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('5', '租户_用户_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('6', '租户_用户_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('7', '租户_用户_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('8', '租户_用户_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('9', '租户_角色_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('10', '租户_角色_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('11', '租户_角色_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('12', '租户_角色_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('13', '租户_日志_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('14', '租户_日志_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('15', '租户_日志_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('16', '租户_日志_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('17', '租户_设置_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('18', '租户_设置_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('19', '租户_设置_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('20', '租户_设置_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('21', '租户_密码_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('22', '租户_密码_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('23', '租户_密码_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('24', '租户_密码_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('25', '租户_文件库_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('26', '租户_文件库_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('27', '租户_文件库_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('28', '租户_文件库_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('29', '租户_保留规则_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('30', '租户_保留规则_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('31', '租户_保留规则_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('32', '租户_保留规则_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('33', '租户_财务总览_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('34', '租户_财务总览_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('35', '租户_财务总览_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('36', '租户_财务总览_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('37', '租户_消费总览_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('38', '租户_消费总览_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('39', '租户_消费总览_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('40', '租户_消费总览_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('41', '域_服务_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('42', '域_服务_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('43', '域_服务_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('44', '域_服务_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('45', '域_用户_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('46', '域_用户_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('47', '域_用户_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('48', '域_用户_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('49', '域_角色_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('50', '域_角色_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('51', '域_角色_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('52', '域_角色_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('53', '域_日志_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('54', '域_日志_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('55', '域_日志_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('56', '域_日志_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('57', '域_设置_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('58', '域_设置_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('59', '域_设置_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('60', '域_设置_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('61', '域_密码_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('62', '域_密码_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('63', '域_密码_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('64', '域_密码_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('65', '域_文件库_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('66', '域_文件库_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('67', '域_文件库_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('68', '域_文件库_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('69', '域_保留规则_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('70', '域_保留规则_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('71', '域_保留规则_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('72', '域_保留规则_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('73', '域_财务总览_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('74', '域_财务总览_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('75', '域_财务总览_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('76', '域_财务总览_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('77', '域_消费总览_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('78', '域_消费总览_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('79', '域_消费总览_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('80', '域_消费总览_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('81', '设备管理服务_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('82', '设备管理服务_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('83', '设备管理服务_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('84', '设备管理服务_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('85', 'KMS服务_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('86', 'KMS服务_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('87', 'KMS服务_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('88', 'KMS服务_Delete', 'ADMIN');
+INSERT INTO `tbl_permission` VALUES ('89', '域_租户管理_Read', 'READ');
+INSERT INTO `tbl_permission` VALUES ('90', '域_租户管理_Update', 'UPDATE');
+INSERT INTO `tbl_permission` VALUES ('91', '域_租户管理_Create', 'CREATE');
+INSERT INTO `tbl_permission` VALUES ('92', '域_租户管理_Delete', 'ADMIN');

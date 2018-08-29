@@ -1,0 +1,33 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+
+
+service FileService {
+    /*上传文件*/
+    rpc  AddFiles(AddFilesRequest) returns (AddFilesResponse) {}
+}
+
+
+message File {
+    string   fid   =   1;//文件id
+    string   url   =   2;//文件路径
+    int32    type  =   3;//文件类型
+    string   name  =   4;//文件名称
+}
+
+
+message AddFilesRequest {
+      repeated File  files = 1 ;
+}
+
+message AddFilesResponse {
+    repeated File files = 1;
+    int32  ErrCode   = 2;
+}
+
+
+

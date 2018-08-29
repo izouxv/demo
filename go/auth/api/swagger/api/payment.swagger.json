@@ -1,0 +1,109 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/payment.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddAliPayResponse": {
+      "type": "object"
+    },
+    "apiAddWechatPayResponse": {
+      "type": "object"
+    },
+    "apiAliPay": {
+      "type": "object",
+      "properties": {
+        "Did": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AppId": {
+          "type": "string"
+        },
+        "MerchantPrivateKey": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiDeleteAliPayResponse": {
+      "type": "object"
+    },
+    "apiDeleteWechatPayResponse": {
+      "type": "object"
+    },
+    "apiGetAliPayResponse": {
+      "type": "object",
+      "properties": {
+        "aliPay": {
+          "$ref": "#/definitions/apiAliPay"
+        }
+      }
+    },
+    "apiGetWechatPayResponse": {
+      "type": "object",
+      "properties": {
+        "wechatPay": {
+          "$ref": "#/definitions/apiWechatPay"
+        }
+      }
+    },
+    "apiUpdateAliPayResponse": {
+      "type": "object"
+    },
+    "apiUpdateWechatPayResponse": {
+      "type": "object"
+    },
+    "apiWechatPay": {
+      "type": "object",
+      "properties": {
+        "Did": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AppId": {
+          "type": "string"
+        },
+        "MchId": {
+          "type": "string"
+        },
+        "Key": {
+          "type": "string"
+        },
+        "AppSecret": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

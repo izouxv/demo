@@ -11,6 +11,7 @@ import (
 	"strings"
 	"github.com/Tang-RoseChild/mahonia"
 	"sync"
+	"io/ioutil"
 )
 
 //返回response
@@ -114,7 +115,7 @@ func getJokes(){
 			log.Fatal(err)
 		}
 		fmt.Println(doc.Find(".article").Text())
-		//doc.Find(".content").Each(func(i int, s *goquery.Selection){
+		//doc.Find(".context").Each(func(i int, s *goquery.Selection){
 		//	text := s.Text()
 		//	fmt.Println(i,"----",text)
 		//})
@@ -165,4 +166,16 @@ func getPageCount(baseUrl string) int {
 	//len := resDom.Length()
 	count,_ := strconv.Atoi(resDom.Eq(resDom.Length()-2).Text())
 	return count
+}
+
+func ReqForm(address string, params url.Values) []byte {
+	res, _ := http.PostForm(address, params)
+	if res.StatusCode == 200 {
+		body, _ := ioutil.ReadAll(res.Body)
+		return body
+	} else {
+		body, _ := ioutil.ReadAll(res.Body)
+		fmt.Println(string(body))
+		return nil
+	}
 }

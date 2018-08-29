@@ -89,7 +89,7 @@ func handleDirectory(f *os.File, w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// Otherwise, generate folder content.
+	// Otherwise, generate folder context.
 	children_dir_tmp := list.New()
 	children_files_tmp := list.New()
 
@@ -105,7 +105,7 @@ func handleDirectory(f *os.File, w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// And transfer the content to the final array structure
+	// And transfer the context to the final array structure
 	children_dir := copyToArray(children_dir_tmp)
 	children_files := copyToArray(children_files_tmp)
 

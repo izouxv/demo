@@ -1,0 +1,62 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+import "pb/petfone.proto";
+
+package pb;
+
+service Account {
+    rpc Show (AccountRequest) returns (AccountReply) {} //查询用户基本信息（account表）
+    rpc UpdateAccountInfo (AccountRequest) returns (AccountReply) {} //基于uid插入或修改用户基本信息(account表)
+    rpc GetAccountInfo (AccountRequest) returns (AccountReply) {} //查询用户基本信息（account表）
+    rpc GetBatchAccountInfo (MultiAccountRequest) returns (MapAccountReply) {} //批量查询用户基本信息（account表）
+}
+
+message AccountRequest {
+    int32   uid         = 1;
+    string  username    = 2;
+    string  password    = 3;
+    string  salt        = 4;
+    int32   state       = 5;
+    string  email       = 6;
+    string  phone       = 7;
+    string  nickname    = 8;
+    int32   gender      = 9;
+    int64   birthday    = 10;
+    string  avatar      = 11;
+    string  signature   = 12;
+    string  address     = 13;
+    string  source      = 14;
+    string  token       = 15;
+    int32   radius      = 16;
+}
+
+message AccountReply {
+    int32   uid         = 1;
+    string  username    = 2;
+    string  password    = 3;
+    string  salt        = 4;
+    int32   state       = 5;
+    string  email       = 6;
+    string  phone       = 7;
+    string  nickname    = 8;
+    int32   gender      = 9;
+    int64   birthday    = 10;
+    string  avatar      = 11;
+    string  signature   = 12;
+    string  address     = 13;
+    string  source      = 14;
+    int32   code        = 15;
+    int32   radius      = 16;
+    Map      map         = 17;
+}
+
+message MultiAccountRequest {
+    map<int32, AccountRequest> accounts = 1;
+    string source = 2;
+}
+
+message MapAccountReply {
+    map<int32, AccountReply> accounts = 1;
+    int32 code = 2;
+}

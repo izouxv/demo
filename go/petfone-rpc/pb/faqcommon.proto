@@ -1,0 +1,41 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+service FaqCommon {
+    rpc GetFaqCommonById(FaqCommonRequest) returns (FaqCommonReply) {} //id查询常见问题
+    rpc GetFaqCommonByKeyword (FaqCommonRequest) returns (FaqCommonsReply) {} //关键字查询常见问题
+    rpc GetFaqCommons(FaqCommonRequest) returns (FaqCommonsReply) {} //批量查询常见问题
+}
+
+message FaqCommonRequest {
+    string source   = 1;
+    int32 id        = 2;
+    string nameCn   = 3;
+    string infoCn   = 4;
+    string nameEn   = 5;
+    string infoEn   = 6;
+    int32 parent    = 7;
+    int32 uid       = 8;
+}
+
+message FaqCommonReply {
+    string source   = 1;
+    int32 id        = 2;
+    string nameCn   = 3;
+    string infoCn   = 4;
+    string nameEn   = 5;
+    string infoEn   = 6;
+    int32 parent    = 7;
+    int32 uid       = 8;
+    int32 code      = 9;
+    string name     = 10;
+    string info     = 11;
+}
+
+message FaqCommonsReply {
+    repeated FaqCommonReply faqcs = 1;
+    int32 code = 2;
+}

@@ -1,0 +1,148 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+import "api/tenant.proto";
+
+service DomainServer {
+    rpc GetDomain(GetDomainRequest) returns (GetDomainResponse) {}//基于id获取域信息
+
+    rpc GetDomains(GetDomainsRequest) returns (GetDomainsResponse) {}//基于id获取域信息
+
+    rpc GetUserCountInDomain(GetUserCountInDomainRequest) returns (GetUserCountInDomainResponse) {}//获取域中成员数量
+
+    rpc GetUserInfoInDomain(GetUserInfoInDomainRequest) returns (GetUserInfoInDomainResponse) {}//获取域中成员信息
+
+    rpc UpdateUserRoleInDomain(UpdateUserRoleInDomainRequest) returns (UpdateUserRoleInDomainResponse) {}//修改域中成员角色
+
+    rpc AddUserInDomain(AddUserInDomainRequest) returns (AddUserInDomainResponse) {}//向域中添加成员
+
+    rpc DeleteUserInDomain(DeleteUserInDomainRequest) returns (DeleteUserInDomainResponse) {} //删除域中成员
+
+    rpc EnterDomain(EnterDomainRequest) returns (EnterDomainResponse) {}//同意进入域中
+
+    rpc AddUserTenantACL(AddUserTenantACLRequest) returns (AddUserTenantACLResponse) {}//添加用户租户ACL
+}
+
+message Domain {
+    int32  did = 1;
+    string domainName = 2;
+    int64  CreateTime = 3;
+    int64  UpdateTime = 4;
+    string domainUrl = 5;
+    int32  domainState = 6;
+}
+
+message GetDomainRequest {
+    int32 did = 1;
+    int32 uid = 2;
+}
+
+message GetDomainResponse {
+    Domain Domain = 1;
+}
+
+
+message UpdateDomainRequest {
+    int32 did = 1;
+    int32 uid = 2;
+    string domainName = 3;
+}
+
+message UpdateDomainResponse {
+    Domain Domain = 1;
+}
+
+message DeleteDomainRequest {
+    int32 did = 1;
+    int32 uid = 2;
+}
+
+message DeleteDomainResponse {
+
+}
+
+message GetUserCountInDomainRequest{
+    int32 did = 1;
+    int32 uid = 2;
+}
+
+message GetUserCountInDomainResponse {
+    int32 count = 1;
+}
+
+message GetDomainsRequest {
+    int32 uid = 1;
+    int32 did = 2;
+}
+
+message GetDomainsResponse {
+    repeated Domain Domain = 1;
+}
+
+message GetUserInfoInDomainRequest {
+    int32 did = 1;
+    int32 uid = 2;
+    int32 page = 3;
+    int32 count = 4;
+}
+
+message GetUserInfoInDomainResponse{
+    repeated UserRoles userRoles = 1;
+    int32 totalCount = 2;
+}
+
+message UpdateUserRoleInDomainRequest {
+    int32 uid = 1;
+    int32 updateUserID = 2;
+    repeated int32 updateUserRids = 3;
+    int32 did = 4;
+}
+
+message UpdateUserRoleInDomainResponse {
+
+}
+
+message DeleteUserInDomainRequest {
+    int32 uid = 1;
+    int32 deleteUserID = 2;
+    int32 did = 3;
+}
+
+message DeleteUserInDomainResponse {
+
+}
+
+message AddUserInDomainRequest {
+    int32 did = 1;
+    int32 uid = 2;
+    string addUserUsername = 3;
+    string addUserNickname = 4;
+    repeated int32 addUserRids = 5;
+}
+
+message AddUserInDomainResponse {
+
+}
+
+message EnterDomainRequest {
+    string password = 1;
+    string nickname = 2;
+    string token = 3;
+}
+
+message EnterDomainResponse {
+    string token  = 1;
+}
+
+message AddUserTenantACLRequest {
+    string Username = 1;
+    repeated int32 Tids = 2;
+    int32 Did = 3;
+}
+
+message AddUserTenantACLResponse {
+
+}

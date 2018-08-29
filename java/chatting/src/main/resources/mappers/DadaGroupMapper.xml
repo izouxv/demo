@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanlian.chatting.dao.GroupSettingsDao">
+
+	<!-- 查询群 -->
+	<select id="findGroup" parameterType="com.lanlian.chatting.po.DadaGroupPo"
+		resultType="com.lanlian.chatting.po.DadaGroupPo">
+		select
+		gid as gid,
+		uid as uid,
+		g_name as gname,
+		avatar as
+		avatar,
+		announcement as announcement,
+		create_time as createTime,
+		longitude as longitude,
+		latitude as latitude,
+		invite_code as inviteCode
+		from
+		dada_group
+		where
+		gid = #{gid} and data_state = '1'
+		order by gid desc
+		limit 1
+	</select>
+
+	<!-- 查询实时群 -->
+	<select id="findDadaGroup" parameterType="com.lanlian.chatting.po.DadaGroupPo"
+		resultType="com.lanlian.chatting.po.DadaGroupPo">
+		select
+		g.gid as gid,
+		g.uid as uid,
+		o.uid as upid,
+		g.g_name as
+		gname,
+		g.avatar as avatar,
+		g.announcement as announcement,
+		g.create_time
+		as createTime,
+		g.longitude as longitude,
+		g.latitude as latitude,
+		g.invite_code as inviteCode,
+		o.group_state as groupState
+		from
+		dada_group
+		g,online_group_switching o
+		where
+		g.gid = o.gid and g.gid = #{gid} and
+		g.data_state = '1'
+		order by o.id desc limit 1
+	</select>
+
+	<!-- 修改实时上报群开关与邀请码 -->
+	<update id="updateDadaGroup" parameterType="com.lanlian.chatting.po.DadaGroupPo">
+		update
+		online_group_switching
+		set
+		group_state = #{groupState}
+		where
+		gid = #{gid} and data_state = '1'
+	</update>
+
+	<!-- 查询实时群的开启用户 -->
+	<select id="findDadaGroupSwitchingUser" parameterType="com.lanlian.chatting.po.DadaGroupPo"
+		resultType="com.lanlian.chatting.po.DadaGroupPo">
+		select
+		gid as gid,
+		uid as upid,
+		group_state as groupState
+		from
+		online_group_switching
+		where
+		gid = #{gid} and data_state = '1'
+		order by id desc limit 1
+	</select>
+
+	<!-- 创建实时上报群 -->
+	<insert id="saveDadaGroup" parameterType="com.lanlian.chatting.po.DadaGroupPo">
+		insert into dada_group
+		(uid,g_name,avatar,announcement,
+		create_time,longitude,latitude,
+		data_create_time,data_modify_time,data_state)
+		values
+		(#{uid},#{gname},#{avatar},#{announcement},#{createTime},
+		#{longitude},#{latitude},
+		#{dataCreateTime},#{dataModifyTime},#{dataState} )
+		<selectKey resultType="java.lang.Integer" keyProperty="gid"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 存入实时上报群邀请码 -->
+	<update id="saveDadaGroupCode" parameterType="com.lanlian.chatting.po.DadaGroupPo">
+		update dada_group
+		set
+		invite_code = #{inviteCode}
+		where
+		gid = #{gid} and data_state = '1'
+	</update>
+
+	<!-- 创建实时上报群与上报开关 -->
+	<insert id="saveDadaGroupSwitching" parameterType="com.lanlian.chatting.po.DadaGroupPo">
+		INSERT INTO
+		online_group_switching
+		(gid,uid,group_state,data_create_time,data_modify_time,data_state)
+		VALUES
+		(#{gid},#{upid},#{groupState},#{dataCreateTime},#{dataModifyTime},#{dataState}
+		)
+	</insert>
+
+	<!-- 查询实时群 -->
+	<select id="findBundilingBygid" parameterType="com.lanlian.chatting.po.LiveChatGidUid"
+		resultType="com.lanlian.chatting.po.LiveChatGidUid">
+		select
+		l.gid as gid,
+		l.uid as uid,
+		d.g_name as gname,
+		l.create_table_time as createTableTime
+		from
+		live_chat_gid_uid l,dada_group d
+		where
+		l.gid = d.gid and l.gid = #{gid} and l.state_table = '1'
+		order by l.id desc
+		limit 1
+	</select>
+
+
+</mapper>

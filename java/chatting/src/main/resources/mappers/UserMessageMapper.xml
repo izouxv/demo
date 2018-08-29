@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 映射文件 -->
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.UserMessageDao">
+
+	<!-- 执行存储用户发送私信信息并获取记录id的操作 -->
+	<insert id="sendPrivateLetteInfoId" parameterType="com.lanlian.chatting.po.PrivateMessageInfoPO">
+		insert into private_lette_info 
+			( lette )
+		values ( #{messageInfo} )
+		<selectKey keyProperty="messageInfoId" order="AFTER"
+			resultType="long">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- 执行存储用户发送私信信息的操作 -->
+	<insert id="sendPrivateLette" parameterType="com.lanlian.chatting.po.PrivateMessagePO">
+		insert into
+			private_lette ( pl_uid,to_uid,type,lette_info_id,pl_create_time,pl_modify )
+		values ( #{uid},#{ouid},#{type},#{messageInfoId},#{createTime},#{modifyTime} )
+	</insert>
+
+	<!-- 执行接收用户接收私信数量的操作 -->
+	<!-- lette_info_id as messageInfoId, -->
+	<select id="receiveLetteById" parameterType="com.lanlian.chatting.po.PrivateMessagePO"
+		resultType="com.lanlian.chatting.po.PrivateMessagePO">
+		select
+			pl_uid as uid
+		from
+			private_lette
+		where
+			to_uid=#{ouid} and pl_status = '1'
+	</select>
+
+	<!-- 执行查询用户接收指定好友私信id的操作 -->
+	<select id="receiveLetteUidById" parameterType="com.lanlian.chatting.po.PrivateMessagePO"
+		resultType="com.lanlian.chatting.po.PrivateMessagePO">
+		select
+			pl_uid as uid,
+			to_uid as ouid,
+			private_lette_id,
+			type as type,
+			lette_info_id as messageInfoId,
+			pl_create_time as createTime
+		from
+			private_lette
+		where 
+			pl_uid=#{uid} and to_uid=#{ouid} and pl_status = '1'
+	</select>
+
+	<!-- 执行查询用户指定好友私信id后更改信息时间与状态的操作 -->
+	<update id="modifyLetteStatus" parameterType="com.lanlian.chatting.po.PrivateMessagePO">
+		update private_lette AS A
+			inner join (select private_lette_id 
+						from private_lette 
+						where pl_uid=#{uid} and to_uid=#{ouid} and pl_status = '1' ) AS B 
+		on A.private_lette_id=B.private_lette_id 
+		set A.pl_status=#{status},A.pl_modify=#{modifyTime} 
+	</update>
+
+	<!-- 执行接收用户私信内容的操作 -->
+	<select id="receiveLetteInfo" parameterType="java.util.List"
+		resultType="com.lanlian.chatting.po.PrivateMessageInfoPO">
+		select 
+			lette_id as messageInfoId,
+			lette as messageInfo
+		from
+			private_lette_info
+		where
+			lette_id in 
+			<foreach collection="list" index="index" item="id" open="(" separator="," close=")" >
+				#{id}
+			</foreach>
+	</select>
+
+
+
+
+
+</mapper>

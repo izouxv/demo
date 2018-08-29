@@ -1,0 +1,55 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+service Files {
+    rpc SetFile(FilesRequest) returns (FilesReply) {}          //添加file
+    rpc GetFile(FilesRequest) returns (FilesReply) {}          //查询file
+    rpc SetFiles(FilesMapRequest) returns (FilesMapReply) {}      //批量添加file
+    rpc GetFiles(FilesMapRequest) returns (FilesMapReply) {}      //批量查询file
+    rpc SetBreeds(FilesMapRequest) returns (FilesMapReply) {}      //批量查询品种
+    rpc GetBreeds(FilesRequest) returns (FilesMapReply) {}      //批量查询品种
+}
+
+message FilesRequest {
+    int32   uid = 1;
+    string  md5 = 2;
+    string  describe = 3;
+    string  address = 4;
+    string  contactUs = 5;
+    int32   types = 6;
+    string  source = 7;
+    int64   times= 8;
+    int32   id = 9;
+    int32   number = 10;
+    string  name = 11;
+}
+
+message FilesReply {
+    int32   uid = 1;
+    string  md5 = 2;
+    string  describe = 3;
+    string  address = 4;
+    string  contactUs = 5;
+    int32   types = 6;
+    string  source = 7;
+    int32   code = 8;
+    int64   times= 9;
+    int32   id = 10;
+    int32   number = 11;
+    string  nameCh = 12;
+    string  nameEn = 13;
+    string  name    = 14;
+}
+
+message FilesMapRequest {
+    repeated FilesRequest files = 1;
+    string source = 2;
+}
+
+message FilesMapReply {
+    map<int32, FilesReply> files = 1;
+    int32 code = 2;
+}

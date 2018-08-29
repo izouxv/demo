@@ -1,0 +1,101 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+service PaymentServer {
+    rpc AddAliPay(AddAliPayRequest) returns (AddAliPayResponse) {}
+    rpc DeleteAliPay(DeleteAliPayRequest) returns (DeleteAliPayResponse) {}
+    rpc UpdateAliPay(UpdateAliPayRequest) returns (UpdateAliPayResponse) {}
+    rpc GetAliPay(GetAliPayRequest) returns (GetAliPayResponse){}
+    rpc AddWechatPay(AddWechatPayRequest) returns (AddWechatPayResponse) {}
+    rpc DeleteWechatPay(DeleteWechatPayRequest) returns (DeleteWechatPayResponse) {}
+    rpc UpdateWechatPay(UpdateWechatPayRequest) returns (UpdateWechatPayResponse) {}
+    rpc GetWechatPay(GetWechatPayRequest) returns (GetWechatPayResponse){}
+
+}
+
+message AliPay {
+    int32 Did = 1;
+    string AppId = 2;
+    string MerchantPrivateKey = 3;
+    string Key = 4;
+    int64 CreateTime = 5;
+    int64 UpdateTime = 6;
+}
+
+message WechatPay {
+    int32 Did = 1;
+    string AppId = 2;
+    string MchId = 3;
+    string Key = 4;
+    string AppSecret = 5;
+    int64 CreateTime = 6;
+    int64 UpdateTime = 7;
+}
+
+message AddAliPayRequest {
+    AliPay aliPay = 1;
+}
+
+message AddAliPayResponse {
+
+}
+
+
+message DeleteAliPayRequest {
+    int32 Did = 1;
+}
+
+message DeleteAliPayResponse {
+
+}
+
+message UpdateAliPayRequest {
+    AliPay aliPay = 1;
+}
+
+message UpdateAliPayResponse {
+
+}
+
+message GetAliPayRequest {
+    int32 Did = 1;
+}
+
+message GetAliPayResponse {
+    AliPay aliPay = 1;
+}
+
+message AddWechatPayRequest {
+    WechatPay wechatPay = 1;
+}
+
+message AddWechatPayResponse {
+
+}
+
+message DeleteWechatPayRequest {
+    int32 Did = 1;
+}
+
+message DeleteWechatPayResponse {
+
+}
+
+message UpdateWechatPayRequest {
+    WechatPay wechatPay = 1;
+}
+
+message UpdateWechatPayResponse {
+
+}
+
+message GetWechatPayRequest {
+    int32 Did = 1;
+}
+
+message GetWechatPayResponse {
+    WechatPay wechatPay = 1;
+}

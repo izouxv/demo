@@ -4,6 +4,6 @@
 package com.lanlian.rpc.twins;
 
 public interface AddTwinsAgentResponseOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:agent.AddTwinsAgentResponse)
-    com.google.protobuf.MessageOrBuilder {
+		// @@protoc_insertion_point(interface_extends:api.AddTwinsAgentResponse)
+		com.google.protobuf.MessageOrBuilder {
 }

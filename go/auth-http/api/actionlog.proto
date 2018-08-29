@@ -1,0 +1,107 @@
+//protoc --go_out=plugins=grpc:. api/*.proto
+
+syntax = "proto3";
+package api;
+
+// The Id service definition.
+service ActionLog {
+    rpc AddActionLog(AddActionLogRequest) returns (AddActionLogResponse) {}            //添加操作日志
+    rpc GetActionLogsByType(GetActionLogsByTypeRequest) returns (GetActionLogsByTypeResponse) {}         //通过类型获取操作日志
+    rpc GetActionLogsByUsername(GetActionLogsByUsernameRequest) returns (GetActionLogsByUsernameResponse) {}       //通过账号获取操作日志
+    rpc GetActionLogs(GetActionLogsRequest) returns (GetActionLogsResponse) {}              //获取条件查询操作日志
+    rpc GetActionLogsByTid(GetActionLogsByTidRequest) returns (GetActionLogsByTidResponse) {}              //获取租户操作日志
+    rpc GetActionLogsByDid(GetActionLogsByDidRequest) returns (GetActionLogsByDidResponse) {}              //获取域操作日志
+}
+
+message ActionLogInfo {
+    int32 id = 1;
+    string actionUsername = 2;
+    int64   actionTime = 3;
+    int32   actionType = 4;
+    string  actionName = 5;
+    string  actionObject = 6;
+    int32 tid = 7;
+    int32 did = 8;
+}
+message AddActionLogRequest{
+    ActionLogInfo actionLog = 1;
+}
+
+message AddActionLogResponse {
+}
+
+message GetActionLogsByTypeRequest{
+    int32 type = 1;
+    int32 page = 2;
+    int32 count = 3;
+}
+
+message GetActionLogsByTypeResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+message GetActionLogsByUsernameRequest{
+    string username = 1;
+    int32 page = 2;
+    int32 count = 3;
+}
+
+message GetActionLogsByUsernameResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+message GetActionLogsByRoleRequest{
+    int32 role = 1;
+    int32 page = 2;
+    int32 count = 3;
+}
+
+message GetActionLogsByRoleResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+message GetActionLogsRequest{
+    int32 page = 1;
+    int32 count = 2;
+    int32 type = 3;
+    string username = 4;
+    int32 tid = 5;
+    int32 did = 6;
+}
+
+message GetActionLogsResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+
+message GetActionLogsByTidRequest{
+    int32 page = 1;
+    int32 count = 2;
+    int32 type = 3;
+    string username = 4;
+    int32 tid = 5;
+}
+
+message GetActionLogsByTidResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+message GetActionLogsByDidRequest{
+    int32 page = 1;
+    int32 count = 2;
+    int32 type = 3;
+    string username = 4;
+    int32 did = 5;
+}
+
+message GetActionLogsByDidResponse {
+    repeated ActionLogInfo actionLogs = 1;
+    int32 totalCount = 2;
+}
+
+

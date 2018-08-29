@@ -1,0 +1,109 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+service ExerciseData {
+    rpc SetExerciseData(ExerciseDataRequest) returns (ExerciseDataReply) {}  //添加运动数据1.0
+    rpc GetExerciseDataPet(ExerciseDataRequest) returns (MotionDataMapReply) {}  //查询ExerciseData 1.0
+    rpc GetMotionDataPetByTime(ExerciseDataRequest) returns (MotionDataMapReply) {}  //查询运动数据 1.1
+}
+
+enum State {
+    Default = 0;
+    Strenuous = 1;
+}
+
+enum DataType {
+    DataDefault = 0;
+    DataList    = 1;
+    DataImage   = 2;
+}
+
+message ExerciseDataRequest {
+    string  source          = 1;//来源
+    int32   uid             = 2;//用户id
+    int32   udid            = 3;//用户设备id
+    int32   pid             = 4;//宠物id
+    int32   pdid            = 5;//宠物设备id
+    float   ucals           = 6;//消耗卡
+    int32   usteps          = 7;//步数
+    float   pcals           = 8;//消耗卡
+    repeated Pcoordinate  pcoordinates = 9;//经纬度坐标点数组
+    int64 startTime         = 10; //时间
+    int64 endTime           = 11;
+    ImageInfo imageInfo     = 12;//图片信息
+}
+
+message Pcoordinate {
+    float longitude = 1; //经度
+    float latitude  = 2; //纬度
+    int64 nowtime   = 3; //时间
+    int32 steps     = 4; //运动步数
+    State state     = 5; //运动状态
+}
+
+message ExerciseDataReply {
+    string  source          = 1;//来源
+    int32   uid             = 2;//用户id
+    int32   pid             = 3;//宠物id
+    int32   pdid            = 4;//宠物设备id
+    float   pcals           = 5;//消耗卡
+    repeated Pcoordinate  pcoordinates = 6;//经纬度坐标点数组
+    int32   code            = 7;
+    int64   createTime      = 8; //上报时间
+}
+
+
+message MotionDataMapReply {
+    repeated DayExerciseDataReply data = 1;
+    int32 code = 2;
+    int32   pid     = 3;//宠物id
+    int32   pdid    = 4;//宠物设备id
+}
+
+message DayExerciseDataReply {
+    int64   dayTime         = 1;//当天
+    int64   cardioTimes     = 2;//消耗时间
+    int64   strenuousTimes  = 3;//消耗时间
+    float   calorie         = 4;//总消耗卡
+    int32   steps           = 5;//总步数
+    repeated Coordinate coordinates = 6;//经纬度坐标点数组
+    repeated Record    records = 7;
+    DataType    types       = 8;
+    int32   CardioDurationMinute = 9;//有氧耗时
+    int32   StrenuousDurationMinute = 10;//无氧耗时
+}
+
+//经纬度坐标点
+message Coordinate {
+    float longitude = 1; //经度
+    float latitude  = 2; //纬度
+    int64 now_time  = 3; //时间
+    State state     = 4; //运动状态
+}
+
+message Record {
+    string  timeRecord      = 1;//时间范围
+    int32   steps           = 2;//步数
+    float   calorie         = 3;//消耗卡
+    int64   cardioTimes     = 4;//有氧时间
+    int64   strenuousTimes  = 5;//无氧时间
+    ImageInfo imageInfo     = 6;//图片信息
+    int32   pdid            = 7;
+    int32   CardioDurationMinute = 9;//有氧耗时
+    int32   StrenuousDurationMinute = 10;//无氧耗时
+}
+
+message ImageInfo {
+    string  url         = 1;//原图地址
+    int32   size        = 2;//大小
+    int32   width       = 3;//宽度
+    int32   height      = 4;//高度
+    string  md5         = 5;
+    string  imageEnCode = 6;
+    string  name        = 7;
+}
+
+

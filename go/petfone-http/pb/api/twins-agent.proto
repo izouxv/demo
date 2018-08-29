@@ -1,0 +1,18 @@
+//protoc --go_out=plugins=grpc:. pb/api/*.proto
+
+syntax = "proto3";
+
+package api;
+
+service TwinsAgentServer {
+    /*添加设备影子,给radacat设备临时异步调用*/
+    rpc AddTwinsAgent(AddTwinsAgentRequest) returns (AddTwinsAgentResponse) {}
+}
+
+message AddTwinsAgentRequest {
+    string reported = 1;//上报临时设备影子的信息，json中必须包含sn字段
+}
+
+message AddTwinsAgentResponse {
+
+}

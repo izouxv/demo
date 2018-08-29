@@ -1,0 +1,318 @@
+//protoc --go_out=plugins=grpc:. gateway_set.proto
+
+syntax = "proto3";
+
+
+package pb;
+
+message ResCode{
+    int32 ErrCode = 1;
+}
+message  ReqSwitch{
+    int32 Instruction = 1;
+    int32 Switch      = 2;
+    string GatewayId  = 3;
+    int32  UserId     = 4;
+}
+message  ReqInstruction{
+    int32 Instruction = 1;
+    string GatewayId  = 2;
+    int32  UserId     = 3;
+}
+
+message ReqGwPower {
+    int32 Instruction = 1;
+    int32 Switch      = 2;
+    string StartTime  = 3;
+    string EndTime    = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+message ReqLora {
+    //指令码
+    //设置网关的lora频率信息 1，如果是1276的话只用给freq0值，freq1值 2，1301 8个信道的值都要提供
+    int32 Instruction  = 1;
+    int32 Freq0       = 2;
+    int32 Freq1       = 3;
+    int32 DataRate0    = 4;
+    int32 DataRate1    = 5;
+    string GatewayId   = 6;
+    int32  UserId      = 7;
+    int32 STD         = 8;
+    int32 FSK         = 9;
+    int32  DataRateSTD = 10;
+    int32  Key         = 11;
+    int32 Band        = 12;
+}
+message  ReqVideo {
+    //指令码
+    //设置自动摄像 == 1022
+    int32 Instruction  = 1;
+    //打开或者关闭自动摄像  0：关闭 1：打开
+    int32 Switch       = 2;
+    //摄像间隔
+    int32 VideoSpacing = 3;//摄像间隔
+    //每次摄像的时长
+    int32 VideoTime    = 4;//摄像时长
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+message ReqPhoto {
+    //指令码
+    //设置自动拍照 == 1024
+    int32 Instruction  = 1;
+    //打开或者关闭 0：关闭 1：打开
+    int32 Switch       = 2;
+    //拍照间隔
+    int32 PhotoSpacing = 3;//拍照间隔
+    //一次拍几张
+    int32 PhotoTime    = 4;//拍照次数
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+message ReqMusic {
+    //指令码
+    //设置自动播放音频
+    int32 Instruction  = 1;
+    //打开或者关闭 0：关闭 1：打开
+    int32 Switch       = 2;
+    //播放音乐的间隔
+    int32 MusicSpacing = 3;//音乐播放间隔
+    //一次播放几遍音乐
+    int32 MusicTime    = 4;//音乐播放时长
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+message ReqDeletFile {
+    //指令码
+    //删除文件的指令 == 1027
+    int32 Instruction = 1;
+    //该属性可以不用添加参数
+    int32 Switch      = 2;
+    //文件类型 0：图片 1： 视频
+    int32 FileType    = 3;
+    //视频名称
+    string FileName   = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 7;
+}
+message ReqUpLog {
+    //指令码
+    //设置上传日志 == 1029
+    int32  Instruction = 1;
+    // 打开或者关闭  0：关闭 1：打开
+    int32  Switch      = 2;
+    //地址
+    string Address     = 3;
+    //端口
+    int32  port        = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 8;
+}
+message ReqSetIP {
+    //设置网关的ip地址 == 1033
+    int32 Instruction = 1;
+    int32 NetType        = 6;
+    string Ip         = 3;
+    string Gateway    = 4;
+    string Mask       = 5;
+    string GatewayId  = 7;
+    int32  UserId     = 8;
+}
+message ReqSetUsbIP {
+    int32 Instruction = 1;
+    int32 UsbNum      = 2;
+    int32 NetType        = 6;
+    string Ip         = 3;
+    string Gateway    = 4;
+    string Mask       = 5;
+    string GatewayId  = 8;
+    int32  UserId     = 9;
+}
+message DNS {
+    string DNS = 1;
+}
+//swagger:parameters reqSetDNS
+message ReqSetDNS {
+    //指令码
+    //设置网络的dns地址 == 1034
+    int32 Instruction = 1;
+    int32 NetType        = 4;
+    repeated DNS DNSS = 3;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+
+message ReqSetUsbDNS {
+    int32 Instruction = 1;
+    int32 UsbNum      = 2;
+    int32 NetType        = 4;
+    repeated DNS DNSS = 3;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+//swagger:parameters reqSetHotSpot
+message ReqSetHotSpot  {
+    //指令码
+    //设置热点 == 1036
+    int32  Instruction = 1;
+    //热点名称
+    string Name        = 2;
+    //热点 密码
+    string Password    = 3;
+    //是否需要密码  0：不需要 1：需要
+    int32  Key         = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+//swagger:parameters reqSetHotSpot
+message ReqSetUsbHotSpot  {
+    //指令码
+    //设置热点 == 1036
+    int32  Instruction = 1;
+    //热点名称
+    string Name        = 2;
+    //热点 密码
+    string Password    = 3;
+    //是否需要密码  0：不需要 1：需要
+    int32  Key         = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+    int32  UsbId      = 7;
+}
+//swagger:parameters reqSetName
+message ReqSetName  {
+    //指令码
+    //设置名称 == 1037
+    int32 Instruction = 1;
+    //网关名称
+    string Name       = 2;
+    string GatewayId  = 3;
+    int32  UserId     = 4;
+}
+//swagger:parameters reqConnectWifi
+message ReqConnectWifi {
+    //指令码
+    //连接 wifi == 1015
+    int32 Instruction = 1;
+    //连接或者断开连接  0：断开连接 1：连接
+    int32 Switch      = 2;
+    //无线名称
+    string WifiName   = 3;
+    //无线密码
+    string Password   = 4;
+    string GatewayId  = 5;
+    int32  UserId     = 6;
+}
+message ReqConnectUsbWifi {
+    //指令码
+    //连接 wifi == 1015
+    int32 Instruction = 1;
+    //连接或者断开连接  0：断开连接 1：连接
+    int32 Switch      = 2;
+    int32 UsbId       = 5;
+    //无线名称
+    string WifiName   = 3;
+    //无线密码
+    string Password   = 4;
+    string GatewayId  = 6;
+    int32  UserId     = 7;
+}
+
+message ReqUsbSwitch {
+    int32 Instruction = 1;
+    //连接或者断开连接  0：断开连接 1：连接
+    int32 Switch      = 2;
+    int32 UsbId       = 3;
+    string GatewayId  = 4;
+    int32 UserId      = 5;
+}
+/*设置第三方云平台信息*/
+message  ReqIOTServer {
+    int32  Instruction       = 1;
+    string GatewayId         = 2;
+    int32  UserId            = 3;
+    int32  IOTId             = 4;
+    string ClientID          = 5;
+    string HostName          = 6;
+    int32  Port              = 7;
+    string UserName          = 8;
+    string Password          = 9;
+    string RootCertificate   = 10;
+    string ClientCertificate = 11;
+    string ClientKey         = 12;
+    string GWMac             = 13;
+    int32  IotNum            = 14;
+    string ProductKey        = 15;
+    string DeviceName        = 16;
+    string DeviceKey         = 17;
+    string NodeKey           = 18;
+}
+
+/*手动拍照*/
+message PhotoCode {
+    int32 ConflictTime =1;
+}
+message ResPhotoCode {
+    PhotoCode PhotoCode = 1;
+    int32   ErrCode = 2;
+}
+
+/*手动摄像*/
+message VideoCode {
+    int32 ConflictTime = 1;
+    int32 TotalTime    = 2;
+}
+
+message ResVideoCode {
+    VideoCode VideoCode = 1;
+    int32  ErrCode      = 2;
+}
+
+
+message InstructionState{
+     int32  State = 1;
+     int32  ConflictTime = 2;
+     int32  TotalTime    = 3;
+}
+
+message GetInstructionStateRequest {
+    string GatewayId    = 1;
+    int32  UserId       = 2;
+    string Instruction  = 3;
+}
+
+message GetInstructionStateResponse {
+      InstructionState InstructionState = 1;
+      int32       errCode = 2;
+}
+
+service GatewatSet{
+    rpc SendInstruction (ReqInstruction)    returns  (ResCode){}
+    rpc SendSwitch      (ReqSwitch)         returns  (ResCode){}
+    rpc SendSetPower    (ReqGwPower)        returns  (ResCode){}
+    rpc SendLora        (ReqLora)           returns  (ResCode){}
+    rpc SendVideo       (ReqVideo)          returns  (ResCode){}
+    rpc SendPhoto       (ReqPhoto)          returns  (ResCode){}
+    rpc SendMusic       (ReqMusic)          returns  (ResCode){}
+    rpc SendDeletFile   (ReqDeletFile)      returns  (ResCode){}
+    rpc SendUpLog       (ReqUpLog)          returns  (ResCode){}
+    rpc SendSetIp       (ReqSetIP)          returns  (ResCode){}
+    rpc SendSetDNS      (ReqSetDNS)         returns  (ResCode){}
+    rpc SendSetHotSpot  (ReqSetHotSpot)     returns  (ResCode){}
+    rpc SendSetUsbHotSpot(ReqSetUsbHotSpot) returns  (ResCode){}
+    rpc SendSetName     (ReqSetName)        returns  (ResCode){}
+    rpc SendSetUsbIp     (ReqSetUsbIP)      returns  (ResCode){}
+    rpc SendSetUsbDNS     (ReqSetUsbDNS)    returns  (ResCode){}
+    rpc SendConnectWifi (ReqConnectWifi)    returns  (ResCode){}
+    rpc SendUsbConnectWifi(ReqConnectUsbWifi)returns (ResCode){}
+    rpc SendUsbSwitch (ReqUsbSwitch)         returns (ResCode){}
+    rpc SetIOTServer(ReqIOTServer)           returns (ResCode){}
+    /*手动拍照*/
+    rpc SetGatewayPhoto    (ReqInstruction)       returns (ResPhotoCode){}
+    /*手动摄像*/
+    rpc SetGatewayVideo   (ReqSwitch)    returns (ResVideoCode){}
+    rpc GetInstructionState(GetInstructionStateRequest) returns (GetInstructionStateResponse) {}
+}
+
+

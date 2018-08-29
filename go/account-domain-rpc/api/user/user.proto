@@ -1,0 +1,83 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package user;
+
+// The Id service definition.
+service TestUserServer {
+    rpc AddTestUser (AddTestUserReq) returns (AddTestUserRes) {}     //增加测试账号
+    rpc DelTestUser (DelTestUserReq) returns (DelTestUserRes) {}     //删除测试账号
+    rpc GetTestUsers(GetTestUsersReq) returns (GetTestUsersRes) {}   //测试账号列表
+    rpc PutTestUser (PutTestUserReq) returns (PutTestUserRes) {}     //修改账号列表
+    rpc GetTestUser (GetTestUserReq) returns (GetTestUserRes) {}     //获取单个账号
+    rpc GetUserByUsername   (GetUserByUsernameReq) returns (GetUserByUsernameRes) {}  //tid和username获取名单
+}
+
+message TestUser{
+    int32  id = 1;
+    int64  tid =2;
+    string username = 3;
+    int64  create_time = 4;
+    int64  update_time = 5;
+}
+
+message AddTestUserReq {
+    TestUser testUser = 1;
+}
+
+message AddTestUserRes {
+    TestUser testUser = 1;
+    int32 ErrorCode = 2;
+}
+
+message DelTestUserReq {
+    int32 id = 1;
+    int64 tid = 2;
+}
+
+message DelTestUserRes {
+    int32 ErrorCode = 1;
+}
+
+message GetTestUsersReq {
+    int64 tid = 1;
+    int32 page = 2;
+    int32 count = 3;
+}
+
+message GetTestUsersRes {
+    repeated TestUser testUser = 1;
+    int32 ErrorCode = 2;
+    int32 totalCount = 3;
+}
+
+message PutTestUserReq {
+    TestUser testUser = 1;
+}
+
+message PutTestUserRes {
+    TestUser testUser = 1;
+    int32 ErrorCode = 2;
+}
+
+
+message GetTestUserReq {
+    int32 id = 1;
+    int64 tid = 2;
+}
+
+message GetTestUserRes {
+    TestUser testUser = 1;
+    int32 ErrorCode = 2;
+}
+
+
+message GetUserByUsernameReq {int64 tid = 1;
+   string username = 2;
+}
+
+message GetUserByUsernameRes {
+    int32 ErrorCode = 2;
+}

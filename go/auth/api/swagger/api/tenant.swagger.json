@@ -1,0 +1,299 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/tenant.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddTenantResponse": {
+      "type": "object",
+      "properties": {
+        "TenantInfo": {
+          "$ref": "#/definitions/apiTenantInfo"
+        }
+      }
+    },
+    "apiAddUserInTenantResponse": {
+      "type": "object"
+    },
+    "apiDeleteTenantResponse": {
+      "type": "object"
+    },
+    "apiDeleteUserInTenantResponse": {
+      "type": "object"
+    },
+    "apiEnterTenantResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "apiGetDidByTidResponse": {
+      "type": "object",
+      "properties": {
+        "Did": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiGetTenantResponse": {
+      "type": "object",
+      "properties": {
+        "Tenant": {
+          "$ref": "#/definitions/apiTenant"
+        }
+      }
+    },
+    "apiGetTenantsResponse": {
+      "type": "object",
+      "properties": {
+        "Tenants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiTenantInfo"
+          }
+        }
+      }
+    },
+    "apiGetTidByUrlResponse": {
+      "type": "object",
+      "properties": {
+        "Tid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Icon": {
+          "type": "string"
+        },
+        "Logo": {
+          "type": "string"
+        }
+      }
+    },
+    "apiGetUserCountInTenantResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiGetUserInfoInTenantResponse": {
+      "type": "object",
+      "properties": {
+        "userRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiUserRoles"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiInviteUnactivatedTenantResponse": {
+      "type": "object"
+    },
+    "apiRole": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiTenant": {
+      "type": "object",
+      "properties": {
+        "Tid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TenantName": {
+          "type": "string"
+        },
+        "Pid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "IsDefault": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "Tenant": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiTenant"
+          }
+        },
+        "TenantExtend": {
+          "$ref": "#/definitions/apiTenantExtend"
+        },
+        "Role": {
+          "$ref": "#/definitions/apiRole"
+        },
+        "Oid": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiTenantExtend": {
+      "type": "object",
+      "properties": {
+        "NodeCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ApplicationCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "AlertCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UserCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiTenantInfo": {
+      "type": "object",
+      "properties": {
+        "Tid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "TenantName": {
+          "type": "string"
+        },
+        "TenantURL": {
+          "type": "string"
+        },
+        "TenantState": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Contacts": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Phone": {
+          "type": "string"
+        },
+        "State": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Icon": {
+          "type": "string"
+        },
+        "Logo": {
+          "type": "string"
+        }
+      }
+    },
+    "apiUpdateTenantResponse": {
+      "type": "object"
+    },
+    "apiUpdateTenantStateResponse": {
+      "type": "object"
+    },
+    "apiUpdateUserRoleInTenantResponse": {
+      "type": "object"
+    },
+    "apiUser": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "loginState": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiUserRoles": {
+      "type": "object",
+      "properties": {
+        "User": {
+          "$ref": "#/definitions/apiUser"
+        },
+        "Roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiRole"
+          }
+        }
+      }
+    }
+  }
+}

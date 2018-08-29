@@ -1,0 +1,187 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/role.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddRoleResponse": {
+      "type": "object"
+    },
+    "apiCreateResourceResponse": {
+      "type": "object",
+      "properties": {
+        "Resources": {
+          "$ref": "#/definitions/apiResource"
+        }
+      }
+    },
+    "apiDeleteResourceResponse": {
+      "type": "object"
+    },
+    "apiDeleteRoleResponse": {
+      "type": "object"
+    },
+    "apiGetModuleByDidResponse": {
+      "type": "object",
+      "properties": {
+        "Modules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiModuleInfo"
+          }
+        }
+      }
+    },
+    "apiGetModuleByTidResponse": {
+      "type": "object",
+      "properties": {
+        "Modules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiModuleInfo"
+          }
+        }
+      }
+    },
+    "apiGetResourcesResponse": {
+      "type": "object",
+      "properties": {
+        "Resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiResource"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiGetRoleByRidResponse": {
+      "type": "object",
+      "properties": {
+        "roleModules": {
+          "$ref": "#/definitions/apiRoleModules"
+        }
+      }
+    },
+    "apiGetRolesResponse": {
+      "type": "object",
+      "properties": {
+        "roleModules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiRoleModules"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiModule": {
+      "type": "object",
+      "properties": {
+        "mid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "moduleName": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "apiModuleInfo": {
+      "type": "object",
+      "properties": {
+        "mid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "moduleName": {
+          "type": "string"
+        }
+      }
+    },
+    "apiResource": {
+      "type": "object",
+      "properties": {
+        "ResId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ResName": {
+          "type": "string"
+        },
+        "ResUrl": {
+          "type": "string"
+        },
+        "ResOpt": {
+          "type": "string"
+        },
+        "ResRemark": {
+          "type": "string"
+        }
+      }
+    },
+    "apiRoleInfo": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tid": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiRoleModules": {
+      "type": "object",
+      "properties": {
+        "roleInfo": {
+          "$ref": "#/definitions/apiRoleInfo"
+        },
+        "mids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiModule"
+          }
+        }
+      }
+    },
+    "apiUpdateResourceResponse": {
+      "type": "object"
+    },
+    "apiUpdateRoleResponse": {
+      "type": "object"
+    }
+  }
+}

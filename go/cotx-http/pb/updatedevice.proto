@@ -1,0 +1,64 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+message  ReqGetNewGatewayVersion {
+     int32  UserId    = 1;
+     string GatewayId = 2;
+     int32  VersionType = 3;
+}
+
+message GetNewGatewayVersion {
+      int64  VersionId      = 1;
+      string VersionName    = 2;
+      string VersionCode    = 3;
+      string VersionDescription  = 4;
+      int64  VersionTime     = 5;
+      string  OldVersion     = 6;
+      int32   Key            = 7;
+}
+
+message ResGetNewGatewayVersion {
+     int32 ErrCode = 1;
+     GetNewGatewayVersion NewGatewayVersion = 2;
+}
+
+
+message ReqUpdateGatewayVersion {
+     int64 VersionId = 1;
+     int32  UserId    = 3;
+     string GatewayId = 2;
+}
+
+message ResUpdateGatewayVersion {
+    int32 ErrCode = 1;
+}
+
+message ReqGetGatewayVersionState {
+    int32    UserId       = 1;
+    string   GatewayId    = 2;
+    int32    VersionType  = 3;
+}
+
+message GatewayVersionState {
+   int32  VersionState  = 1;
+   string  VersionMsg    = 2;
+}
+
+message ResGetGatewayVersionState {
+    GatewayVersionState VersionSate = 1;
+    int32 ErrCode    = 2;
+}
+service UpdateDevcei {
+
+    /*获取网关的最新版本*/
+     rpc GetNewGatewayVersion (ReqGetNewGatewayVersion)  returns (ResGetNewGatewayVersion){}
+
+    /*post更新网关*/
+    rpc  UpdateGatewayVersion (ReqUpdateGatewayVersion)  returns (ResUpdateGatewayVersion){}
+
+    /*获取网关的状态*/
+    rpc GetGatewayVersionState (ReqGetGatewayVersionState)   returns   (ResGetGatewayVersionState){}
+}

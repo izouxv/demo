@@ -1,0 +1,456 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package pb;
+ message ResGwNetState{
+     //网关id
+     //
+     string GatewayID  = 1;//网关id
+     //wifi状态 0表示:使用 1表示：未使用
+     //
+     int32  WifiState = 2;//网关的wifi状态 0代表正在使用，1以及以上待定
+     //wifi属于使用状态下的信号强度
+     //
+     int32  WifiRSSI  = 3;//网关的wifi信号强度
+     //有线网的状态 0：使用 1：未使用
+     //
+     int32  EthState  = 4;//网关的有线状态，0表示正在使用，1，以及以上待定
+     //有线网使用状态下的带宽
+     //
+     int32  EthBW     = 5;//网关的有线带宽
+     //nbiot的状态 0：使用 1：未使用但是网线属于插入状态 2:未插入网线
+     //
+     int32  NbState   = 6;//网关的nb状态   0表示正在使用，1，以及以上表示待定
+     //nbiot的信号强度
+     //
+     int32  NbRSSI    = 7;//网关nb的信号强度
+     //nbiot的运营商
+     //
+     string NbCarriers= 8;//网关nb的运营商
+     //4g的状态   0：使用 1：未使用
+     //
+     int32  GState    = 9;//网关4g的状态，0表示正在使用，1以及以上表示待定
+     //4g的信号强度
+     //
+     int32  GRSSI     = 10;//网关4g的信号强度
+     //4g的运营商
+     //
+     string GCarriers = 11;//网关4g的运营商
+     //网关下的终端总数
+     //
+     int32  DeviceNum = 13;
+     //网关下连接终端的数量
+     //
+     int32  ConnectDevice = 14;
+     //网关下未连接终端的数量
+     //
+     int32  UnconnectDevice = 15;
+     int32  ErrCode   = 12;
+}
+message  ResGwState{
+    //云端与网关的连接状态
+    //
+     int32 ServerState = 1;//云端与网关的网络状态
+    //当前cpu的使用率
+     int32 CpuUse      = 2;//网关cpu的使用率
+    //当前内存的占用情况
+     int32 MemoryUse   = 3;//网关的当前的内存使用
+    //当前磁盘的占用情况
+     int32 DiskUse     = 4;//网关的当前磁盘使用情况
+    //当前网关设备的温度
+     int32 Temperature = 10;//网关当前的温度
+    //网关nfc的状态 0：开启 1：关闭
+     int32 NfcState    = 5;//网关的nfc状态
+    //节电模式状态 0：开启 1：关闭
+     int32 PowerModel  = 6;//网关的节电模式
+    //网关当前连接的云平台 默认连接的云平台元安云，网关连接其他云平台无法从云端获取网关信息
+     int32 ServerIOT   = 7;//网关连接的云平台
+    //网关当前使用的频段
+     string Band       = 8;//网关的接入频段
+    //网关ssh的状态 0：开启 1：关闭
+     int32  SSH        = 11;//网关的ssh状态
+     int32   BleScan   = 12;//蓝牙扫描状态
+     int32 ErrCode     = 9;
+}
+message ResGwFile {
+    //视频数量
+    int32 VideoNum = 1;//视频数量
+    //照片的数量
+    int32 PhotoNum = 2;//照片数量
+    //摄像头的状态 0：摄像头已经连接 1：未连接摄像头
+    int32 Camera   = 3;//摄像头状态
+    int32 ErrCode  = 4;
+}
+message  ResGwVideo {
+    //视频文件的名称
+    string VideoName  = 1;//视频名称
+    //视频文件的大小
+    int32  VideoSize  = 2;//视频文件大小
+    int32  Key        = 3;
+    string  Url        = 4;
+}
+message   ResGwVideos {
+    //有关于视频信息的数组（名称和大小）
+    repeated ResGwVideo RGV = 1;
+    int32     ErrCode       =  2;
+}
+message   ResGwPhoto {
+    //照片名称
+    string PhotoName = 1;//图片名称
+    //照片大小
+    int32  PhotoSize = 2;//图片大小
+    //网关的文件时候被上传到文件服务器
+    int32  Key       = 3;
+    //网关文件在文件服务器上的地址
+    string Url       = 4;
+}
+message  ResGwPhotos {
+    //照片信息的数组（照片名称和大小）
+    repeated ResGwPhoto RGP = 1;
+    int32    ErrCode = 2;
+}
+message  ResGwUSBStat {
+    //有线网关的数量
+    int32 SurfNetCardNum = 1;
+    //wifi网卡的数量
+    int32 WifiCardNum    = 2;
+    int32 ZigBeeNum      = 4;
+    int32 ErrCode        = 3;
+}
+message   ResGwWifiScan {
+    //wifi名称
+    string WifiName = 1;
+    //wifi信号强度
+    int32  WifiRSSI = 2;
+    //wifi加密方式
+    int32  WifiKey  = 3;
+    //wifi报文截取时间戳
+    int64  WifiTime = 4;
+    //wifi的mac地址
+    string MAC      = 5;
+    //厂商
+    string Vendor   = 6;
+}
+message    ResGwWifiScans {
+    //wifi 的扫描信息
+    repeated ResGwWifiScan RGWS = 1;
+    int32     ErrCode           =  2;
+}
+message ResGwUsbWifiScans {
+    repeated ResGwWifiScan RGWS = 1;
+    int32 ErrCode               = 2;
+}
+message    ResGwWifiAddress {
+    //wifi下的ipv4地址
+    string IP      =    1;
+    //子网掩码
+    string Mask    =    2;
+    //路由
+    string Router  =    3;
+    int32  ErrCode =    4;
+    int32  Key     =    5;
+}
+message    ResGwWifiDNS  {
+    //wifi下的dns信息
+    repeated DNSs DNS = 1;
+    int32  ErrCode =    2;
+    int32  Key     =  3;
+}
+message    ResGwUsbWifiAddress {
+    //wifi下的ipv4地址
+    string IP      =    1;
+    //子网掩码
+    string Mask    =    2;
+    //路由
+    string Router  =    3;
+    int32  ErrCode =    4;
+    int32  Key     =    5;
+}
+message DNSs {
+    string DNS = 1;
+}
+message    ResGwUsbWifiDNS  {
+    //wifi下的dns信息
+    repeated DNSs DNS = 1;
+    int32  ErrCode =    2;
+    int32  Key     =   3;
+}
+message     ResGwCableAddress {
+    //有线的ipv4信息
+    string IP      =    1;
+    //子网掩码
+    string Mask    =    2;
+    //路由
+    string Router  =    3;
+    int32  ErrCode =    4;
+    int32  Key     =    5;
+}
+message     ResGwCableDNS  {
+    //有线网的dns
+    repeated DNSs DNS = 1;
+    int32  ErrCode =    2;
+    int32  Key     =  3;
+}
+message    ResGwMessage {
+    //网关的名称
+    string Name      =   1;
+    //网关的类型
+    string Type      =   3;
+    //网关的子类型
+    string Subtypes  =   4;
+    //网关的当前版本
+    string Version   =   5;
+    //网关的cpu核数
+    int32  CPU       =   6;
+    //网关的磁盘总量
+    int32  Disk      =   7;
+    //网关的内存总量
+    int32  Memory    =   8;
+    int32  ErrCode   =   2;
+}
+
+message GatewayLora {
+    int32  LoraType     = 1;
+    int32  Band         = 2;
+    int32 Freq0        = 3;
+    int32 Freq1        = 4;
+    int32 Freq2        = 5;
+    int32 Freq3        = 6;
+    int32 Freq4        = 7;
+    int32 Freq5        = 8;
+    int32 Freq6        = 9;
+    int32 Freq7        = 10;
+    int32 DataRate0     = 11;
+    int32 DataRate1     = 12;
+    string DateRate1301 = 13;
+    int32 STD          = 14;
+    int32 FSK          = 15;
+    int32  DataRateSTD  = 16;
+    int32  DataRateFSK  = 17;
+}
+message    ResGwLora{
+    GatewayLora GatewayLora = 1;
+    int32 ErrCode           = 2;
+}
+message ReqGateway{
+    string GatewayID   = 1;
+    int32 UserID       = 2;
+    int32 UsbNum       = 3;
+    int32 Key          = 4;
+}
+message ServerIot{
+    //云平台的id 0：本公司元安云
+    int32  IotId          =  1;
+    string  ClientID       =  9;
+    string HostName       =  2;
+    int32  Port           =  3;
+    string UserName       =  4;
+    string Password       =  5;
+    string RootCertificate =  6;
+    string ClientCertificate =  7;
+    string ClientKey         = 10;
+    string GWMac          =  8;
+}
+message  GatewaySwitch {
+    int32 NBSwitch             = 3;
+    int32 NFCSwitch            = 4;
+    int32 VideoSelfSwitch      = 5;
+    int32 MusicSelfSwitch      = 6;
+    int32 PhotoSelfSwitch      = 7;
+    int32 SSHSwitch            = 8;
+    int32 HotPortSwitch        = 9;
+    int32 PowerSwitch          = 10;
+    int32 WifiScanSwitch       = 11;
+    int32 CableCardSwitch      = 12;
+    int32 WifiSwitch           = 13;
+}
+message ResGatewaySwitch {
+    GatewaySwitch SwitchState = 1;
+    int32  Errcode            = 2;
+}
+message ResServerIots{
+    repeated ServerIot IOTs = 1;
+    int32     ErrCode       = 2;
+}
+message HotSpot {
+    int32 UsbNum       = 5;
+    int32  HopSpotStat = 4;
+    string  Name       = 1;
+    int32   Key        = 2;
+    string  Password   = 3;
+}
+message ResHotSpot {
+    HotSpot HotSpot = 1;
+    int32   ErrCode = 2;
+}
+message ResUsbHotSpot {
+    HotSpot UsbHotSpot = 1;
+    int32   ErrCode   =  2;
+}
+message UsbWifiStat {
+    int32 UsbNum = 1;
+    int32 UsbState = 2;
+    int32 WifiLan  = 3;
+    int32 WifiScan = 4;
+    int32 WifiHotSpot = 5;
+}
+message ResUsbWifiStat{
+     repeated UsbWifiStat WifiStat = 1;
+    int32 ErrCode = 2;
+}
+message GCardStat {
+    int32 UsbNum = 1;
+    int32 UsbState = 2;
+    int32 GCardRSSI = 3;
+    string GCardOperate = 4;
+    int32  Operate      = 5;
+}
+message ResUsbGCardStat{
+    repeated GCardStat GCardStat = 1;
+    int32    ErrCode                = 2;
+}
+message WifiConnecting {
+    string WifiName = 1;
+    int32 key       = 2;
+    string Password = 3;
+}
+message ResWifiConnected {
+    WifiConnecting  Wifi = 1;
+   int32 ErrCode                   = 2;
+}
+
+/*获取文件下载连接*/
+message ReqGetGatewayFile {
+    string GatewayId = 1;
+    int32  UserId    = 2;
+    string FileName = 3;
+}
+message GetGatewayFile {
+    string FileUrl = 1;
+}
+message ResGetGatewayFile {
+    GetGatewayFile GetGatewayFile = 1;
+    int32  ErrCode = 2;
+}
+
+message ResPowerModel {
+    //节电开始时间
+    string StartTime = 1;
+    //节电结束时间
+    string EndTime   = 2;
+    int32  ErrCode   = 3;
+}
+message ResAppEui {
+    //获取网关与用户认证的唯一标识
+    string AppEui = 1;
+    int32  ErrCode = 2;
+}
+
+message Media {
+    int32  MusicInterValTime = 1;
+    int32  MusicNumTime      = 2;
+    int32  VideoInterValTime = 3;
+    int32  VideoLongTime     = 4;
+    int32  PhotoInterValTime = 5;
+    int32  PhotoNumTime      = 6;
+}
+
+message ResMedia {
+    Media  Media  = 1;
+    int32 ErrCode = 2;
+}
+
+message ReqGwAddtional {
+    string GatewayID = 1;
+    int32  UserID    = 2;
+    int32  UsbId     = 3;
+}
+message BleScan {
+    int32    DeviceType = 1;
+    string   DevcieName = 2;
+    string   MAC        = 3;
+    int32    RSSI       = 4;
+    int64    Timetamp   = 5;
+}
+message ResBleScans{
+    repeated BleScan BleScans   = 1;
+    int32    ErrCode            = 2;
+}
+
+
+/*
+基于网关id获取网关的流量统计（package/byte）
+*/
+message  TrafficStat {
+    int32  up_package = 1;
+    int32  up_bytes   = 2;
+    int32  down_package = 3;
+    int32  down_bytes = 4;
+}
+message  GetTrafficStatByGatewayIdRequest {
+     string gatewayId = 2;
+     int32  userId = 3;
+}
+message GetTrafficStatByGatewayIdResponse {
+    TrafficStat  traffic_stat = 1;
+    int32 errCode = 2;
+}
+/*
+基于网关id的告警统计
+*/
+message WarnStat {
+    int32 gateway_warn = 1;
+    int32 node_warn    = 2;
+}
+message GetWarnStatRequest {
+    int32  userId = 1;
+    string gatewayId = 2;
+}
+message GetWarnStatResponse {
+    WarnStat  warn_stat = 1;
+    int32 errCode = 2;
+}
+
+service Gateway {
+    rpc GetGatewayNetState(ReqGateway)     returns  (ResGwNetState){}    //app获取网关的网络状态信息
+    rpc GetGatewayState(ReqGateway)        returns  (ResGwState){}       //获取网关的状态信息
+    rpc GetGatewayFileStat(ReqGateway)     returns  (ResGwFile){}        //获取网关的统计信息
+    rpc GetGatewayVideos(ReqGateway)       returns  (ResGwVideos){}      //获取网关的视频信息
+    rpc GetGatewayPhotos(ReqGateway)       returns  (ResGwPhotos){}      //获取网关的图片信息
+    rpc GetGatewayUSBStat(ReqGateway)      returns  (ResGwUSBStat){}     //获取网关usb的统计信息
+    rpc GetGatewayWifiScans(ReqGateway)    returns  (ResGwWifiScans){}   //获取网关的wifi扫描信息
+    rpc GetGatewayWifiAddress(ReqGateway)  returns  (ResGwWifiAddress){} //获取网关的wifi ipv4地址信息
+    rpc GetGatewayCableAddress(ReqGateway) returns  (ResGwCableAddress){}//获取网关的有线网关的 ipv4地址信息
+    rpc GetGatewayUsbWifiAddress(ReqGateway)returns (ResGwUsbWifiAddress){}
+    rpc GetGatewayWifiDNS(ReqGateway)      returns  (ResGwWifiDNS){}     //获取网关的wifi DNS信息
+    rpc GetGatewayCableDNS(ReqGateway)     returns  (ResGwCableDNS){}    //获取网关的有线 DNS
+    rpc GetGatewayUsbWifiDNS(ReqGateway)   returns  (ResGwUsbWifiDNS){}
+    rpc GetGatewayMessage(ReqGateway)      returns  (ResGwMessage){}
+    rpc GetGatewayLora(ReqGateway)         returns  (ResGwLora){}       //获取网关的lora信息
+    rpc GetGatewayServerIOts(ReqGateway)   returns  (ResServerIots){}
+    rpc GetGatewaySwitch(ReqGateway)       returns  (ResGatewaySwitch){}
+    rpc GetHotSpot(ReqGateway)             returns  (ResHotSpot){}
+    rpc GetUsbHotSpot(ReqGateway)          returns  (ResUsbHotSpot){}
+    rpc GetUsbWifiStat(ReqGateway)         returns  (ResUsbWifiStat){}
+    rpc GetUsbGCardStat(ReqGateway)        returns  (ResUsbGCardStat){}
+    rpc GetUsbWifiConnecting(ReqGateway)   returns  (ResWifiConnected){}
+    rpc GetUsbWifiScans(ReqGateway)        returns  (ResGwUsbWifiScans){}
+    /*获取网关文件下载连接*/
+    rpc GetGatewayFile(ReqGetGatewayFile)  returns   (ResGetGatewayFile){}
+    rpc GetPowerModelSet  (ReqGwAddtional) returns   (ResPowerModel){}
+    rpc GetAppEui         (ReqGwAddtional) returns   (ResAppEui){}
+    /*获取网关蓝牙扫描信息*/
+    rpc GetBleScans       (ReqGwAddtional) returns  (ResBleScans){}
+    /*获取多媒体的设置信息*/
+    rpc GetGatewayMedia (ReqGwAddtional) returns (ResMedia) {
+    }
+    /*基于网关id获取网关的流量统计（package/bytes）*/
+    rpc GetGatewayTrafficStatByGatewayId (GetTrafficStatByGatewayIdRequest) returns (GetTrafficStatByGatewayIdResponse) {
+    }
+    /*基于网关id获取网关的告警统计*/
+    rpc GetWarnStat(GetWarnStatRequest) returns (GetWarnStatResponse) {
+
+    }
+}

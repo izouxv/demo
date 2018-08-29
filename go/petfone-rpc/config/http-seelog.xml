@@ -1,0 +1,19 @@
+<seelog>   -->outputs里面是日志的配置,formats里面是日志输出格式配置。
+<outputs formatid = "main">   -->去找id为main的格式
+    <filter levels = "info,debug,critical,error">    -->定义记录格式
+        <console/>
+        <filter levels = "critical,error">
+            <rollingfile formatid="main" type="date" filename = "/var/log/golang/petfone/http-err.log" datepattern="02.01.2006" maxrolls="7"/>    -->向文件输出。可以多个共存。
+        </filter>
+        <filter levels = "info,debug">
+            <rollingfile formatid="main" type="date" filename = "/var/log/golang/petfone/http-info.log" datepattern="02.01.2006" maxrolls="7"/>    -->向文件输出。可以多个共存。
+        </filter>
+    </filter>
+
+</outputs>
+<formats>
+    -->format内容，可以多个共存，只要id不相同。然后上面可以用不同的id来输出不同格式的日志。%Msg%n表示只会输出日志并换行
+    <format id = "main" format = "%Date %Time | %LEV | %File:%Line | %Msg%n" />
+</formats>
+</seelog>
+

@@ -1,0 +1,27 @@
+//protoc --go_out=plugins=grpc:. *.proto
+syntax = "proto3";
+
+package api;
+
+service FileServer {
+    rpc GetFileList(GetFileListRequest)returns (GetFileListResponse) {}
+}
+
+message File {
+    string fid  = 1;
+    string name = 2;
+    string ext  = 3;
+    string path = 4;
+    int32  size = 5;
+    int64  create_time = 6;
+    int64  update_time = 7;
+    string url  = 8;
+}
+
+message GetFileListRequest {
+    repeated string fids = 1;
+}
+
+message GetFileListResponse {
+    repeated File files = 1;
+}

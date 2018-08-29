@@ -1,0 +1,108 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+
+package pb;
+
+message ReqGwUser{
+    int32   UserID = 1;
+    string  MAC = 2;
+    string  GatewayID = 3;
+    string  AppEUI = 4;
+    int32   AccountID = 5;
+    string  UName = 6;
+    int64   ApplicationId= 7;
+    string  BleName     = 8;
+}
+message ResGwUser{
+    int32  UserID = 1;
+    int64  MAC = 2;
+    string  GatewayID = 3;
+    string AppEUI = 4;
+    int32  AccountID = 5;
+    int32 ErrCode =6;
+}
+message ResAccount{
+    int32  UserID    = 1;
+    string UserName  = 2;
+    int32  Acatar    = 3;
+    string NickName  = 4;
+}
+message ResAccounts{
+    repeated ResAccount Ra = 1;
+    int32    ErrCode =2;
+}
+message ResShowNodeByGw {
+    //终端的id
+    string NodeID   = 1;
+    //终端的昵称
+    string NodeName = 2;
+    int32  NodeState = 3;
+}
+message ResShowNodesByGw {
+    repeated ResShowNodeByGw AllNodes = 1;
+    int32     ErrCode    = 2;
+}
+message ResNodePos {
+    //网关id
+    string GatewayId = 8;
+    //终端的id
+    string NodeID   = 1;
+    //终端的昵称
+    string NodeName = 2;
+    // 终端类型（0:不可移动终端1:可移动终端）
+    string NodeType = 6;
+    int32  NTyepe   = 7;
+    //终端的经度
+    double  Longitude = 3;
+    //终端的纬度
+    double  Latitude  = 4;
+    //终端的海拔高度
+    double  Altitude  = 5;
+    int32   NodeState = 9;
+}
+message ResShowAllNodesPos {
+    repeated ResNodePos AllNodesPos = 1;
+    int32    ErrCode   = 2;
+}
+message ResUserGateway{
+    string  GatewayID = 1;//网关id
+    string GatewayName = 2;//网关名称
+    string GatewayType = 3;//网关型号
+    int32  GWType      = 7;
+    double  Longitude = 4;//经度
+    double  Latitude  = 5;//纬度
+    double  Altitude = 6;//海拔高度
+}
+message ResUserGateways {
+    repeated ResUserGateway RUGS = 1;
+     int32    ErrCode = 2;
+}
+message ResShowGateway {
+   string GatewayID   = 1;
+   string GatewayName = 2;
+   int32  DeviceNum   = 3;
+   int32  BleState    = 4;
+   int32  NetServer   = 5;
+   string AppId       = 6;
+   string BleName     = 7;
+   int32 Permissions = 8;
+}
+message ResShowAllGws {
+    repeated  ResShowGateway ShowAllGws = 1;
+    int32      ErrCode                  = 2;
+}
+service GwUser{
+    rpc AddGateway(ReqGwUser) returns (ResGwUser) {}               //用户绑定网关
+    rpc AddGatewayAccount(ReqGwUser) returns (ResGwUser) {}        //用户授权网关给新的账户
+    rpc DeletGatewayAccount(ReqGwUser) returns (ResGwUser) {}      //用户删除已经授权的账户
+    rpc GetGatewayAccoount(ReqGwUser) returns (ResAccounts) {}     //查看用户下授权的账户
+    rpc DeletGateway(ReqGwUser)  returns (ResGwUser) {}            //用户删除与网关的绑定关系
+    rpc ValidationGateway(ReqGwUser) returns (ResGwUser) {}        //用户验证网关是否已经被绑定
+    rpc ValidationGatewayAccount(ReqGwUser) returns (ResGwUser) {} //验证用户是否已经给该帐号授权
+    rpc GetAllGateways (ReqGwUser) returns (ResUserGateways) {}      //用户获取账户下所有已经绑定的网关
+    rpc ShowNodesByGateway(ReqGwUser) returns (ResShowNodesByGw){}//根据网关的id获取终端的信息
+    rpc ShowAllNodesPos    (ReqGwUser) returns  (ResShowAllNodesPos ) {} //获取帐号下所有终端的位置信息
+    rpc ShowAllGws          (ReqGwUser) returns  (ResShowAllGws){}
+}

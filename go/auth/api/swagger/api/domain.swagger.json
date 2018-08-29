@@ -1,0 +1,175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/domain.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddUserInDomainResponse": {
+      "type": "object"
+    },
+    "apiAddUserTenantACLResponse": {
+      "type": "object"
+    },
+    "apiDeleteUserInDomainResponse": {
+      "type": "object"
+    },
+    "apiDomain": {
+      "type": "object",
+      "properties": {
+        "did": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "domainName": {
+          "type": "string"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "domainUrl": {
+          "type": "string"
+        },
+        "domainState": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiEnterDomainResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "apiGetDomainResponse": {
+      "type": "object",
+      "properties": {
+        "Domain": {
+          "$ref": "#/definitions/apiDomain"
+        }
+      }
+    },
+    "apiGetDomainsResponse": {
+      "type": "object",
+      "properties": {
+        "Domain": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiDomain"
+          }
+        }
+      }
+    },
+    "apiGetUserCountInDomainResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiGetUserInfoInDomainResponse": {
+      "type": "object",
+      "properties": {
+        "userRoles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiUserRoles"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiRole": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiUpdateUserRoleInDomainResponse": {
+      "type": "object"
+    },
+    "apiUser": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "username": {
+          "type": "string"
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "createTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "loginState": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiUserRoles": {
+      "type": "object",
+      "properties": {
+        "User": {
+          "$ref": "#/definitions/apiUser"
+        },
+        "Roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiRole"
+          }
+        }
+      }
+    }
+  }
+}

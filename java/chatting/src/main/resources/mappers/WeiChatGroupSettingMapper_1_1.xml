@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanlian.chatting.dao.WeiChatGroupSettingsDao_1_1">
+
+	<insert id="bundlingGP" parameterType="com.lanlian.chatting.po.LiveChatGidUid">
+		INSERT INTO live_chat_gid_uid_1_1 (
+			gid,
+			uid,
+			create_table_time,
+			modify_table_time,
+			state_table
+		)VALUES(
+			#{gid},
+			#{uid},
+			#{createTableTime},
+			#{modifyTableTime},
+			#{stateTable}
+		)
+	</insert>
+
+	<select id="findBundilingGP" parameterType="com.lanlian.chatting.po.LiveChatGidUid" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			live_chat_gid_uid_1_1
+		where 
+			gid = #{gid}
+		and
+			uid = #{uid}
+		and 
+			state_table = 1
+	</select>
+
+	<select id="findGroupInfoByinviteCode" parameterType="com.lanlian.chatting.po.DadaGroupPo"
+		resultType="com.lanlian.chatting.po.DadaGroupPo">
+		SELECT
+			gid AS gid,
+			uid AS uid,
+			g_name AS gname,
+			avatar AS avatar,
+			announcement AS announcement,
+			longitude AS longitude,
+			latitude AS latitude
+		FROM
+			dada_group_1_1
+		WHERE
+			invite_code = #{inviteCode}
+		AND 
+			data_state = 1
+	</select>
+
+	<resultMap type="com.lanlian.chatting.vo.MessageInfoPage" id="messageInfoMap">
+		<id column="msg_id" property="mid" jdbcType="INTEGER" />
+		<result column="uid" property="uid" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="info" property="info" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="avatar" property="avatar" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="findMessageInfo" parameterType="com.lanlian.chatting.bo.MessagePageBo" resultMap="messageInfoMap">
+		SELECT
+			lcm.msg_id AS msg_id,
+			lcm.uid AS uid,
+			lcm.type AS type,
+			lcmi.info AS info,
+			lcm.send_time AS time,
+			g.avatar AS avatar
+		FROM
+			(live_chat_message_1_2 lcm, live_chat_message_info_1_1 lcmi)
+		INNER JOIN
+			dada_group_1_1 g
+		ON 
+			g.gid = lcm.gid
+		WHERE
+			lcm.gid = #{gid}
+		AND 
+			lcm.info = lcmi.info_id
+		AND 
+			lcm.state_table = 1
+		ORDER BY 
+			lcm.msg_id DESC
+		LIMIT 
+			#{count}
+	</select>
+	
+	<select id="findMessageInfoUp" parameterType="com.lanlian.chatting.bo.MessagePageBo" resultMap="messageInfoMap">
+		SELECT
+			lcm.msg_id AS msg_id,
+			lcm.uid AS uid,
+			lcm.type AS type,
+			lcmi.info AS info,
+			lcm.send_time AS time,
+			g.avatar AS avatar
+		FROM
+			(live_chat_message_1_2 lcm, live_chat_message_info_1_1 lcmi)
+		INNER JOIN
+			dada_group_1_1 g
+		ON 
+			g.gid = lcm.gid
+		WHERE
+			lcm.gid = #{gid}
+		AND 
+			lcm.info = lcmi.info_id
+		AND 
+			lcm.state_table = 1
+		AND 
+			lcm.msg_id &lt; #{endid}
+		ORDER BY 
+			lcm.msg_id DESC
+		LIMIT 
+			#{count}
+	</select>
+
+	<select id="findMessageInfoDown" parameterType="com.lanlian.chatting.bo.MessagePageBo" resultMap="messageInfoMap">
+		SELECT
+			lcm.msg_id AS msg_id,
+			lcm.uid AS uid,
+			lcm.type AS type,
+			lcmi.info AS info,
+			lcm.send_time AS time,
+			g.avatar AS avatar
+		FROM
+			(live_chat_message_1_2 lcm, live_chat_message_info_1_1 lcmi)
+		INNER JOIN
+			dada_group_1_1 g
+		ON 
+			g.gid = lcm.gid
+		WHERE
+			lcm.gid = #{gid}
+		AND 
+			lcm.info = lcmi.info_id
+		AND 
+			lcm.state_table = 1
+		AND 
+			lcm.msg_id &gt; #{startid}
+		LIMIT 
+			#{count}
+	</select>
+
+	<select id="findAllMsgCount" resultType="java.lang.Integer">
+		SELECT
+			max(msg_id)
+		FROM
+			live_chat_message_1_2 lcm
+		WHERE
+			lcm.state_table = 1
+	</select>
+</mapper>

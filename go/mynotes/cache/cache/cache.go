@@ -268,7 +268,7 @@ func newCache(de time.Duration, m map[string]Item) *cache {
 //创建缓存、回调函数并启动清除函数
 func newCacheWithJanitor(defaultExpiration time.Duration, cleanupInterval time.Duration, items map[string]Item) *Cache {
 	c := newCache(defaultExpiration, items)
-	//init Cache
+	//initContext Cache
 	C := &Cache{c}
 	if cleanupInterval > 0 {
 		runJanitor(c, cleanupInterval)

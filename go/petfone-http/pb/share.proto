@@ -1,0 +1,46 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+import "pb/account.proto";
+
+//共享管理
+service ShareManage {
+    rpc SetShare (ShareRequest) returns (ShareReply) {
+    } //添加共享
+    rpc DeleteShare (ShareRequest) returns (ShareReply) {
+    } //删除共享
+    rpc UpdateShare (ShareRequest) returns (ShareReply) {
+    } //修改共享
+    rpc GetShare (ShareRequest) returns (ShareMapReply) {
+    } //查询共享
+    rpc ShareUserResourceByUid (ShareRequest) returns (ShareReply) {
+    } //代遛设备
+}
+
+message ShareRequest {
+    string source = 1;
+    repeated int32 pids = 2;
+    int32 ownerUid = 3;
+    int32 memberUid = 4;
+}
+
+message ShareReply {
+    string source = 1;
+    int32 pid = 2;
+    AccountReply ownerInfo = 3; //主人信息
+    repeated ShareMember members = 4; //共享用户信息
+    int32 code = 5;
+}
+
+message ShareMember {
+    int64 shareTime = 1; //创建时间
+    AccountReply memberInfo = 2; //共享用户信息
+}
+
+message ShareMapReply {
+    map<int32, ShareReply> shares = 1;
+    int32 code = 2;
+}

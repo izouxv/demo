@@ -1,0 +1,324 @@
+//protoc --go_out=plugins=grpc:. device_http.proto
+
+syntax = "proto3";
+
+
+package pb;
+
+// Accelerometer defines the accelerometer data.
+message Accelerometer{
+   double  X  = 1;
+   double  Y  = 2;
+   double  Z  = 3;
+}
+
+// Gyrometer defines the gyrometer data.
+message Gyrometer {
+    double  X  = 1;
+    double  Y  = 2;
+    double  Z  = 3;
+}
+
+// GPSLocation defines the GPS location data.
+message GPSLocation  {
+     double   Latitude  = 1;
+     double   Longitude = 2;
+     double   Altitude  = 3;
+}
+
+
+message DataUp {
+    Accelerometer Accelerometer = 4;
+    Gyrometer     Gyrometer     = 5;
+    GPSLocation   GPSLocation   = 6;
+    double  Data    = 1;
+    string Describe = 2;
+    int32  Channel  = 3;
+    int64  Timetamp = 7;
+}
+message ResNodeDateUp {
+    repeated DataUp Data = 1;
+    int32     ErrCode    = 2;
+}
+message ReqNodeMessageByNid {
+    string NodeId    =  1;
+    int32  UserId    = 2;
+    string NodeType  = 3;
+    string GatewayId = 4;
+    int32  Type      = 5;
+}
+
+message ResGetDeviceScan {
+    repeated DeviceEui DevEuis = 1;
+    int32    ErrCode           = 2;
+}
+
+message DeviceEuis {
+    string DevEuis   = 1;
+}
+
+message ReqregistDevice {
+      repeated DeviceEuis DevEuis = 1;
+      int32    UserId            = 2;
+      string   GatewayId         = 3;
+}
+message DeviceEui {
+    string DevEui   = 1;
+}
+message ResRegistDevice {
+    repeated DeviceEui DevEuis = 2;
+    int32 ErrCode = 1;
+}
+message ReqRegistNode {
+    string GatewayId = 1;
+    string DevEui    = 2;
+    int32  UserId    = 3;
+}
+message ResRegistNode {
+    int32 ErrCode = 1;
+}
+
+message LoraDevice {
+    int64    Id             =   3;
+    int32    Type           =   16;//终端类型，默认是0
+    int32     Adr_Interval  =   4;
+    bool     Relax_f_Cnt    =   7;
+    string   Deveui         =   1;//终端的deveui
+    string   Appeui         =   2;//终端的appeui
+    bool    Is_ABP          =   5;//终端模式 true:ABP模式 false:OTAA模式
+    string   Appkey         =   6;//终端的appkey
+    bool   Is_Classc        =   8;//终端工作模式 a,b,c 三种
+    string   Apps_Key       =   9;//if is_abp = true,this is must
+    string   Nwks_Key       =  10;//if is_abp = true,this is must
+    string   Dev_Addr       =  11;//if is_abp = true,this is must
+    int32    Rx_Delay       =  12;
+    int32    Rx1_DR_Offset  =  13;
+    int32    Rx_Window      =  14;
+    int32    Rx2_DR         =  15;
+}
+
+//添加第三方终端
+message PutDeviceRequest {
+    string  GatewayId = 2;
+    int32   UserId    = 3;
+    LoraDevice Device = 1;
+}
+
+message PutDeviceResponse{
+    int32 ErrCode = 1;
+    LoraDevice Device = 2;
+}
+
+message PostDeviceRequest {
+    string  GatewayId = 1;
+    int32   UserId    = 2;
+    LoraDevice  Device    = 3;
+}
+message PostDeviceResponse {
+    int32 ErrCode  = 1;
+    LoraDevice  Device = 2;
+}
+
+message GetDeviceRequest {
+    string GatewayId = 1;
+    int32  UserId    = 2;
+    string Deveui    = 3;
+}
+message GetDeviceResponse {
+    int32  ErrCode  = 1;
+    LoraDevice Device   = 2;
+}
+
+message GetDeviceListRequest {
+    string GatewayId = 1;
+    int32  UserId    = 2;
+    repeated string Deveuis  = 3;
+}
+
+message GetDeviceListResponse {
+    int32 ErrCode = 1;
+    repeated LoraDevice Devices = 2;
+}
+
+message AddDevicesRequest {
+    int32  UserId    = 1;
+    string GatewayId = 2;
+    repeated LoraDevice Devices = 3;
+}
+
+message AddDevicesResponse {
+    repeated LoraDevice Devices = 2;
+    int32 ErrCode = 1;
+}
+
+message DeleteDeviceRequest {
+    int32   UserId    = 1;
+    string  GatewayId = 2;
+    string  Deveui    = 3;
+}
+
+message DeleteDeviceResponse {
+    int32  ErrCode = 1;
+}
+
+
+/*设置终端名称*/
+message ReqSetDeviceName {
+    int32 UserId     = 4;
+    string GatewayId = 1;
+    string NodeId    = 2;
+    string NodeName  = 3;
+}
+
+message NodeMessage {
+    string NodeId     = 1;
+    string NodeName   = 2;
+    string NodeType   = 3;
+    string NodeDEveui = 4;
+}
+message ResSetDeviceName {
+    NodeMessage NodeMessage = 1;
+    int32 ErrCode = 2;
+}
+
+/*解除终端账户绑定*/
+message ReqDeleteDevice {
+    string GatewayId = 1;
+    int32  UserId    = 2;
+    string NodeId    = 3;
+}
+message ResDeleteDevice {
+    int32  ErrCode  = 1;
+}
+
+
+/*基于网关id分页获取终端信息*/
+message GetNodeListByGatewayIdToPage {
+     string   node_id    = 1;
+     string   node_name  = 2;
+     int32    node_state = 3; /*0:未连接 1:连接*/
+}
+message GetNodeListByGatewayIdToPageRequest {
+    string   gateway_id = 1;
+    int32    page       = 2;
+    int32    count      = 3;
+    string   ordey_by   = 4;
+}
+message GetNodeListByGatewayIdToPageResponse {
+     repeated GetNodeListByGatewayIdToPage nodes = 1;
+     int32 total = 2;
+     int32 errCode = 3;
+}
+
+/*基于网关id分页获取终端类型统计*/
+message Nodetype {
+    string type    = 1;
+}
+message GetNodeTypeByGatewayIdRequest {
+    string gatewayId = 1;
+    int32 userId  = 2;
+}
+message GetNodeTypeByGatewayIdResponse {
+    repeated  Nodetype  node_type = 1;
+    int32 errCode = 2;
+}
+
+/*基于终端类型获取终端在线状态统计*/
+message NodeState {
+    int32 total  = 1;
+    int32 connect_num = 2;
+    int32 unconnect_num = 3;
+}
+
+message GetNodeStateByGatewayIdAndTypeRequest {
+    string gatewayId  = 1;
+    int32  userId  = 2;
+    string node_type = 3;
+}
+
+message GetNodeStateByGatewayIdAndTypeResponse {
+    NodeState   node_state = 1;
+    int32   errCode = 2;
+}
+
+/*
+  基于网关id以及终端的在线状态获取终端的统计信息
+*/
+message NodeStat {
+    string node_id =1;
+    string node_name = 2;
+    int64  connect_time = 3;
+}
+
+message GetNodeStatListByGatewayIdAndConnectStateRequest {
+     int32   userId    = 1;
+     string  gatewayId = 2;
+     int32  connect_state = 3;
+     string  node_type = 4;
+}
+message GetNodeStatListByGatewayIdAndConnectStateResponse {
+    repeated NodeStat  node_stats =1;
+    int32 errCode = 2;
+}
+
+/*
+ 统计网关所有终端的在线离线情况
+*/
+
+message GetNodeStateByGatewayIdRequest {
+    int32    userId    = 1;
+    string   gatewayId = 2;
+}
+
+message GetNodeStateByGatewayIdResponse {
+    int32  NodeNum       = 1;
+    int32  ConnectNode   = 2;
+    int32  UnConnectNode = 3;
+    int32  errCode       = 4;
+}
+
+
+service Device {
+    rpc GetNodeDateUpByNid (ReqNodeMessageByNid) returns  (ResNodeDateUp){}
+    rpc GetDeviceEuis  (ReqNodeMessageByNid)     returns  (ResGetDeviceScan){}
+    rpc RegistDevices   (ReqregistDevice)        returns  (ResRegistDevice){}
+    rpc RegistNode      (ReqRegistNode)          returns  (ResRegistNode){}
+    /*添加第三方终端*/
+    rpc AddDevice(PutDeviceRequest)  returns (PutDeviceResponse) {}
+    /*基于deveui获取终端详细信息*/
+    rpc GetDevice (GetDeviceRequest) returns (GetDeviceResponse) {}
+    /*基于deveui修改终端参数*/
+    rpc UpdateDevice (PostDeviceRequest)  returns (PostDeviceResponse) {}
+    /*基于deveui批量获取终端信息*/
+    rpc GetDeviceListByDeveuis(GetDeviceListRequest) returns (GetDeviceListResponse) {}
+    /*批量添加第三方终端*/
+    rpc AddDevices(AddDevicesRequest)  returns (AddDevicesResponse) {}
+    /*基于deveui 删除终端*/
+    rpc DeleteDeviceByDeveui(DeleteDeviceRequest)  returns (DeleteDeviceResponse) {}
+    //修改终端名称
+    rpc UpdateDeviceName(ReqSetDeviceName)    returns    (ResSetDeviceName){}
+    //解除终端与网关的绑定关系
+    rpc DeleteDevice(ReqDeleteDevice)         returns     (ResDeleteDevice){}
+    /*基于网关id分页获取终端统计*/
+    rpc GetNodeListByGatewayIdToPage(GetNodeListByGatewayIdToPageRequest) returns (GetNodeListByGatewayIdToPageResponse) {
+
+    }
+    /*基于网关id获取网关下终端的类型*/
+    rpc GetNodeTypeByGatewayId(GetNodeTypeByGatewayIdRequest)  returns (GetNodeTypeByGatewayIdResponse) {
+
+    }
+    /*基于网关id和终端类型获取终端的在线率状态统计*/
+    rpc GetNodeStateByGatewayIdAndNodeType(GetNodeStateByGatewayIdAndTypeRequest)  returns (GetNodeStateByGatewayIdAndTypeResponse) {
+    }
+    /*基于网关的id和终端的连接状态*/
+    rpc GetNodeStatsByGatewayIdAndConnectState(GetNodeStatListByGatewayIdAndConnectStateRequest) returns (GetNodeStatListByGatewayIdAndConnectStateResponse) {
+        /*
+          请求参数 connect_state 0:未连接状态 1:已连接状态
+        */
+    }
+
+    /*统计网关下所有终端的在线情况*/
+    rpc GetNodeStateByGatewayId (GetNodeStateByGatewayIdRequest) returns (GetNodeStateByGatewayIdResponse) {
+
+    }
+}

@@ -4,10 +4,10 @@
 package com.lanlian.rpc.twins;
 
 /**
- * Protobuf type {@code agent.AddTwinsAgentRequest}
+ * Protobuf type {@code api.AddTwinsAgentRequest}
  */
 public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMessage implements
-		// @@protoc_insertion_point(message_implements:agent.AddTwinsAgentRequest)
+		// @@protoc_insertion_point(message_implements:api.AddTwinsAgentRequest)
 		AddTwinsAgentRequestOrBuilder {
 	// Use AddTwinsAgentRequest.newBuilder() to construct.
 	private AddTwinsAgentRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -61,11 +61,11 @@ public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMes
 	}
 
 	public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
 	}
 
 	protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
-		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_fieldAccessorTable
+		return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_fieldAccessorTable
 				.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentRequest.class,
 						com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
 	}
@@ -219,17 +219,17 @@ public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMes
 	}
 
 	/**
-	 * Protobuf type {@code agent.AddTwinsAgentRequest}
+	 * Protobuf type {@code api.AddTwinsAgentRequest}
 	 */
 	public static final class Builder extends com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-			// @@protoc_insertion_point(builder_implements:agent.AddTwinsAgentRequest)
+			// @@protoc_insertion_point(builder_implements:api.AddTwinsAgentRequest)
 			com.lanlian.rpc.twins.AddTwinsAgentRequestOrBuilder {
 		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
 		}
 
 		protected com.google.protobuf.GeneratedMessage.FieldAccessorTable internalGetFieldAccessorTable() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_fieldAccessorTable
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_fieldAccessorTable
 					.ensureFieldAccessorsInitialized(com.lanlian.rpc.twins.AddTwinsAgentRequest.class,
 							com.lanlian.rpc.twins.AddTwinsAgentRequest.Builder.class);
 		}
@@ -257,7 +257,7 @@ public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMes
 		}
 
 		public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_agent_AddTwinsAgentRequest_descriptor;
+			return com.lanlian.rpc.twins.TwinsAgentServerProto.internal_static_api_AddTwinsAgentRequest_descriptor;
 		}
 
 		public com.lanlian.rpc.twins.AddTwinsAgentRequest getDefaultInstanceForType() {
@@ -415,10 +415,10 @@ public final class AddTwinsAgentRequest extends com.google.protobuf.GeneratedMes
 			return this;
 		}
 
-		// @@protoc_insertion_point(builder_scope:agent.AddTwinsAgentRequest)
+		// @@protoc_insertion_point(builder_scope:api.AddTwinsAgentRequest)
 	}
 
-	// @@protoc_insertion_point(class_scope:agent.AddTwinsAgentRequest)
+	// @@protoc_insertion_point(class_scope:api.AddTwinsAgentRequest)
 	private static final com.lanlian.rpc.twins.AddTwinsAgentRequest DEFAULT_INSTANCE;
 	static {
 		DEFAULT_INSTANCE = new com.lanlian.rpc.twins.AddTwinsAgentRequest();

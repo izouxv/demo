@@ -1,0 +1,53 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package pb;
+
+service Notice {
+    rpc SetNotice (NoticeRequest) returns (NoticeReply) {
+    } //添加Notice
+    rpc DeleteNotice (NoticeRequest) returns (NoticeReply) {
+    } //删除Notice
+    rpc UpdateNotice (NoticeRequest) returns (NoticeReply) {
+    } //修改Notice信息
+    rpc GetNotice (NoticeRequest) returns (NoticeMapReply) {
+    } //查询用户的Notices
+}
+
+message NoticeRequest {
+    string source = 1; //调用源
+    int32 id = 2; //id
+    int32 froms = 3; //来源用户id
+    int32 tos = 4; //目标用户id
+    string tou = 5; //目标用户名
+    int32 nstate = 6; //消息状态 1 确认 3 待确认
+    int32 types = 7; //消息类型 1 共享设备
+    string info = 8; //消息内容
+    int64 times = 9; //消息时间
+}
+
+message NoticeReply {
+    string source = 1; //调用源
+    int32 id = 2; //id
+    int32 froms = 3; //来源用户id
+    int32 tos = 4; //目标用户id
+    string tou = 5; //目标用户名
+    int32 nstate = 6; //消息状态 1 确认 3 待确认
+    int32 types = 7; //消息类型 1 共享设备
+    string info = 8; //消息内容
+    int64 times = 9; //消息时间
+    int32 code = 10; //请求状态码
+}
+
+//批量请求
+message NoticeMapRequest {
+    map<int32, NoticeRequest> notices = 1;
+    string source = 2;
+}
+
+//批量返回
+message NoticeMapReply {
+    map<int32, NoticeReply> notices = 1;
+    int32 code = 2;
+}

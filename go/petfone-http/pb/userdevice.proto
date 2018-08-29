@@ -1,0 +1,35 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+
+syntax = "proto3";
+
+
+package pb;
+
+service UserDevice {
+    rpc SetDeviceByUidDid (UserDeviceRequest) returns (UserDeviceReply) {
+    } //添加Device
+    rpc DeleteDeviceByDid (UserDeviceRequest) returns (UserDeviceReply) {
+    } //解绑Device
+    rpc UpdateDeviceByDid (UserDeviceRequest) returns (UserDeviceReply) {
+    } //修改Device信息
+    rpc GetDeviceByUid (UserDeviceRequest) returns (UserDeviceReply) {
+    } //查询用户的Device
+}
+
+message UserDeviceRequest {
+    string source = 1; //调用源
+    int32 did = 2; //设备id
+    int32 uid = 3; //用户id
+    int32 pid = 4; //宠物id
+    string sn = 5; //设备sn
+}
+
+message UserDeviceReply {
+    string source = 1; //调用源
+    int32 did = 2; //设备id
+    int32 uid = 3; //用户id
+    int32 pid = 4; //宠物id
+    int32 code = 5; //请求状态码
+    string sn = 6; //设备sn
+}

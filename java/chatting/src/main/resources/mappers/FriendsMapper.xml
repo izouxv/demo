@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lanlian.chatting.dao.FriendsDao">
+
+
+	<!-- 查询好友列表 -->
+	<select id="findFriends" parameterType="com.lanlian.chatting.po.FriendsPo"
+		resultType="com.lanlian.chatting.po.FriendsPo">
+		select
+		f_uid1 as uid1,
+		f_uid1_note as note1,
+		f_uid2 as uid2,
+		f_uid2_note as note2,
+		f_state as state
+		from
+		friends
+		where
+		(f_uid1 = #{uid1}
+		or f_uid2 = #{uid1}) and f_state = '1'
+	</select>
+
+	<!-- 验证好友 -->
+	<select id="verifyFriends" parameterType="java.util.List"
+		resultType="com.lanlian.chatting.po.FriendsPo">
+		select
+		f_uid1 as uid1,
+		f_uid1_note as note1,
+		f_uid2 as uid2,
+		f_uid2_note as note2
+		from
+		friends
+		where
+		<foreach collection="list" index="index" item="item" open="("
+			separator="or" close=")">
+			f_state = '1'
+			and
+			f_uid1 = #{item.uid1,jdbcType=INTEGER}
+			and
+			f_uid2 = #{item.uid2,jdbcType=INTEGER}
+		</foreach>
+	</select>
+
+
+
+	<!-- 添加好友 -->
+	<insert id="saveFriends" parameterType="java.util.List">
+		insert into friends
+		(f_uid1,f_uid1_note,f_uid2,f_uid2_note)
+		values
+		<foreach collection="list" index="index" item="friendsPo"
+			open="" close="" separator=",">
+			(#{friendsPo.uid1},
+			<if test="friendsPo.note1 == null">
+				'',
+			</if>
+			<if test="friendsPo.note1 != null">
+				#{friendsPo.note1},
+			</if>
+			#{friendsPo.uid2},
+			<if test="friendsPo.note2 == null">
+				''
+			</if>
+			<if test="friendsPo.note2 != null">
+				#{friendsPo.note2}
+			</if>
+			)
+		</foreach>
+	</insert>
+
+	<!-- 修改好友印象 -->
+	<update id="modifyFriends" parameterType="java.util.List">
+		<foreach collection="list" item="friendsPo" index="index"
+			open="" close="" separator=";">
+			update friends 
+			<set>
+				<if test="friendsPo.note1 != null">
+				f_uid1_note = #{friendsPo.note1},
+				</if>
+				<if test="friendsPo.note2 != null">
+				f_uid2_note = #{friendsPo.note2}
+				</if>
+			</set>
+			where
+			f_uid1 = #{friendsPo.uid1} and f_uid2 = #{friendsPo.uid2} and f_state = '1'
+		</foreach>
+	</update>
+
+	<!-- 删除好友 -->
+	<update id="deleteFriends" parameterType="java.util.List">
+		<foreach collection="list" item="friendsPo" index="index"
+			open="" close="" separator=";">
+			update friends
+			set f_state = '2'
+			where
+			f_uid1 = #{friendsPo.uid1} and f_uid2 = #{friendsPo.uid2}
+		</foreach>
+	</update>
+
+
+</mapper>

@@ -1,0 +1,93 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/service.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddServiceResponse": {
+      "type": "object"
+    },
+    "apiDeleteServiceResponse": {
+      "type": "object"
+    },
+    "apiGetServiceBySidResponse": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "$ref": "#/definitions/apiService"
+        }
+      }
+    },
+    "apiGetServiceByTidResponse": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiService"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiService": {
+      "type": "object",
+      "properties": {
+        "Sid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ServiceName": {
+          "type": "string"
+        },
+        "ServiceKey": {
+          "type": "string"
+        },
+        "ServiceUrl": {
+          "type": "string"
+        },
+        "ServiceType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ServiceTid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "ServiceDescription": {
+          "type": "string"
+        },
+        "ServiceState": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiUpdateServiceResponse": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/policy.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "apiAddPolicyResponse": {
+      "type": "object"
+    },
+    "apiDeletePolicyByPidResponse": {
+      "type": "object"
+    },
+    "apiDeletePolicyBySidResponse": {
+      "type": "object"
+    },
+    "apiGetPolicyByPidResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "$ref": "#/definitions/apiPolicy"
+        }
+      }
+    },
+    "apiGetPolicyBySidResponse": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiPolicy"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "apiPolicy": {
+      "type": "object",
+      "properties": {
+        "Pid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicyName": {
+          "type": "string"
+        },
+        "PolicyType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicyCycle": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicyFeeType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicyUnitPrice": {
+          "type": "number",
+          "format": "float"
+        },
+        "PolicyUnitType": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicyUnitCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "PolicySid": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "CreateTime": {
+          "type": "string",
+          "format": "int64"
+        },
+        "UpdateTime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "apiUpdatePolicyResponse": {
+      "type": "object"
+    }
+  }
+}

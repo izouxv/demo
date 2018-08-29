@@ -1,0 +1,78 @@
+//protoc --go_out=plugins=grpc:. pb/*.proto
+
+syntax = "proto3";
+
+package pb;
+
+service Devices {
+    rpc VerificationDeviceBySn(DeviceRequest) returns (DeviceReply) {}      //校验设备
+    rpc SetDeviceBySn(DeviceRequest) returns (DeviceReply) {}               //绑定设备
+    rpc DeleteDeviceByDid(DeviceRequest) returns (DeviceReply) {}           //解绑设备
+    rpc UpdateDeviceByDid(DeviceRequest) returns (DeviceReply) {}           //修改设备
+    rpc GetDevicesByUid(DeviceRequest) returns (BatchDeviceRe) {}           //查询用户所有的设备
+    rpc GetDevicesByDid(DeviceRequest) returns (DeviceReply) {}             //查询设备
+    rpc GetDeviceSn(DeviceRequest) returns (DeviceReply) {}                 //查询设备sn
+}
+
+enum DeviceTypes {
+    Pet = 0;
+    User = 1;
+}
+
+enum DevPermit {
+    DevPermit0 = 0;
+    DevPermit1 = 1;
+}
+
+message DeviceRequest {
+    string  source          = 1;    //调用源
+    int32   did             = 2;    //设备id
+    int32   uid             = 3;    //用户id
+    int32   pid             = 4;    //宠物id
+    int32   touid           = 5;    //目标uid
+    string  sn              = 6;    //设备sn
+    string  deviceMac       = 7;    //设备mac
+    string  deviceName      = 8;    //设备名称
+    string  deviceVersion   = 9;    //设备版本
+    string  softwareVersion = 10;   //软件名称
+    DevPermit   permit      = 11;   //权限级别
+    DeviceTypes    types    = 12;   //设备类型
+    uint32  isdel           = 13;   //是否删除
+    string  input           = 14;   //输入
+    int32   ledModel        = 15;   //设备灯闪烁
+    int32   ledColor        = 16;   //设备颜色
+    int32   ledLight        = 17;   //设备灯亮度
+    int32   ledState        = 18;   //设备灯开关状态
+    int32   audioId         = 19;   //播放录音顺序
+}
+
+message DeviceReply {
+    string  source          = 1;    //调用源
+    int32   did             = 2;    //设备id
+    int32   uid             = 3;    //用户id
+    int32   pid             = 4;    //宠物id
+    int32   touid           = 5;    //目标uid
+    string  sn              = 6;    //设备sn
+    string  deviceMac       = 7;   //设备mac
+    string  deviceName      = 8;   //设备名称
+    string  deviceVersion   = 9;   //设备版本
+    string  softwareVersion = 10;   //软件名称
+    DevPermit   permit      = 11;   //权限级别
+    DeviceTypes types       = 12;   //设备类型
+    uint32  isdel           = 13;   //是否删除
+    string  shareUrl        = 14;    //分享地址
+    int32   code            = 15;    //请求状态码
+    int32   ledModel        = 16;   //设备灯闪烁
+    int32   ledColor        = 17;   //设备颜色
+    int32   ledLight        = 18;   //设备灯亮度
+    int32   ledState        = 19;   //设备灯开关状态
+    int32   audioId         = 20;   //播放录音顺序
+}
+
+//批量返回
+message BatchDeviceRe {
+    string source = 1;
+    int32 code  = 2;
+    repeated DeviceReply    devices = 3;
+    int32 totalCount = 4;
+}

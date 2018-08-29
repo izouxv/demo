@@ -1,0 +1,197 @@
+//protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package api;
+
+import "api/auth.proto";
+
+service TenantServer {
+    rpc AddTenant(AddTenantRequest) returns (AddTenantResponse) {}//添加租户
+    rpc UpdateTenant(UpdateTenantRequest) returns (UpdateTenantResponse) {}//修改租户信息
+    rpc UpdateTenantState(UpdateTenantStateRequest) returns (UpdateTenantStateResponse) {}//修改租户状态
+    rpc GetTenant(GetTenantRequest) returns (GetTenantResponse) {}//获取租户信息
+    rpc GetTenants(GetTenantsRequest) returns (GetTenantsResponse) {}//获取域下租户列表
+    rpc DeleteTenant(DeleteTenantRequest) returns (DeleteTenantResponse) {}//删除指定租户
+
+
+    rpc GetUserCountInTenant(GetUserCountInTenantRequest) returns (GetUserCountInTenantResponse) {}//获取租户中成员数量
+    rpc GetUserInfoInTenant(GetUserInfoInTenantRequest) returns (GetUserInfoInTenantResponse) {}//获取租户中成员信息
+    rpc UpdateUserRoleInTenant(UpdateUserRoleInTenantRequest) returns (UpdateUserRoleInTenantResponse) {}//修改租户中成员角色
+    rpc AddUserInTenant(AddUserInTenantRequest) returns (AddUserInTenantResponse) {}//向租户中添加成员
+    rpc DeleteUserInTenant(DeleteUserInTenantRequest) returns (DeleteUserInTenantResponse) {} //删除租户中成员
+    rpc InviteUnactivatedTenant(InviteUnactivatedTenantRequest) returns (InviteUnactivatedTenantResponse) {}//再次邀请未激活租户
+    rpc EnterTenant(EnterTenantRequest) returns (EnterTenantResponse) {}//同意进入租户中
+    rpc GetTidByUrl(GetTidByUrlRequest) returns (GetTidByUrlResponse) {}//通过租户ID获取url
+    rpc GetDidByTid(GetDidByTidRequest) returns (GetDidByTidResponse) {}//通过租户ID获取Did
+}
+
+message TenantInfo {
+    int32       Tid = 1;
+    string      TenantName = 2;
+    string      TenantURL = 3;
+    int32       TenantState = 4;
+    string      Description = 5;
+    string      Contacts = 6;
+    string      Email = 7;
+    string      Phone = 8;
+    int32       State = 9;
+    int64       CreateTime = 10;
+    string      Icon = 11;
+    string      Logo = 12;
+}
+
+
+message UserRoles {
+    User User = 1;
+    repeated Role Roles = 2;
+}
+
+//添加租户
+message AddTenantRequest {
+    string tenantName = 1;
+    string      TenantURL = 3;
+    int32       TenantState = 4;
+    string      Description = 5;
+    int32       Pid = 6;
+    int32       Did = 7;
+    string      Email = 8;
+    string      Phone = 9;
+    string      Contacts = 10;
+    string      Icon = 11;
+    string      Logo = 12;
+}
+message AddTenantResponse {
+    TenantInfo TenantInfo = 1;
+}
+
+//修改租户信息
+message UpdateTenantRequest {
+    TenantInfo TenantInfo = 1;
+}
+
+message UpdateTenantResponse {
+
+}
+
+//修改租户状态
+message UpdateTenantStateRequest {
+    int32 Tid = 1;
+    int32 State = 2;
+}
+
+message UpdateTenantStateResponse {
+
+}
+
+
+//获取租户信息
+message GetTenantRequest {
+    int32 tid = 1;
+}
+message GetTenantResponse {
+    Tenant Tenant = 1;
+}
+
+//获取域下租户列表
+message GetTenantsRequest {
+
+}
+message GetTenantsResponse {
+    repeated TenantInfo Tenants = 1;
+}
+
+//删除指定租户
+message DeleteTenantRequest {
+    int32 tid = 1;
+}
+message DeleteTenantResponse {
+
+}
+
+//获取租户中成员数量
+message GetUserCountInTenantRequest{
+    int32 tid = 1;
+    int32 uid = 2;
+}
+message GetUserCountInTenantResponse {
+    int32 count = 1;
+}
+
+
+//获取租户中成员信息
+message GetUserInfoInTenantRequest {
+    int32 page = 1;
+    int32 count = 2;
+
+}
+message GetUserInfoInTenantResponse{
+    repeated UserRoles userRoles = 1;
+    int32 totalCount = 2;
+}
+
+//修改租户中成员角色
+message UpdateUserRoleInTenantRequest {
+    int32 updateUserID = 1;
+    repeated int32 updateUserRids = 2;
+
+}
+message UpdateUserRoleInTenantResponse {
+
+}
+
+//删除指定租户中用户
+message DeleteUserInTenantRequest {
+    int32 deleteUserID = 2;
+}
+message DeleteUserInTenantResponse {
+
+}
+
+//邀请用户进入指定租户
+message AddUserInTenantRequest {
+    int32 tid = 1;
+    string addUserUsername = 2;
+    string addUserNickname = 3;
+    repeated int32 addUserRids = 4;
+}
+message AddUserInTenantResponse {
+
+}
+
+//同意进入租户
+message EnterTenantRequest {
+    string password = 1;
+    string nickname = 2;
+    string token = 3;
+}
+message EnterTenantResponse {
+    string token  = 1;
+}
+
+message GetTidByUrlRequest {
+    string Url = 1;
+}
+
+message GetTidByUrlResponse {
+    int32 Tid = 1;
+    string Icon = 2;
+    string Logo = 3;
+}
+
+message GetDidByTidRequest {
+    int32 Tid = 1;
+}
+
+message GetDidByTidResponse {
+    int32 Did = 2;
+}
+
+message InviteUnactivatedTenantRequest {
+    int32 Tid = 1;
+     string Username = 2;
+}
+
+message InviteUnactivatedTenantResponse {
+
+}
